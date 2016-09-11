@@ -1,0 +1,161 @@
+<style type="text/css">
+body, div, ul, li ,img{
+	margin: 0px;
+	padding: 0px;
+	color: #666;
+	font: 400 14px/1.5 "宋体", Tahoma, Helvetica, arial, sans-serif;
+}
+a, a:HOVER, a:LINK {
+	text-decoration: none;
+}
+.ddl-searchform{
+   margin-top:-20px;
+   height:40px;
+}
+.ddl-searchform label{
+   margin-top:8px;
+   padding-right:0px;
+   text-align:right;
+}
+.ddl-searchform div{
+   padding-left:10px;
+}
+.ddl-ddlbar{
+   float:right;
+   margin-right:20px;
+}
+.btn-group .btn + .btn{
+   margin-left:10px;
+}
+.ddl-body{
+   min-height:600px;
+}
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    vertical-align: middle;
+}
+#ddlDeleteModal{
+   margin-left:-200px;
+   margin-top:200px;
+   max-height:160px;
+   overflow:hidden;
+}
+#ddlDeleteModal .modal-footer{
+   text-align: center;
+}
+</style>
+<script type="text/javascript">
+$(function(){
+    $('#ddlModal').on('hide.bs.modal',function() {
+         $(this).removeData("bs.modal");
+    });
+    $('#ddlDeleteModal').on('hide.bs.modal',function() {
+         $(this).removeData("bs.modal");
+    });
+});
+function deleteDDL(ddlId){
+   console.log($("#sureDelete"));
+   $("#sureDelete").attr("href","$request.getContextPath()/system/ddl/delete?ddlId="+ddlId);
+   $('#ddlDeleteModal').modal({
+        keyboard: true
+    });
+}
+</script>
+<div class="ddl-breadcrumb">
+	<ol class="breadcrumb">
+	  <li><a href="#">系统管理</a></li>
+	  <li><a href="#">数据字典</a></li>
+	</ol>
+</div>
+<div class="ddl-searchform container-fluid">
+	<form class="form-inline" role="form" action="$request.getContextPath()/system/ddl/list" method="get">
+	  <div class="form-group">
+	    <label for="ddlCode" class="col-sm-4 control-label">名称</label>
+	    <div class="col-sm-8">
+		       <select class="form-control selectpicker" name="ddlCode" style="width:140px;">
+			         <option value="">全部</option>
+		          #foreach($ddl in $ddlCodeNameList)
+		             #if($ddl.ddlCode==$ddlCode)
+		                 <option value="$!ddl.ddlCode" selected>$!ddl.ddlName</option>
+		             #else
+				         <option value="$!ddl.ddlCode">$!ddl.ddlName</option>
+		             #end
+		          #end
+			   </select>
+		 </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="lastname" class="col-sm-4 control-label">键</label>
+	    <div class="col-sm-8">
+	      <input type="text" name="ddlKey" value="$!ddlKey" class="form-control" placeholder="请输入数据字典键">
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <div class="col-sm-12">
+	      <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+	    </div>
+	  </div>
+	</form>
+</div>
+<div class="ddl-ddlbar">
+    <div class="btn-group">
+	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#ddlModal" data-backdrop="static" href="$request.getContextPath()/system/ddl/add"><span class="glyphicon glyphicon-plus"></span>添加数据字典</button>
+	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span>导入数据字典</button>
+	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span>导出数据字典</button>
+	</div>
+</div>
+<div class="ddl-body">
+	<table class="table table-hover table-bordered table-striped table-responsive">
+	  <thead>
+	    <tr>
+	      <th>内码</th>
+	      <th>名称</th>
+	      <th>键</th>
+	      <th>值</th>
+	      <th>排序</th>
+	      <th>创建时间</th>
+	      <th>操作</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    #foreach($ddl in ${pageBean.recordList})
+	       <tr class="info">
+		      <td>${ddl.ddlCode}</td>
+		      <td>${ddl.ddlName}</td>
+		      <td>${ddl.ddlKey}</td>
+		      <td>${ddl.ddlValue}</td>
+		      <td>${ddl.ddlNumber}</td>
+		      <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!ddl.createTime)</td>
+		      <td>
+		      	 <a class="btn btn-default" data-toggle="modal" data-target="#ddlModal" data-backdrop="static" href="$request.getContextPath()/system/ddl/view?ddlId=$ddl.ddlId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
+		      	 <a class="btn btn-default" data-toggle="modal" data-target="#ddlModal" data-backdrop="static" href="$request.getContextPath()/system/ddl/edit?ddlId=$ddl.ddlId" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+		      	 <a class="btn btn-default" data-toggle="modal" onclick="deleteDDL('$ddl.ddlId')"><span class="glyphicon glyphicon-remove"></span>删除</a>
+		      </td>
+		   </tr>
+	    #end
+	  </tbody>
+	</table>
+</div>
+#parse("/common/layout/page.vm")
+<div class="modal fade" id="ddlModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ddlDeleteModal" tabindex="-1" role="dialog" backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+		         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		         <h4 class="modal-title" id="myModalLabel">你确定要删除吗?</h4>
+		    </div>
+            <div class="modal-footer">
+                 <a id="sureDelete" class="btn btn-lg" href="">是</a>
+                 <button type="button" class="btn btn-lg" data-dismiss="modal">否</button>
+            </div>
+        </div>
+    </div>
+</div>

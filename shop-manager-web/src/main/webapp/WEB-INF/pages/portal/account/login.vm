@@ -1,0 +1,176 @@
+<style type="text/css">
+body, div, ul, li ,img{
+	margin: 0px;
+	padding: 0px;
+	color: #666;
+	font: 400 14px/1.5 "宋体", Tahoma, Helvetica, arial, sans-serif;
+}
+ul li {
+	float: left;
+	list-style: outside none none;
+}
+
+a, a:HOVER, a:LINK {
+	text-decoration: none;
+}
+
+.login-header {
+	width: 100%;
+	height: 67px;
+	background-color: #2bb8aa;
+}
+
+.login-body {
+	margin-top: 30px;
+	width: 600px;
+	height: 550px;
+	border: 1px solid #d4d4d4;
+}
+.login-body .login-error{
+    height:38px;
+}
+.login-body .login-error h4{
+    margin-left:360px;
+}
+.login-body form{
+    margin-top: 60px
+}
+.head {
+	margin-top: 15px;
+	margin-bottom: 10px;
+	margin-left: 60px;
+	margin-right: 60px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 858px;
+	height: 36px;
+}
+h2 {
+	padding-left: 12px;
+	display: inline;
+	font-size: 24px;
+	color: #333;
+	line-height: 36px;
+	font-weight: 700;
+}
+.form-group {
+	margin-top: 30px;
+}
+.login-button{
+    color: #ff7200; 
+    background-color: #ff7200; 
+    background-image: linear-gradient(to bottom, #ff8901, #ff7200); 
+    background-size: 100% auto; 
+    border-color: #da3f02; 
+    color: #fff;
+    width:150px;
+}
+#captchaCodeImg{
+    height:34px;
+    margin-left:0px;
+    padding-left:0px;
+}
+.login-error{
+    height:40px;
+}
+.panel-danger {
+    border-color: #ebccd1;
+}
+.hidden{
+   visibility: hidden;
+   display: none;
+}
+</style>
+<script type="text/javascript">
+if(window.self!=window.top){
+  window.top.location.href="$request.getContextPath()/portal/account/logining";
+}
+function changeCaptchaCode(){
+	var imgSrc=$("#captchaCodeImg")[0];
+	imgSrc.src=imgSrc.src+"?date="+new Date().getTime();
+}
+function closeErrorMessage(){
+    $("#loginError").addClass("hidden");
+}
+</script>
+<div class="container login-header">
+	<div class="row">
+		<div class="col-md-2 col-md-offset-2" style="margin-top: 12px">
+			<a class="logo" href="#"> <img width="215" height="37" src="" alt=""></a>
+		</div>
+		<div class="col-md-4 col-md-offset-4">
+			<ul style="list-style: none; list-style-position: inherit; margin-top: 25px">
+				<li><a target="_blank" href="http://www.meituan.com"><i class="vertical-bar"></i></a></li>
+				<li style="margin-left: 30px"><a target="_blank" href="#">首页<iclass="vertical-bar"></i></a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+<div class="login-body container">
+	<div>
+		<div class="login-switch">
+		</div>
+	</div>
+	<div>
+		<div class="head">
+			<h2>密码登陆</h2>
+		</div>
+		<div id="loginError" class="login-error">
+		     #if($!shiroLoginFailure)
+		     <div class="panel panel-default">
+                 <button type="button" class="close" aria-hidden="true" onclick="closeErrorMessage()">&times;</button>
+				 <div class="panel-body">
+				      <h4><span class="label label-danger">$!shiroLoginFailure</span></h4>
+				 </div>
+		     </div>
+		     #end
+		</div>
+	</div>
+	<div class="body">
+		<div class="row">
+			<form class="form-horizontal" role="form" action="$request.getContextPath()/portal/account/login" method="post">
+				<div class="form-group">
+					<label for="firstname" class="col-sm-2 control-label">登陆名</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" name="username" placeholder="请输入登陆名" required autofocus>
+					</div>
+					<div class="col-sm-2">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="password" class="col-sm-2 control-label">密码</label>
+					<div class="col-sm-8">
+						<input type="password" class="form-control" name="password" placeholder="请输入密码" required>
+					</div>
+					<div class="col-sm-2">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="captchaCode" class="col-sm-2 control-label">验证码</label>
+					<div class="col-sm-6">
+						<input type="text" class="form-control" name="captchaCode" placeholder="请输入验证码" required>
+					</div>
+					<div class="col-sm-4">
+						<img id="captchaCodeImg" src="$request.getContextPath()/rcCaptcha.jpg" onclick="changeCaptchaCode()">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<div class="checkbox">
+							<label> <input name="rememberMe" type="checkbox">记住我 </label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group" style="margin-top: 50px">
+					<div class="col-sm-offset-4 col-sm-8">
+						<button type="submit" class="btn btn-lg login-button">登陆</button>
+					</div>
+					<div class="col-sm-offset-7 col-sm-5">
+						<a href="#" class="btn" type="button">忘记密码</a>
+        			    <a href="#" class="btn" type="button">免费注册</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>	

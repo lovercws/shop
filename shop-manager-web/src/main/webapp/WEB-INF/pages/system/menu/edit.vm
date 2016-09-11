@@ -1,0 +1,102 @@
+<style type="text/css">
+.modal-content{
+   height:700px;
+   margin-left:-100px;
+}
+.modal-footer{
+   float:left;
+   margin-left:320px;
+}
+.modal-footer button{
+   width:100px;
+}
+.radio-form{
+   margin-top:6px;
+}
+</style>
+<script type="text/javascript">
+function selectIcon(){
+   window.open('$request.getContextPath()/common/component/icon','newwindow','height=600,width=800,top=200,left=800,toolbar=no,menubar=no,scrollbars=yes, resizable=no,location=no, status=no');
+}
+</script>
+<div class="modal-content">
+     <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+         <h4 class="modal-title" id="myModalLabel">编辑菜单</h4>
+     </div>
+     <div class="modal-body">
+        <form class="form-horizontal" role="form">
+		  <div class="form-group">
+		    <label for="firstname" class="col-sm-2 control-label">菜单名称</label>
+		    <div class="col-sm-8">
+		      <input type="text" class="form-control"  placeholder="请输入菜单名称" required autofocus>
+		    </div>
+		    <div class="col-sm-2"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="lastname" class="col-sm-2 control-label">菜单内码</label>
+		    <div class="col-sm-8">
+		      <input type="text" class="form-control"  placeholder="请输入菜单内码" required>
+		    </div>
+		    <div class="col-sm-2"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="lastname" class="col-sm-2 control-label">菜单链接</label>
+		    <div class="col-sm-8">
+		      <input type="text" class="form-control"  placeholder="请输入菜单链接">
+		    </div>
+		    <div class="col-sm-2"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="lastname" class="col-sm-2 control-label">菜单图标</label>
+		    <div class="col-sm-6">
+		       <select class="form-control selectpicker">
+			      <option>glyphicon glyphicon-search</option>
+			      <option>glyphicon glyphicon-search</option>
+			      <option>glyphicon glyphicon-search</option>
+			   </select>
+		    </div>
+		    <div class="col-sm-4"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="lastname" class="col-sm-2 control-label">排序</label>
+		    <div class="col-sm-6">
+		      <input type="number" class="form-control"  placeholder="请输入菜单排序（0~1000）">
+		    </div>
+		    <div class="col-sm-4"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="lastname" class="col-sm-2 control-label">可见性</label>
+		    <div class="col-sm-4 radio-form">
+				 <input type="radio" name="optionsRadios" id="optionsRadios2" value="show" checked>显示
+				 <input type="radio" name="optionsRadios" id="optionsRadios1" value="hide">隐藏
+		    </div>
+		    <div class="col-sm-6"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="lastname" class="col-sm-2 control-label">上级菜单</label>
+		    <div class="col-sm-6">
+		      <select class="form-control selectpicker" data-style="btn-info">
+			      <option>系统管理</option>
+			      <option>其他管理</option>
+			      <option>商铺管理</option>
+			   </select>
+		    </div>
+		    <div class="col-sm-4"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="lastname" class="col-sm-2 control-label">备注</label>
+		    <div class="col-sm-8">
+		      <textarea rows="5" class="form-control"   placeholder="菜单描述信息"></textarea>
+		    </div>
+		    <div class="col-sm-2"></div>
+		  </div>
+		  <div class="form-group">
+		    <div class="col-sm-offset-4 col-sm-8">
+		        <button type="button" class="btn btn-lg" data-dismiss="modal">关闭</button>
+          		<button type="submit" class="btn btn-lg">保存</button>
+		    </div>
+		  </div>
+		</form>
+     </div>
+</div>

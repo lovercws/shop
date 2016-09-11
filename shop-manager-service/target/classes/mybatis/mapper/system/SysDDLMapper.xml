@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lovecws.shop.system.dao.impl.SysDDLDaoImpl">
+	<resultMap id="SysDDLResultMap" type="com.lovecws.shop.system.entity.SysDDL">
+		<id column="ddl_id" property="ddlId" jdbcType="INTEGER" />
+		<result column="ddl_status" property="ddlStatus" jdbcType="INTEGER" />
+		<result column="creator" property="creator" jdbcType="INTEGER" />
+
+		<result column="create_time" property="createTime" />
+		<result column="editor" property="editor" jdbcType="VARCHAR" />
+		<result column="edit_time" property="editTime" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+
+		<result column="ddl_code" property="ddlCode" jdbcType="VARCHAR" />
+		<result column="ddl_name" property="ddlName" jdbcType="VARCHAR" />
+		<result column="ddl_key" property="ddlKey" jdbcType="VARCHAR" />
+		<result column="ddl_value" property="ddlValue" jdbcType="VARCHAR" />
+		<result column="ddl_number" property="ddlNumber" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="SysDDLColumn">
+		ddl_id,ddl_status,creator,create_time,editor,edit_time,remark,
+		ddl_code,ddl_name,ddl_key,ddl_value,ddl_number
+	</sql>
+
+	<!-- 获取数据字典列表 -->
+	<select id="listByColumn" resultMap="SysDDLResultMap"
+		parameterType="map">
+		select
+		<include refid="SysDDLColumn"></include>
+		from sys_ddl
+		<where>
+			<if test="ddlCode!=null and ddlCode!=''">
+				and ddl_code=#{ddlCode}
+			</if>
+			<if test="ddlKey!=null and ddlKey!=''">
+				and ddl_key=#{ddlKey}
+			</if>
+			<if test="ddlStatus!=null and ddlStatus!=''">
+				and ddl_status=#{ddlStatus}
+			</if>
+		</where>
+		order by ddl_number desc
+		limit #{beginIndex},#{numPerPage}
+	</select>
+    
+    <!-- 查询数据字典数据量 -->
+    <select id="getCountByColumn" resultType="LONG">
+    	select count(ddl_id) from sys_ddl
+    	<where>
+			<if test="ddlStatus!=null">
+				and ddl_status=#{ddlStatus}
+			</if>
+		</where>
+    </select>
+    
+    <!-- 查询数据字典内码 下拉框 -->
+    <select id="getUniqueSysDDL" resultMap="SysDDLResultMap">
+    	select distinct ddl_code,ddl_name from sys_ddl
+    	<where>
+			<if test="ddlStatus!=null and ddlStatus!=''">
+				and ddl_status=#{ddlStatus}
+			</if>
+		</where>
+    </select>
+    
+	<!-- 根据数据字典id 获取数据字典详情 -->
+	<select id="selectByPrimaryKey" resultType="SysDDL"
+		parameterType="map">
+		select
+		<include refid="SysDDLColumn"></include>
+		from sys_ddl
+		where ddl_id = #{ddlId}
+	</select>
+
+	<!-- 插入数据字典 -->
+	<insert id="insert" parameterType="SysDDL" useGeneratedKeys="true"
+		keyProperty="ddlId">
+		insert into sys_ddl
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="ddlStatus != null">
+				ddl_status,
+			</if>
+			<if test="creator != null">
+				creator,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="editor != null">
+				editor,
+			</if>
+			<if test="editTime != null">
+				edit_time,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			<if test="ddlCode != null">
+				ddl_code,
+			</if>
+			<if test="ddlName != null">
+				ddl_name,
+			</if>
+			<if test="ddlKey != null">
+				ddl_key,
+			</if>
+			<if test="ddlValue != null">
+				ddl_value,
+			</if>
+			<if test="ddlNumber != null">
+				ddl_number,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="ddlStatus != null">
+				#{ddlStatus},
+			</if>
+			<if test="creator != null">
+				#{creator},
+			</if>
+			<if test="createTime != null">
+				#{createTime},
+			</if>
+			<if test="editor != null">
+				#{editor},
+			</if>
+			<if test="editTime != null">
+				#{editTime},
+			</if>
+			<if test="remark != null">
+				#{remark},
+			</if>
+			<if test="ddlCode != null">
+				#{ddlCode},
+			</if>
+			<if test="ddlName != null">
+				#{ddlName},
+			</if>
+			<if test="ddlKey != null">
+				#{ddlKey},
+			</if>
+			<if test="ddlValue != null">
+				#{ddlValue},
+			</if>
+			<if test="ddlNumber != null">
+				#{ddlNumber},
+			</if>
+		</trim>
+	</insert>
+
+	<!-- 更改数据字典信息 -->
+	<update id="updateByPrimaryKey" parameterType="SysDDL">
+		update sys_ddl
+		<set>
+			<if test="ddlStatus != null">
+				ddl_status=#{ddlStatus},
+			</if>
+			<if test="creator != null">
+				creator=#{creator},
+			</if>
+			<if test="createTime != null">
+				create_time=#{createTime},
+			</if>
+			<if test="editor != null">
+				editor=#{editor},
+			</if>
+			<if test="editTime != null">
+				edit_time=#{editTime},
+			</if>
+			<if test="remark != null">
+				remark=#{remark},
+			</if>
+			<if test="ddlCode != null">
+				ddl_code=#{ddlCode},
+			</if>
+			<if test="ddlName != null">
+				ddl_name=#{ddlName},
+			</if>
+			<if test="ddlKey != null">
+				ddl_key=#{ddlKey},
+			</if>
+			<if test="ddlValue != null">
+				ddl_value=#{ddlValue},
+			</if>
+			<if test="ddlNumber != null">
+				ddl_number=#{ddlNumber},
+			</if>
+		</set>
+		where ddl_id = #{ddlId}
+	</update>
+
+    <!-- 删除数据字典 -->
+    <delete id="deleteByPrimaryKey" parameterType="map">
+       delete from sys_ddl where ddl_id=#{ddlId}
+    </delete>
+</mapper>

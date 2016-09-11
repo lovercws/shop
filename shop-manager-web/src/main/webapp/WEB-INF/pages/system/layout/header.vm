@@ -1,0 +1,73 @@
+<style type="text/css">
+body, div, ul, li ,img{
+	margin: 0px;
+	padding: 0px;
+	color: #666;
+	font: 400 14px/1.5 "宋体", Tahoma, Helvetica, arial, sans-serif;
+	z-index:999;
+}
+ul li {
+	float: left;
+	list-style: outside none none;
+}
+a, a:HOVER, a:LINK {
+	text-decoration: none;
+	color:white;
+}
+.login-header {
+	width: 100%;
+	height: 67px;
+	background-color: #45aeea;
+}
+.login-header ul{
+	list-style: none; 
+	list-style-position: inherit; 
+	margin-top: 20px;
+}
+.login-header .btn-group span{
+    padding-right:8px;
+}
+.login-header ul li{
+   margin-left: 30px;
+}
+.login-header .btn-group .dropdown-menu{
+   z-index:999;
+}
+.login-header .btn-group .dropdown-menu li{
+   width: 50px;
+   margin-top:4px;
+}
+.login-header .btn-group .dropdown-menu li a{
+   padding-left:0px;
+   padding-right:0px;
+}
+</style>
+<div class="container login-header">
+	<div class="row">
+		<div class="col-md-2 col-md-offset-2" style="margin-top: 12px">
+			<a class="logo" href="#"><img width="215" height="37" src="" alt="有爱购物网站"></a>
+		</div>
+		<div class="col-md-4 col-md-offset-4">
+			<ul>
+				<li><a target="_self" href="#" class="btn">首页</a></li>
+				<li>
+					<div class="btn-group">
+						<a type="button" class="btn dropdown-toggle" data-toggle="dropdown">你好,$shiro.getPrincipal()</a>
+						<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+					        <li role="presentation">
+					            <a href="#"><span class="glyphicon glyphicon-user"></span>个人信息</a>
+					        </li>
+					        <li role="presentation">
+					            <a href="#"><span class="glyphicon glyphicon-lock"></span>修改密码</a>
+					        </li>
+					        <li role="presentation">
+					            <a href="#"><span class="glyphicon glyphicon-envelope"></span>我的信息</a>
+					        </li>
+					    </ul>
+					</div>
+				</li>
+				<li><a target="_self" href="$request.getContextPath()/portal/account/logout" class="btn">退出</a></li>
+			</ul>
+		</div>
+	</div>
+</div>

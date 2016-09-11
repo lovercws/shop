@@ -1,0 +1,79 @@
+<style type="text/css">
+.modal-content{
+   height:600px;
+   margin-left:-100px;
+}
+.modal-footer{
+   float:left;
+   margin-left:320px;
+}
+.modal-footer button{
+   width:100px;
+}
+.radio-form{
+   margin-top:6px;
+}
+</style>
+<script type="text/javascript">
+function selectIcon(){
+   window.open('$request.getContextPath()/common/component/icon','newwindow','height=600,width=800,top=200,left=800,toolbar=no,menubar=no,scrollbars=yes, resizable=no,location=no, status=no');
+}
+</script>
+<div class="modal-content">
+     <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+         <h4 class="modal-title" id="myModalLabel">查看数据字典详情</h4>
+     </div>
+     <div class="modal-body">
+        <form class="form-horizontal" role="form" action="$request.getContextPath()/system/ddl/update" method="post">
+          <input type="hidden" name="ddlId" value="$!ddl.ddlId">
+		  <div class="form-group">
+		    <label for="ddlCode" class="col-sm-2 control-label">内码</label>
+		    <div class="col-sm-8">
+		      <input type="text" name="ddlCode" value="$!ddl.ddlCode" class="form-control"  placeholder="请输入数据字典内码" required autofocus>
+		    </div>
+		    <div class="col-sm-2"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="ddlName" class="col-sm-2 control-label">名称</label>
+		    <div class="col-sm-8">
+		      <input type="text" name="ddlName" value="$!ddl.ddlName" class="form-control"  placeholder="请输入数据字典名称" required>
+		    </div>
+		    <div class="col-sm-2"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="ddlKey" class="col-sm-2 control-label">键</label>
+		    <div class="col-sm-8">
+		      <input type="text" name="ddlKey" value="$!ddl.ddlKey" class="form-control"  placeholder="请输入数据字典键" required>
+		    </div>
+		    <div class="col-sm-2"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="ddlValue" class="col-sm-2 control-label">值</label>
+		    <div class="col-sm-8">
+		      <input type="text" name="ddlValue" value="$!ddl.ddlValue" class="form-control" placeholder="请输入数据字典值" required>
+		    </div>
+		    <div class="col-sm-2"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="ddlNumber" class="col-sm-2 control-label">排序</label>
+		    <div class="col-sm-4">
+		      <input type="number" name="ddlNumber" value="$!ddl.ddlNumber" class="form-control" placeholder="请输入数据字典排序（0~1000）">
+		    </div>
+		    <div class="col-sm-4"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="remark" class="col-sm-2 control-label">备注</label>
+		    <div class="col-sm-8">
+		      <textarea rows="5" name="remark" class="form-control" placeholder="请输入数据字典备注信息">$!ddl.remark</textarea>
+		    </div>
+		    <div class="col-sm-2"></div>
+		  </div>
+		  <div class="form-group">
+		    <div class="col-sm-offset-5 col-sm-7">
+		        <button type="button" class="btn btn-lg" data-dismiss="modal">关闭</button>
+		    </div>
+		  </div>
+		</form>
+     </div>
+</div>

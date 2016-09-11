@@ -1,0 +1,8 @@
+<frameset rows="67px,*,38px" frameborder="yes" border="0px">
+   <frame title="顶部" src="$request.getContextPath()/system/layout/header" noresize="noresize"/>
+   <frameset cols="200px,*" frameborder="yes" border="0px">
+      <frame title="功能按钮" src="$request.getContextPath()/system/layout/menu" noresize="noresize"/>
+      <frame title="功能" name="menuFunction">
+   </frameset>
+   <frame title="尾部" src="$request.getContextPath()/system/layout/footer" noresize="noresize"/>
+</frameset>

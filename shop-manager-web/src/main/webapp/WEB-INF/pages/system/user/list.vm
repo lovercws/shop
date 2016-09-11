@@ -1,0 +1,139 @@
+<style type="text/css">
+body, div, ul, li ,img{
+	margin: 0px;
+	padding: 0px;
+	color: #666;
+	font: 400 14px/1.5 "宋体", Tahoma, Helvetica, arial, sans-serif;
+}
+a, a:HOVER, a:LINK {
+	text-decoration: none;
+}
+.user-searchform{
+   margin-top:-20px;
+   height:40px;
+}
+.user-searchform label{
+   margin-top:8px;
+}
+.user-userbar{
+   float:right;
+   margin-right:20px;
+}
+.btn-group .btn + .btn{
+   margin-left:10px;
+}
+.user-body{
+   height:670px;
+}
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    vertical-align: middle;
+}
+.user-searchform .form-group label{
+    padding-right:0px;
+}
+.user-searchform .form-group div{
+    padding-left:0px;
+}
+.user-searchform .form-group{
+    padding-left:10px;
+}
+</style>
+<div class="user-breadcrumb">
+	<ol class="breadcrumb">
+	  <li><a href="#">系统管理</a></li>
+	  <li><a href="#">用户管理</a></li>
+	</ol>
+</div>
+<div class="user-searchform container-fluid">
+	<form class="form-inline" user="form">
+	  <div class="form-group">
+	    <label for="firstname" class="col-sm-4 control-label">用户名称</label>
+	    <div class="col-sm-8">
+	      <input type="text" class="form-control"  placeholder="请输入用户名称" required autofocus>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="lastname" class="col-xs-4 control-label">用户昵称</label>
+	    <div class="col-sm-8">
+	      <input type="text" class="form-control"  placeholder="请输入用户昵称" required>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="firstname" class="col-sm-4 control-label">手机号码</label>
+	    <div class="col-sm-8">
+	      <input type="text" class="form-control" placeholder="请输入用户手机号码" required autofocus>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="lastname" class="col-sm-4 control-label">用户邮箱</label>
+	    <div class="col-sm-8">
+	      <input type="text" class="form-control" placeholder="请输入用户用户邮箱" required>
+	    </div>
+	  </div>
+	  <div class="form-group">
+	    <div class="col-sm-12">
+	      <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button>
+	    </div>
+	  </div>
+	</form>
+</div>
+<div class="user-userbar">
+    <div class="btn-group">
+	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#userModal-add" data-backdrop="static" href="$request.getContextPath()/system/user/add"><span class="glyphicon glyphicon-plus"></span>添加用户</button>
+	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span>导入用户</button>
+	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span>导出用户</button>
+	</div>
+</div>
+<div class="user-body">
+	<table class="table table-hover table-bordered table-striped table-responsive">
+	  <thead>
+	    <tr>
+	      <th>名称</th>
+	      <th>城市</th>
+	      <th>密码</th>
+	      <th>操作</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr class="info">
+	      <td>Tanmay</td>
+	      <td>Bangalore</td>
+	      <td>560001</td>
+	      <td>
+	      	 <a class="btn btn-default" data-toggle="modal" data-target="#userModal-view" data-backdrop="static" href="$request.getContextPath()/system/user/view"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
+	      	 <a class="btn btn-default" data-toggle="modal" data-target="#userModal-edit" data-backdrop="static" href="$request.getContextPath()/system/user/edit" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+	      	 <a class="btn btn-default" data-toggle="modal" data-target="#userModal" data-backdrop="static" href="$request.getContextPath()/system/user/delete" ><span class="glyphicon glyphicon-remove"></span>删除</a>
+	      	 <a class="btn btn-default" data-toggle="modal" data-target="#userModal-view" data-backdrop="static" href="$request.getContextPath()/system/userRole/alloRole"><span class="glyphicon glyphicon-eye-open"></span>分配角色</a>
+	      </td>
+	    </tr>
+	  </tbody>
+	</table>
+</div>
+#parse("/common/layout/page.vm")
+<div class="modal fade" id="userModal-add" tabindex="-1" user="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="userModal-view" tabindex="-1" user="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="userModal-edit" tabindex="-1" user="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            </div>
+            <div class="modal-body"></div>
+        </div>
+    </div>
+</div>

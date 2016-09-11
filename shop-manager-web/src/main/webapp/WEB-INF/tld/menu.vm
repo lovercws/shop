@@ -1,0 +1,88 @@
+<style type="text/css">
+body, div, ul, li ,img{
+	margin: 0px;
+	padding: 0px;
+	color: #666;
+	font: 400 14px/1.5 "宋体", Tahoma, Helvetica, arial, sans-serif;
+}
+a, a:HOVER, a:LINK {
+	text-decoration: none;
+}
+.panel{
+    margin-top:0px;
+    padding:0px;
+}
+.panel-group .panel + .panel {
+    margin-top: 0px;
+}
+.panel-group .panel-heading{
+    padding:0px;
+    height:40px;
+    width:100%;
+}
+.panel-group .panel-heading .panel-title{
+    height:100%;
+    width:100%;
+    padding-top:12px;
+    padding-buttom:3px;
+    padding-left:20px;
+}
+.panel-body{
+    padding:0px;
+    margin:0px;
+    margin-left:10px;
+    height:700px;
+}
+.panel-body ul,.panel-body ul li{
+    padding-top:0px;
+    padding-buttom:0px;
+    padding:0px;
+    margin:0px;
+}
+#accordion{
+    width:100%;
+    height:800px;
+}
+</style>
+<div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+             <a data-toggle="collapse" data-parent="#accordion" href="#manager-1">
+               <h4 class="panel-title"><span class="glyphicon glyphicon-th"></span>系统管理</h4>
+             </a>
+        </div>
+        <div id="manager-1" class="panel-collapse collapse in">
+            <div class="panel-body">
+                 <ul class="nav nav-list">
+					 <li class="list-group-item"><a href=""><span class="glyphicon glyphicon-user"></span>用户管理</a></li>
+					 <li class="list-group-item"><a href=""><span class="glyphicon glyphicon-user"></span>角色管理</a></li>
+					 <li class="list-group-item"><a href=""><span class="glyphicon glyphicon-user"></span>菜单管理</a></li>
+					 <li class="list-group-item"><a href=""><span class="glyphicon glyphicon-user"></span>权限管理</a></li>
+					 <li class="list-group-item"><a href=""><span class="glyphicon glyphicon-user"></span>数据字典管理</a></li>
+				 </ul>
+            </div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+               <h4 class="panel-title"><span class="glyphicon glyphicon-th"></span>用户管理</h4>
+             </a>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse">
+        	<div class="panel-body">
+        	</div>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+               <h4 class="panel-title"><span class="glyphicon glyphicon-th"></span>用户管理</h4>
+             </a>
+        </div>
+        <div id="collapseThree" class="panel-collapse collapse">
+            <div class="panel-body">
+            </div>
+        </div>
+    </div>
+</div>

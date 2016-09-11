@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">
+body, div,content-info {
+	margin: 0px;
+	padding: 0px;
+}
+</style>
+</head>
+#parse("/common/include/bootstrap.vm")
+<div class="content-info">$screen_content</div>
+</html>

@@ -1,0 +1,104 @@
+<style type="text/css">
+body, div, ul, li ,img{
+	margin: 0px;
+	padding: 0px;
+	color: #666;
+	font: 400 14px/1.5 "宋体", Tahoma, Helvetica, arial, sans-serif;
+}
+a, a:HOVER, a:LINK {
+	text-decoration: none;
+}
+.export-exportbar{
+   float:left;
+   margin-right:20px;
+   margin-top:0px;
+}
+.btn-group .btn + .btn{
+   margin-left:10px;
+}
+.export-body{
+   height:670px;
+}
+.export-searchform{
+   margin-top:-20px;
+   height:40px;
+}
+.export-searchform label{
+   margin-top:8px;
+   width:90px;
+   padding-right:0px;
+   padding-left:0px;
+   text-align:right;
+   float:left;
+}
+.export-body .col-md-6{
+   height:700px;
+   border:1px solid silver;
+   padding:0px;
+   margin-left:10px;
+   width:800px;
+}
+</style>
+<div class="export-breadcrumb">
+	<ol class="breadcrumb">
+	  <li><a href="#">系统管理</a></li>
+	  <li><a href="#">导出设置</a></li>
+	</ol>
+</div>
+<div class="export-searchform container-fluid">
+	<form class="form-inline" role="form">
+	  <div class="form-group">
+	    <label  class="col-sm-5 control-label">导出模型</label>
+	    <div class="col-sm-7">
+	      <select class="form-control selectpicker">
+			<option>用户导出模型</option>
+			<option>角色导出模型</option>
+			<option>菜单导出模型</option>
+			<option>权限导出模型</option>
+			<option>数据字典导出模型</option>
+			<option>日志导出模型</option>
+		  </select>
+	    </div>
+	  </div>
+	</form>
+</div>
+<div class="export-exportbar">
+</div>
+<div class="export-body">
+	<div class="container-fluid">
+	  <div class="col-md-6">
+	     <table class="table table-hover table-bordered table-striped table-responsive">
+			 <thead>
+			   <tr>
+			     <th>未选择字段</th>
+			   </tr>
+			 </thead>
+			 <tbody>
+			   <tr class="info">
+			     <td>Tanmay</td>
+			   </tr>
+			   <tr class="info">
+			     <td>Tanmay</td>
+			   </tr>
+			 </tbody>
+		</table>
+	  </div>
+	  <div class="col-md-6">
+	     <table class="table table-hover table-bordered table-striped table-responsive">
+			 <thead>
+			   <tr>
+			     <th>已选择字段</th>
+			   </tr>
+			 </thead>
+			 <tbody>
+			   <tr class="info">
+			     <td>Tanmay</td>
+			   </tr>
+			   <tr class="info">
+			     <td>Tanmay</td>
+			   </tr>
+			 </tbody>
+		</table>
+	  </div>
+	</div>
+</div>

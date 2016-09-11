@@ -1,0 +1,76 @@
+<style type="text/css">
+.modal-content{
+   height:500px;
+   margin-left:-100px;
+}
+.modal-footer{
+   float:left;
+   margin-left:320px;
+}
+.modal-footer button{
+   width:100px;
+}
+.radio-form{
+   margin-top:6px;
+}
+</style>
+<script type="text/javascript">
+</script>
+<div class="modal-content">
+     <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+         <h4 class="modal-title" id="myModalLabel">编辑角色基本信息</h4>
+     </div>
+     <div class="modal-body">
+        <form class="form-horizontal" role="form">
+		  <div class="form-group">
+		    <label for="firstname" class="col-sm-2 control-label">角色名称</label>
+		    <div class="col-sm-8">
+		      <input type="text" class="form-control"  placeholder="请输入角色名称" required autofocus>
+		    </div>
+		    <div class="col-sm-2"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="lastname" class="col-sm-2 control-label">角色内码</label>
+		    <div class="col-sm-8">
+		      <input type="text" class="form-control"  placeholder="请输入角色内码" required>
+		    </div>
+		    <div class="col-sm-2"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="lastname" class="col-sm-2 control-label">是否可用</label>
+		    <div class="col-sm-3">
+		      <select class="form-control selectpicker" data-style="btn-info">
+			      <option>是</option>
+			      <option>否</option>
+			   </select>
+		    </div>
+		    <div class="col-sm-7"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="lastname" class="col-sm-2 control-label">角色类型</label>
+		    <div class="col-sm-3">
+		      <select class="form-control selectpicker" data-style="btn-info">
+			      <option>分配角色</option>
+			      <option>管理角色</option>
+			      <option>普通角色</option>
+			   </select>
+		    </div>
+		    <div class="col-sm-7"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="lastname" class="col-sm-2 control-label">备注</label>
+		    <div class="col-sm-8">
+		      <textarea rows="5" class="form-control"   placeholder="角色描述信息"></textarea>
+		    </div>
+		    <div class="col-sm-2"></div>
+		  </div>
+		  <div class="form-group">
+		    <div class="col-sm-offset-4 col-sm-8">
+		        <button type="button" class="btn btn-lg" data-dismiss="modal">关闭</button>
+          		<button type="submit" class="btn btn-lg">保存</button>
+		    </div>
+		  </div>
+		</form>
+     </div>
+</div>
