@@ -1,1 +1,11 @@
-底部
+<style type="text/css">
+.footer p{
+   text-align:center;
+   vertical-align: middle;
+}
+</style>
+<footer class="footer">
+    <div class="container">
+       <p class="text-muted">&copy; 小墨科技有限公司 2016</p>
+    </div>
+</footer>

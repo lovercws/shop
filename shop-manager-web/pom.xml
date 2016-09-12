@@ -274,7 +274,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
-					<warName>manager</warName>
+					<warName>shop</warName>
 				</configuration>
 			</plugin>
 		</plugins>

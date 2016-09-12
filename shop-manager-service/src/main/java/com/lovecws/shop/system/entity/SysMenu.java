@@ -14,7 +14,7 @@ public class SysMenu implements Serializable {
 	private Integer menuId;// 主键ID.
 	private String menuStatus;// 状态 PublicStatusEnum
 	private String creator;// 创建人.
-	private Date createTime = new Date();// 创建时间.
+	private Date createTime;// 创建时间.
 
 	private String editor;// 修改人.
 	private Date editTime;// 修改时间.

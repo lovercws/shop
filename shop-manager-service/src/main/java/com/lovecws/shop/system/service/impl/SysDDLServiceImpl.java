@@ -6,12 +6,16 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lovecws.common.core.page.PageParam;
 import com.lovecws.shop.system.dao.SysDDLDao;
 import com.lovecws.shop.system.entity.SysDDL;
 import com.lovecws.shop.system.service.SysDDLService;
 
+@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=true)
 @Service
 public class SysDDLServiceImpl implements SysDDLService{
 
@@ -19,8 +23,10 @@ public class SysDDLServiceImpl implements SysDDLService{
 	private SysDDLDao ddlDao;
 	
 	@Override
-	public int getSysDDLCount(String ddlStatus) {
+	public int getSysDDLCount(String ddlCode, String ddlKey,String ddlStatus) {
 		Map<String, Object> paramMap=new HashMap<String, Object>();
+		paramMap.put("ddlCode", ddlCode);
+		paramMap.put("ddlKey", ddlKey);
 		paramMap.put("ddlStatus", ddlStatus);
 		return ddlDao.getCountByColumn(paramMap).intValue();
 	}
@@ -37,6 +43,7 @@ public class SysDDLServiceImpl implements SysDDLService{
 	}
 
 	@Override
+	@Transactional(readOnly=false)
 	public SysDDL addSysDDL(SysDDL ddl) {
 		return ddlDao.insert(ddl);
 	}
@@ -54,12 +61,14 @@ public class SysDDLServiceImpl implements SysDDLService{
 	}
 
 	@Override
+	@Transactional(readOnly=false)
 	public SysDDL updateSysDDLById(SysDDL ddl) {
 		ddlDao.update(ddl);
 		return ddl;
 	}
 
 	@Override
+	@Transactional(readOnly=false)
 	public void deleteSysDDLById(String ddlId) {
 		ddlDao.delete(ddlId);
 	}

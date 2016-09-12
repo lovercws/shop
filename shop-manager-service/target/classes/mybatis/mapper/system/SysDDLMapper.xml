@@ -47,6 +47,12 @@
     <select id="getCountByColumn" resultType="LONG">
     	select count(ddl_id) from sys_ddl
     	<where>
+    	    <if test="ddlCode!=null and ddlCode!=''">
+				and ddl_code=#{ddlCode}
+			</if>
+			<if test="ddlKey!=null and ddlKey!=''">
+				and ddl_key=#{ddlKey}
+			</if>
 			<if test="ddlStatus!=null">
 				and ddl_status=#{ddlStatus}
 			</if>

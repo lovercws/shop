@@ -35,26 +35,32 @@ public class DDLController {
 	 * @return
 	 */
 	@RequestMapping(value={"/list"},method=RequestMethod.GET)
-	public String list(String ddlCode,String ddlKey,String currentPage,HttpServletRequest request){
-		log.info("获取数据字典列表[ddlCode="+ddlCode+",ddlKey="+ddlKey+",currentPage"+currentPage+"]");
+	public String list(String qddlCode,String qddlKey,String currentPage,HttpServletRequest request){
+		log.info("获取数据字典列表[ddlCode="+qddlCode+",ddlKey="+qddlKey+",currentPage"+currentPage+"]");
 		int current_page=1;
 		if(ValidateUtils.isNumeric(currentPage)){
 			current_page=Integer.parseInt(currentPage);
 		}
 		PageParam pageParam=new PageParam(current_page,10);
 		//获取数据字典的总数量
-		int totalCount=ddlService.getSysDDLCount(PublicEnum.NORMAL.value());
+		int totalCount=ddlService.getSysDDLCount(qddlCode,qddlKey,PublicEnum.NORMAL.value());
 		//查询数据字典
-		List<SysDDL> ddls=ddlService.querySysDDLByCondition(ddlCode,ddlKey,PublicEnum.NORMAL.value(),pageParam);
+		List<SysDDL> ddls=ddlService.querySysDDLByCondition(qddlCode,qddlKey,PublicEnum.NORMAL.value(),pageParam);
 		//获取数据字典内码 名称 下拉框
 		List<SysDDL> ddlCodeNameList=ddlService.getUniqueSysDDL(PublicEnum.NORMAL.value());
 		//组装分页实体对象
 		PageBean<SysDDL> pageBean=new PageBean<>(current_page, 10, totalCount, ddls);
-		pageBean.setUrl(request.getContextPath()+"/system/ddl/list");
+		if(qddlCode==null){
+			qddlCode="";
+		}
+		if(qddlKey==null){
+			qddlKey="";
+		}
+		pageBean.setUrl(request.getContextPath()+"/system/ddl/list?qddlCode="+qddlCode+"&qddlKey="+qddlKey);
 		log.info(pageBean);
 		request.setAttribute("pageBean", pageBean);
-		request.setAttribute("ddlCode", ddlCode);
-		request.setAttribute("ddlKey", ddlKey);
+		request.setAttribute("qddlCode", qddlCode);
+		request.setAttribute("qddlKey", qddlKey);
 		request.setAttribute("ddlCodeNameList", ddlCodeNameList);
 		return "system/ddl/list";
 	}
@@ -65,10 +71,13 @@ public class DDLController {
 	 * @return
 	 */
 	@RequestMapping(value={"/edit"},method=RequestMethod.GET)
-	public String edit(String ddlId,HttpServletRequest request){
+	public String edit(String ddlId,String qddlCode,String qddlKey,String currentPage,HttpServletRequest request){
 		log.info("编辑数据字典[ddlId="+ddlId+"]");
 		SysDDL ddl=ddlService.getSysDDLById(ddlId);
 		request.setAttribute("ddl", ddl);
+		request.setAttribute("qddlCode", qddlCode);
+		request.setAttribute("qddlKey", qddlKey);
+		request.setAttribute("currentPage", currentPage);
 		log.info(ddl);
 		return "system/ddl/edit";
 	}
@@ -79,16 +88,16 @@ public class DDLController {
 	 * @return
 	 */
 	@RequestMapping(value={"/update"},method=RequestMethod.POST)
-	public String update(SysDDL ddl,HttpServletRequest request){
+	public String update(SysDDL ddl,String qddlCode,String qddlKey,String currentPage,HttpServletRequest request){
 		log.info("更新数据字典[ddl="+ddl+"]");
 		ddl.setEditor(SecurityUtils.getSubject().getPrincipal().toString());
 		ddl.setEditTime(new Date());
 		ddl=ddlService.updateSysDDLById(ddl);
-		return list(null, null, null, request);
+		return list(qddlCode, qddlKey, currentPage, request);
 	}
 	
 	/**
-	 * 进入到编辑数据字典页面
+	 * 进入到查看数据字典详情
 	 * @param ddlId 数据字典id
 	 * @param request
 	 * @return
@@ -135,10 +144,10 @@ public class DDLController {
 	 * @return
 	 */
 	@RequestMapping(value={"/delete"},method=RequestMethod.GET)
-	public String delete(String ddlId,HttpServletRequest request){
+	public String delete(String ddlId,String qddlCode,String qddlKey,String currentPage,HttpServletRequest request){
 		log.info("删除数据字典[ddlId="+ddlId+"]");
 		//保存数据字典
 		ddlService.deleteSysDDLById(ddlId);		
-		return list(null, null, null, request);
+		return list(qddlCode, qddlKey, currentPage, request);
 	}
 }

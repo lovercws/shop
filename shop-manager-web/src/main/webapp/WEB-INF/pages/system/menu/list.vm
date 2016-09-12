@@ -22,13 +22,35 @@ a, a:HOVER, a:LINK {
 .btn-group .btn + .btn{
    margin-left:10px;
 }
-.menu-body{
-   height:670px;
-}
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     vertical-align: middle;
 }
+#menuDeleteModal .modal-footer{
+   text-align: center;
+}
+#menuDeleteModal{
+   margin-left:-200px;
+   margin-top:200px;
+   max-height:160px;
+   overflow:hidden;
+}
 </style>
+<script type="text/javascript">
+$(function(){
+    $('#menuModal').on('hide.bs.modal',function() {
+         $(this).removeData("bs.modal");
+    });
+    $('#menuDeleteModal').on('hide.bs.modal',function() {
+         $(this).removeData("bs.modal");
+    });
+});
+function deleteMenu(menuId,qparentMenuid,qmenuCode,qmenuName,currentPage){
+   $("#sureDelete").attr("href","$request.getContextPath()/system/menu/delete?menuId="+menuId+"&qparentMenuid="+qparentMenuid+"&qmenuCode="+qmenuCode+"&qmenuName="+qmenuName+"&currentPage="+currentPage);
+   $('#menuDeleteModal').modal({
+        keyboard: true
+    });
+}
+</script>
 <div class="menu-breadcrumb">
 	<ol class="breadcrumb">
 	  <li><a href="#">系统管理</a></li>
@@ -36,17 +58,32 @@ a, a:HOVER, a:LINK {
 	</ol>
 </div>
 <div class="menu-searchform container-fluid">
-	<form class="form-inline" role="form">
+	<form class="form-inline" role="form" action="$request.getContextPath()/system/menu/list" method="get">
 	  <div class="form-group">
-	    <label for="firstname" class="col-sm-4 control-label">菜单编号</label>
+	    <label for="qparentMenuId" class="col-sm-4 control-label">父菜单</label>
 	    <div class="col-sm-8">
-	      <input type="text" class="form-control" id="firstname" placeholder="请输入菜单编号" required autofocus>
+		       <select class="form-control selectpicker" name="qparentMenuId" style="width:140px;">
+			         <option value="">全部</option>
+		          #foreach($menu in $topMenus)
+		             #if($menu.menuId==$qparentMenuId)
+		                 <option value="$!menu.menuId" selected>$!menu.menuName</option>
+		             #else
+				         <option value="$!menu.menuId">$!menu.menuName</option>
+		             #end
+		          #end
+			   </select>
+		 </div>
+	  </div>
+	  <div class="form-group">
+	    <label for="qmenuCode" class="col-sm-4 control-label">菜单内码</label>
+	    <div class="col-sm-8">
+	      <input type="text" class="form-control" name="qmenuCode" value="$qmenuCode" placeholder="请输入菜单内码">
 	    </div>
 	  </div>
 	  <div class="form-group">
-	    <label for="lastname" class="col-sm-4 control-label">菜单名称</label>
+	    <label for="qmenuName" class="col-sm-4 control-label">菜单名称</label>
 	    <div class="col-sm-8">
-	      <input type="text" class="form-control" id="lastname" placeholder="菜单名称" required>
+	      <input type="text" class="form-control" name="qmenuName" value="$qmenuName" placeholder="菜单名称">
 	    </div>
 	  </div>
 	  <div class="form-group">
@@ -58,7 +95,7 @@ a, a:HOVER, a:LINK {
 </div>
 <div class="menu-menubar">
     <div class="btn-group">
-	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#menuModal-add" data-backdrop="static" href="$request.getContextPath()/system/menu/add"><span class="glyphicon glyphicon-plus"></span>添加菜单</button>
+	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#menuModal" data-backdrop="static" href="$request.getContextPath()/system/menu/add"><span class="glyphicon glyphicon-plus"></span>添加菜单</button>
 	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span>导入菜单</button>
 	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span>导出菜单</button>
 	</div>
@@ -67,28 +104,38 @@ a, a:HOVER, a:LINK {
 	<table class="table table-hover table-bordered table-striped table-responsive">
 	  <thead>
 	    <tr>
-	      <th>名称</th>
-	      <th>城市</th>
-	      <th>密码</th>
+	      <th>菜单内码</th>
+	      <th>菜单名称</th>
+	      <th>菜单路径</th>
+	      <th>菜单图标</th>
+	      <th>菜单可见性</th>
+	      <th>菜单排序</th>
+	      <th>创建时间</th>
 	      <th>操作</th>
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tr class="info">
-	      <td>Tanmay</td>
-	      <td>Bangalore</td>
-	      <td>560001</td>
-	      <td>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#menuModal-view" data-backdrop="static" href="$request.getContextPath()/system/menu/view"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#menuModal-edit" data-backdrop="static" href="$request.getContextPath()/system/menu/edit" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#menuModal" data-backdrop="static" href="$request.getContextPath()/system/menu/delete" ><span class="glyphicon glyphicon-remove"></span>删除</a>
-	      </td>
-	    </tr>
+	    #foreach($menu in ${pageBean.recordList})
+	       <tr>
+		      <td>$!menu.menuCode</td>
+		      <td>$!menu.menuName</td>
+		      <td>$!menu.menuUrl</td>
+		      <td><span class="${menu.menuIcon}"></span></td>
+		      <td>$!menu.menuVisible</td>
+		      <td>$!menu.menuNum</td>
+		      <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!menu.createTime)</td>
+		      <td>
+		      	 <a class="btn btn-default" data-toggle="modal" data-target="#menuModal" data-backdrop="static" href="$request.getContextPath()/system/menu/view?menuId=$!menu.menuId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
+		      	 <a class="btn btn-default" data-toggle="modal" data-target="#menuModal" data-backdrop="static" href="$request.getContextPath()/system/menu/edit?menuId=$!menu.menuId&qparentMenuId=$!qparentMenuId&qmenuCode=$!qmenuCode&qmenuName=$!qmenuName&currentPage=$!pageBean.currentPage"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+		      	 <a class="btn btn-default" data-toggle="modal" onclick="deleteMenu('$menu.menuId','$!qparentMenuid','$!qmenuCode','$!qmenuName','$!currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
+		      </td>
+		   </tr>
+	    #end
 	  </tbody>
 	</table>
 </div>
 #parse("/common/layout/page.vm")
-<div class="modal fade" id="menuModal-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -97,21 +144,17 @@ a, a:HOVER, a:LINK {
         </div>
     </div>
 </div>
-<div class="modal fade" id="menuModal-view" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="menuDeleteModal" tabindex="-1" role="dialog" backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+		         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		         <h4 class="modal-title" id="myModalLabel">你确定要删除吗?</h4>
+		    </div>
+            <div class="modal-footer">
+                 <a id="sureDelete" class="btn btn-lg" href="">是</a>
+                 <button type="button" class="btn btn-lg" data-dismiss="modal">否</button>
             </div>
-            <div class="modal-body"></div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="menuModal-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            </div>
-            <div class="modal-body"></div>
         </div>
     </div>
 </div>

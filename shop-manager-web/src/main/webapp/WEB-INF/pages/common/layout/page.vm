@@ -1,23 +1,25 @@
+#if($!pageBean.totalCount>0)
 <div class="page">
    <ul class="pagination pagination-lg">
-       #if($pageBean.currentPage>1)
+       #if($!pageBean.currentPage>1)
            #set($prePage=$!pageBean.currentPage - 1)
-           <li><a href="$pageBean.url?currentPage=$prePage">上一页</a></li>
+           <li><a href="$!pageBean.url&currentPage=$prePage">上一页</a></li>
        #else
            <li class="previous disabled"><a href="#">上一页</a></li>     
        #end
-       #foreach($currentPage in [$pageBean.beginPageIndex .. $pageBean.endPageIndex])
+       #foreach($currentPage in [$!pageBean.beginPageIndex .. $!pageBean.endPageIndex])
             #if($currentPage==$!pageBean.currentPage)
-       			<li class="active"><a href="$pageBean.url?currentPage=$currentPage">$currentPage</a></li>
+       			<li class="active"><a href="$pageBean.url&currentPage=$currentPage">$currentPage</a></li>
             #else
-                <li><a href="$pageBean.url?currentPage=$currentPage" class="active">$currentPage</a></li>
+                <li><a href="$pageBean.url&currentPage=$currentPage" class="active">$currentPage</a></li>
             #end
        #end
-       #if($pageBean.currentPage<$pageBean.totalPage)
+       #if($!pageBean.currentPage<$!pageBean.totalPage)
        	   #set($nextPage=$!pageBean.currentPage + 1)
-           <li><a href="$pageBean.url?currentPage=$nextPage">上一页</a></li>
+           <li><a href="$pageBean.url&currentPage=$nextPage">上一页</a></li>
        #else
            <li class="next disabled"><a href="#">上一页</a></li>     
        #end
    </ul>
 </div>
+#end

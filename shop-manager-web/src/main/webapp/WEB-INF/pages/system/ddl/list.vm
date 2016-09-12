@@ -28,7 +28,6 @@ a, a:HOVER, a:LINK {
    margin-left:10px;
 }
 .ddl-body{
-   min-height:600px;
 }
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     vertical-align: middle;
@@ -52,9 +51,9 @@ $(function(){
          $(this).removeData("bs.modal");
     });
 });
-function deleteDDL(ddlId){
+function deleteDDL(ddlId,qddlCode,qddlKey,currentPage){
    console.log($("#sureDelete"));
-   $("#sureDelete").attr("href","$request.getContextPath()/system/ddl/delete?ddlId="+ddlId);
+   $("#sureDelete").attr("href","$request.getContextPath()/system/ddl/delete?ddlId="+ddlId+"&qddlCode="+qddlCode+"&qddlKey="+qddlKey+"&currentPage="+currentPage);
    $('#ddlDeleteModal').modal({
         keyboard: true
     });
@@ -69,12 +68,12 @@ function deleteDDL(ddlId){
 <div class="ddl-searchform container-fluid">
 	<form class="form-inline" role="form" action="$request.getContextPath()/system/ddl/list" method="get">
 	  <div class="form-group">
-	    <label for="ddlCode" class="col-sm-4 control-label">名称</label>
+	    <label for="qddlCode" class="col-sm-4 control-label">名称</label>
 	    <div class="col-sm-8">
-		       <select class="form-control selectpicker" name="ddlCode" style="width:140px;">
+		       <select class="form-control selectpicker" name="qddlCode" style="width:140px;">
 			         <option value="">全部</option>
 		          #foreach($ddl in $ddlCodeNameList)
-		             #if($ddl.ddlCode==$ddlCode)
+		             #if($ddl.ddlCode==$qddlCode)
 		                 <option value="$!ddl.ddlCode" selected>$!ddl.ddlName</option>
 		             #else
 				         <option value="$!ddl.ddlCode">$!ddl.ddlName</option>
@@ -84,9 +83,9 @@ function deleteDDL(ddlId){
 		 </div>
 	  </div>
 	  <div class="form-group">
-	    <label for="lastname" class="col-sm-4 control-label">键</label>
+	    <label for="qddlKey" class="col-sm-4 control-label">键</label>
 	    <div class="col-sm-8">
-	      <input type="text" name="ddlKey" value="$!ddlKey" class="form-control" placeholder="请输入数据字典键">
+	      <input type="text" name="qddlKey" value="$!qddlKey" class="form-control" placeholder="请输入数据字典键">
 	    </div>
 	  </div>
 	  <div class="form-group">
@@ -118,7 +117,7 @@ function deleteDDL(ddlId){
 	  </thead>
 	  <tbody>
 	    #foreach($ddl in ${pageBean.recordList})
-	       <tr class="info">
+	       <tr>
 		      <td>${ddl.ddlCode}</td>
 		      <td>${ddl.ddlName}</td>
 		      <td>${ddl.ddlKey}</td>
@@ -127,8 +126,8 @@ function deleteDDL(ddlId){
 		      <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!ddl.createTime)</td>
 		      <td>
 		      	 <a class="btn btn-default" data-toggle="modal" data-target="#ddlModal" data-backdrop="static" href="$request.getContextPath()/system/ddl/view?ddlId=$ddl.ddlId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
-		      	 <a class="btn btn-default" data-toggle="modal" data-target="#ddlModal" data-backdrop="static" href="$request.getContextPath()/system/ddl/edit?ddlId=$ddl.ddlId" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-		      	 <a class="btn btn-default" data-toggle="modal" onclick="deleteDDL('$ddl.ddlId')"><span class="glyphicon glyphicon-remove"></span>删除</a>
+		      	 <a class="btn btn-default" data-toggle="modal" data-target="#ddlModal" data-backdrop="static" href="$request.getContextPath()/system/ddl/edit?ddlId=$ddl.ddlId&currentPage=$!pageBean.currentPage&qddlCode=$!qddlCode&&qddlKey=$!qddlKey" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+		      	 <a class="btn btn-default" data-toggle="modal" onclick="deleteDDL('$ddl.ddlId','$!qddlCode','$!qddlKey','$!currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
 		      </td>
 		   </tr>
 	    #end

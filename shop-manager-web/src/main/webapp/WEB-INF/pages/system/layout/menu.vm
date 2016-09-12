@@ -31,7 +31,7 @@ a, a:HOVER, a:LINK {
     padding:0px;
     margin:0px;
     margin-left:10px;
-    height:700px;
+    height:500px;
 }
 .panel-body ul,.panel-body ul li{
     padding-top:0px;
@@ -41,7 +41,7 @@ a, a:HOVER, a:LINK {
 }
 #accordion{
     width:100%;
-    height:800px;
+    height:100%;
 }
 .li-click{
     background-color: #2fa4e7;

@@ -27,6 +27,9 @@ function selectIcon(){
      <div class="modal-body">
         <form class="form-horizontal" role="form" action="$request.getContextPath()/system/ddl/update" method="post">
           <input type="hidden" name="ddlId" value="$!ddl.ddlId">
+          <input type="hidden" name="qddlCode" value="$!qddlCode">
+          <input type="hidden" name="qddlKey" value="$!qddlKey">
+          <input type="hidden" name="currentPage" value="$!currentPage">
 		  <div class="form-group">
 		    <label for="ddlCode" class="col-sm-2 control-label">内码</label>
 		    <div class="col-sm-8">

@@ -2,22 +2,19 @@ package com.lovecws.shop.system.service;
 
 import java.util.List;
 
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.lovecws.common.core.page.PageParam;
 import com.lovecws.shop.system.entity.SysDDL;
 
-@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.SUPPORTS,readOnly=true)
 public interface SysDDLService {
 
 	/**
 	 * 获取分页数量
+	 * @param ddlCode 数据字典内码
+	 * @param ddlKey 数据字典key
 	 * @param ddlStatus 数据字典状态
 	 * @return
 	 */
-	public int getSysDDLCount(String ddlStatus);
+	public int getSysDDLCount(String ddlCode, String ddlKey,String ddlStatus);
 
 	/**
 	 * 分页查询数据字典
