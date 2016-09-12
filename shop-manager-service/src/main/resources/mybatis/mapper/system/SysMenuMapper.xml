@@ -95,13 +95,29 @@
 		</where>
 		order by menu_num desc
     </select>
+	
+    <!-- 获取子菜单 -->
+    <select id="getSubSysMenu" parameterType="map" resultMap="SysMenuResultMap">
+       select 
+       <include refid="SysMenuColumn"></include>
+		from sys_menu
+		<where>
+		    <if test="1==1">
+				and (parent_menu_id!=0 and (parent_menu_id is not null))
+			</if>
+			<if test="menuStatus!=null and menuStatus!=''">
+				and menu_status=#{menuStatus}
+			</if>
+		</where>
+		order by menu_num desc
+    </select>
     
     <!-- 删除菜单 -->
     <delete id="deleteByPrimaryKey" parameterType="map">
        delete from sys_menu where menu_id=#{menuId}
     </delete>
 
-	<!-- 插入数据字典 -->
+	<!-- 插入菜单-->
 	<insert id="insert" parameterType="SysMenu" useGeneratedKeys="true"
 		keyProperty="menuId">
 		insert into sys_menu
@@ -201,7 +217,7 @@
 		</trim>
 	</insert>
 
-	<!-- 更改数据字典信息 -->
+	<!-- 更改菜单 -->
 	<update id="updateByPrimaryKey" parameterType="Sysmenu">
 		update sys_menu
 		<set>

@@ -36,7 +36,7 @@ public class DDLController {
 	 */
 	@RequestMapping(value={"/list"},method=RequestMethod.GET)
 	public String list(String qddlCode,String qddlKey,String currentPage,HttpServletRequest request){
-		log.info("获取数据字典列表[ddlCode="+qddlCode+",ddlKey="+qddlKey+",currentPage"+currentPage+"]");
+		log.info("获取数据字典列表[ddlCode="+qddlCode+",ddlKey="+qddlKey+",currentPage="+currentPage+"]");
 		int current_page=1;
 		if(ValidateUtils.isNumeric(currentPage)){
 			current_page=Integer.parseInt(currentPage);

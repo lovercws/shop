@@ -34,7 +34,7 @@ public class MenuController {
 	 */
 	@RequestMapping(value={"/list"},method=RequestMethod.GET)
 	public String list(String qparentMenuId,String qmenuCode,String qmenuName,String currentPage,HttpServletRequest request){
-		log.info("获取数据字典列表[parentMenuId="+qparentMenuId+",menuCode="+qmenuCode+"menuName="+qmenuName+",currentPage"+currentPage+"]");
+		log.info("获取菜单列表[parentMenuId="+qparentMenuId+",menuCode="+qmenuCode+"menuName="+qmenuName+",currentPage="+currentPage+"]");
 		int current_page=1;
 		if(ValidateUtils.isNumeric(currentPage)){
 			current_page=Integer.parseInt(currentPage);
@@ -101,6 +101,8 @@ public class MenuController {
 	public String update(SysMenu menu,String qparentMenuId,String qmenuCode,String qmenuName,String currentPage,HttpServletRequest request){
 		log.info("更新菜单[menu="+menu+"]");
 		//更新菜单
+		menu.setEditor(SecurityUtils.getSubject().getPrincipal().toString());
+		menu.setEditTime(new Date());
 		menu=menuService.updateMenuById(menu);
 		return list(qparentMenuId, qmenuCode, qmenuName, currentPage, request);
 	}

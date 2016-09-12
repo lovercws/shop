@@ -19,11 +19,13 @@
 	<typeAliases>
 		<typeAlias type="com.lovecws.shop.system.entity.SysDDL" alias="SysDDL" />
 		<typeAlias type="com.lovecws.shop.system.entity.SysMenu" alias="SysMenu" />
+		<typeAlias type="com.lovecws.shop.system.entity.SysPermission" alias="SysPermission" />
 	</typeAliases>
 
 	<!-- 配置映射文件 -->
 	<mappers>
 		<mapper resource="mybatis/mapper/system/SysDDLMapper.xml" />
 		<mapper resource="mybatis/mapper/system/SysMenuMapper.xml" />
+		<mapper resource="mybatis/mapper/system/SysPermissionMapper.xml" />
 	</mappers>
 </configuration>

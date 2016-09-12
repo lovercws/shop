@@ -63,4 +63,11 @@ public interface SysMenuService {
 	 */
 	public void deleteMenuById(String menuId);
 
+	/**
+	 * 获取所有的子菜单
+	 * @param menuStatus 权限状态 参见PublicEnum
+	 * @return
+	 */
+	public List<SysMenu> getSubSysMenu(String menuStatus);
+
 }

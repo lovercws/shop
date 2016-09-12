@@ -25,52 +25,65 @@ function selectIcon(){
          <h4 class="modal-title" id="myModalLabel">编辑权限</h4>
      </div>
      <div class="modal-body">
-        <form class="form-horizontal" role="form">
-		  <div class="form-group">
-		    <label for="firstname" class="col-sm-2 control-label">权限名称</label>
+        <form class="form-horizontal" role="form" action="$request.getContextPath()/system/permission/update" method="post">
+          <input type="hidden" name="permissionId" value="$!permission.permissionId">
+          <input type="hidden" name="qmenuId" value="$!qmenuId">
+          <input type="hidden" name="qpermissionCode" value="$!qpermissionCode">
+          <input type="hidden" name="qpermissionName" value="$!qpermissionName">
+          <div class="form-group">
+		    <label for="permissionCode" class="col-sm-2 control-label">权限内码</label>
 		    <div class="col-sm-8">
-		      <input type="text" class="form-control"  placeholder="请输入权限名称" required autofocus>
+		      <input type="text" class="form-control" name="permissionCode" value="$!permission.permissionCode" placeholder="请输入权限内码" required>
 		    </div>
 		    <div class="col-sm-2"></div>
 		  </div>
 		  <div class="form-group">
-		    <label for="lastname" class="col-sm-2 control-label">权限内码</label>
+		    <label for="permissionName" class="col-sm-2 control-label">权限名称</label>
 		    <div class="col-sm-8">
-		      <input type="text" class="form-control"  placeholder="请输入权限内码" required>
+		      <input type="text" class="form-control" name="permissionName" value="$!permission.permissionName" placeholder="请输入权限名称" required>
 		    </div>
 		    <div class="col-sm-2"></div>
 		  </div>
 		  <div class="form-group">
-		    <label for="lastname" class="col-sm-2 control-label">权限链接</label>
+		    <label for="permission" class="col-sm-2 control-label">权限值</label>
 		    <div class="col-sm-8">
-		      <input type="text" class="form-control"  placeholder="请输入权限链接">
+		      <input type="text" class="form-control" name="permission" value="$!permission.permission" placeholder="请输入权限值（system:user:view）" required>
+		    </div>
+		    <div class="col-sm-2"></div>
+		  </div>
+		  <div class="form-group">
+		    <label for="permissionPath" class="col-sm-2 control-label">权限路径</label>
+		    <div class="col-sm-8">
+		      <input type="text" class="form-control" name="permissionPath" value="$!permission.permissionPath" placeholder="请输入权限路径（system/user/view）" required>
 		    </div>
 		    <div class="col-sm-2"></div>
 		  </div>
 		  <div class="form-group">
 		    <label for="lastname" class="col-sm-2 control-label">功能菜单</label>
 		    <div class="col-sm-6">
-		      <select class="form-control selectpicker" data-style="btn-info">
-			      <option>用户管理</option>
-			      <option>角色管理</option>
-			      <option>菜单管理</option>
-			      <option>权限管理</option>
-			      <option>数据字典管理</option>
+			   <select class="form-control selectpicker" name="menuId" data-style="btn-info" required>
+		          #foreach($menu in $subMenus)
+		             #if($menu.menuId==$permission.menuId)
+				        <option value="$!menu.menuId" selected>$!menu.menuName</option>
+				     #else
+				        <option value="$!menu.menuId">$!menu.menuName</option>
+				     #end
+		          #end
 			   </select>
 		    </div>
 		    <div class="col-sm-4"></div>
 		  </div>
 		  <div class="form-group">
-		    <label for="lastname" class="col-sm-2 control-label">备注</label>
+		    <label for="remark" class="col-sm-2 control-label">备注</label>
 		    <div class="col-sm-8">
-		      <textarea rows="5" class="form-control"   placeholder="请输入权限描述信息"></textarea>
+		      <textarea rows="5" class="form-control" name="remark"  placeholder="请输入权限描述信息">$!permission.remark</textarea>
 		    </div>
 		    <div class="col-sm-2"></div>
 		  </div>
 		  <div class="form-group">
 		    <div class="col-sm-offset-4 col-sm-8">
-		        <button type="button" class="btn btn-lg" data-dismiss="modal">关闭</button>
           		<button type="submit" class="btn btn-lg">保存</button>
+		        <button type="button" class="btn btn-lg" data-dismiss="modal">关闭</button>
 		    </div>
 		  </div>
 		</form>

@@ -76,4 +76,11 @@ public class SysMenuServiceImpl implements SysMenuService{
 		menuDao.delete(menuId);
 	}
 
+	@Override
+	public List<SysMenu> getSubSysMenu(String menuStatus) {
+		Map<String, Object> paramMap=new HashMap<String, Object>();
+		paramMap.put("menuStatus", menuStatus);
+		return menuDao.selectList("getSubSysMenu", paramMap);
+	}
+
 }
