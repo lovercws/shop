@@ -58,34 +58,42 @@ function deleteRole(roleId,qroleCode,qroleName,currentPage){
 }
 var zTreeObj;
 var setting = {
+    view: {  
+           showLine: false,  
+           dblClickExpand: true  
+          },  
+    callback:{  
+               
+             },  
 	check: {
 			enable: true
-		},
+		   },
 	data: {
 		simpleData: {
-			enable: true
+			enable: true,
+			idKey: "id",  
+            pIdKey: "pId",  
+            rootPId: 0
 		}
 	}
 };   
 var ztree=$.fn.zTree
 function allowMenu(roleId){
-    var zNodes =[
-			{ id:1, pId:0, name:"can check 1", open:true},
-			{ id:11, pId:1, name:"can check 1-1", open:true},
-			{ id:111, pId:11, name:"can check 1-1-1"},
-			{ id:112, pId:11, name:"can check 1-1-2"},
-			{ id:12, pId:1, name:"can check 1-2", open:true},
-			{ id:121, pId:12, name:"can check 1-2-1"},
-			{ id:122, pId:12, name:"can check 1-2-2"},
-			{ id:2, pId:0, name:"can check 2", checked:true, open:true},
-			{ id:21, pId:2, name:"can check 2-1"},
-			{ id:22, pId:2, name:"can check 2-2", open:true},
-			{ id:221, pId:22, name:"can check 2-2-1", checked:true},
-			{ id:222, pId:22, name:"can check 2-2-2"},
-			{ id:23, pId:2, name:"can check 2-3"}
-    ];
-    zTreeObj = ztree.init($("#menuTree"), setting, zNodes);
-    $('#allowMenuModal').modal({});
+    $("#roleId").val(roleId);
+    $.get("$request.getContextPath()/system/rolemenu/tree?roleId="+roleId,function(data){
+          zTreeObj = ztree.init($("#menuTree"), setting, data);
+    	  $('#allowMenuModal').modal({});
+    });
+}
+function getAllSelectedMenu(){
+    var menuIds=[];
+    var nodes=zTreeObj.getCheckedNodes();
+    for(var i=0;i<nodes.length;i++){
+       console.log(nodes[i]);
+       menuIds.push(nodes[i].id);
+    }
+    console.log(menuIds.join(','));
+    $("#menuIds").val(menuIds.join(','));
 }
 </script>
 <div class="role-breadcrumb">
@@ -194,8 +202,13 @@ function allowMenu(roleId){
 		   		  <ul id="menuTree" class="ztree" style="-moz-user-select: none;">
 		     </div>
 		     <div class="modal-footer">
-		         <button type="button" class="btn btn-lg" data-dismiss="modal">保存</button>
-		         <button type="button" class="btn btn-lg" data-dismiss="modal">关闭</button>
+		         <form action="$request.getContextPath()/system/rolemenu/save" method="post">
+		             <input type="hidden" name="_method" value="put">
+		             <input type="hidden" id="menuIds" name="menuIds" value="">
+		             <input type="hidden" id="roleId" name="roleId" value="">
+			         <button type="submit" onclick="getAllSelectedMenu()" class="btn btn-lg">保存</button>
+			         <button type="button" class="btn btn-lg" data-dismiss="modal">关闭</button>
+		         </form>
 		     </div>
         </div>
     </div>

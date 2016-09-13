@@ -82,10 +82,9 @@
 		where menu_id = #{menuId}
 	</select>
 	
-    <!-- 获取一级菜单 -->
+    <!-- 根据角色id 获取菜单列表 -->
     <select id="getTopSysMenu" parameterType="map" resultMap="SysMenuResultMap">
-       select 
-       <include refid="SysMenuColumn"></include>
+       select menu_id,menu_code,menu_name,menu_url,parent_menu_id
 		from sys_menu
 		<where>
 		    <if test="1==1">
@@ -118,6 +117,12 @@
     <delete id="deleteByPrimaryKey" parameterType="map">
        delete from sys_menu where menu_id=#{menuId}
     </delete>
+    
+    <!-- 根据角色id 获取菜单列表 -->
+    <select id="getSysMenuByRoleId" parameterType="map" resultMap="SysMenuResultMap">
+        select m.menu_id,m.menu_code,m.menu_name,m.menu_url,m.parent_menu_id
+		from sys_role_menu rm inner join sys_menu m on(rm.menu_id=m.menu_id) where rm.role_id=#{roleId} and m.menu_status=#{menuStatus}
+    </select>
 
 	<!-- 插入菜单-->
 	<insert id="insert" parameterType="SysMenu" useGeneratedKeys="true"

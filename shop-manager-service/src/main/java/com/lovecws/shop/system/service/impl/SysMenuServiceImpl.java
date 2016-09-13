@@ -85,4 +85,12 @@ public class SysMenuServiceImpl implements SysMenuService{
 		return menuDao.selectList("getSubSysMenu", paramMap);
 	}
 
+	@Override
+	public List<SysMenu> getSysMenuByRoleId(String roleId,String menuStatus) {
+		Map<String, Object> paramMap=new HashMap<String, Object>();
+		paramMap.put("roleId", roleId);
+		paramMap.put("menuStatus", menuStatus);
+		return menuDao.selectList("getSysMenuByRoleId", paramMap);
+	}
+
 }

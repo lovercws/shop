@@ -15,10 +15,19 @@ public class SysRoleMenu implements Serializable {
 	private Integer roleMenuId;// 主键ID.
 	private String roleMenuStatus;// 状态 PublicStatusEnum
 	private String creator;// 创建人.
-	private Date createTime ;// 创建时间.
+	private Date createTime;// 创建时间.
 
-	private Integer roleId;//角色id
-	private Integer menuId;//菜单id
+	private Integer roleId;// 角色id
+	private Integer menuId;// 菜单id
+
+	public SysRoleMenu(String roleMenuStatus, String creator, Date createTime, Integer roleId,
+			Integer menuId) {
+		this.roleMenuStatus = roleMenuStatus;
+		this.creator = creator;
+		this.createTime = createTime;
+		this.roleId = roleId;
+		this.menuId = menuId;
+	}
 
 	public Integer getRoleMenuId() {
 		return roleMenuId;

@@ -26,7 +26,7 @@ public interface SysMenuService {
 	 * @param pageParam 分页实体对象
 	 * @return
 	 */
-	public List<SysMenu> querySysMenuByCondition(String parentMenuId, String menuCode, String menuName, String value,
+	public List<SysMenu> querySysMenuByCondition(String parentMenuId, String menuCode, String menuName, String menuStatus,
 			PageParam pageParam);
 
 	/**
@@ -69,5 +69,13 @@ public interface SysMenuService {
 	 * @return
 	 */
 	public List<SysMenu> getSubSysMenu(String menuStatus);
+
+	/**
+	 * 根据角色id获取菜单
+	 * @param roleId 角色id
+	 * @param menuStatus 菜单状态 
+	 * @return
+	 */
+	public List<SysMenu> getSysMenuByRoleId(String roleId, String menuStatus);
 
 }
