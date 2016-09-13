@@ -23,8 +23,8 @@ body {
 	
 </script>
 </head>
-<body>
-
+<body onload="load()">
+    <div></div>>
 	<H2>错误：$ex.class.simpleName</H2>
 	<hr />
 	<P>

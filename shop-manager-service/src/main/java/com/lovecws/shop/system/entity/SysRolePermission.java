@@ -30,7 +30,7 @@ public class SysRolePermission implements Serializable {
 	private Integer rolePermissionId;// 主键ID.
 	private String rolePermissionStatus;// 状态 PublicStatusEnum
 	private String creator;// 创建人.
-	private Date createTime = new Date();// 创建时间.
+	private Date createTime;// 创建时间.
 
 	private Integer roleId; // 角色ID
 	private Integer permissionId;// 权限ID

@@ -178,4 +178,21 @@ public class MenuController {
 		return list(qparentMenuId, qmenuCode, qmenuName, currentPage, request);
 	}
 	
+	/**
+	 * 获取菜单子节点
+	 * @param parentMenuId
+	 * @param currentPage
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value={"/leaf"},method=RequestMethod.GET)
+	public String leaf(String parentMenuId,HttpServletRequest request){
+		log.info("获取菜单列表[parentMenuId="+parentMenuId+"]");
+		//查询菜单列表
+		List<SysMenu> subMenus=menuService.querySysMenuByCondition(parentMenuId,null,null,PublicEnum.NORMAL.value(),null);
+		PageBean<SysMenu> pageBean=new PageBean<>(subMenus);
+		log.info(pageBean);
+		request.setAttribute("pageBean", pageBean);
+		return "system/menu/leaf";
+	}
 }

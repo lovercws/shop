@@ -1,0 +1,53 @@
+<style type="text/css">
+.modal-content{
+   height:500px;
+   margin-left:-100px;
+}
+#modal-content .modal-footer{
+   float: left;
+}
+</style>
+<script type="text/javascript">
+   var zTreeObj;
+   var setting = {
+			check: {
+				enable: true
+			},
+			data: {
+				simpleData: {
+					enable: true
+				}
+			}
+   };
+   var zNodes =[
+			{ id:1, pId:0, name:"can check 1", open:true},
+			{ id:11, pId:1, name:"can check 1-1", open:true},
+			{ id:111, pId:11, name:"can check 1-1-1"},
+			{ id:112, pId:11, name:"can check 1-1-2"},
+			{ id:12, pId:1, name:"can check 1-2", open:true},
+			{ id:121, pId:12, name:"can check 1-2-1"},
+			{ id:122, pId:12, name:"can check 1-2-2"},
+			{ id:2, pId:0, name:"can check 2", checked:true, open:true},
+			{ id:21, pId:2, name:"can check 2-1"},
+			{ id:22, pId:2, name:"can check 2-2", open:true},
+			{ id:221, pId:22, name:"can check 2-2-1", checked:true},
+			{ id:222, pId:22, name:"can check 2-2-2"},
+			{ id:23, pId:2, name:"can check 2-3"}
+   ];
+   $(document).ready(function(){
+      zTreeObj = $.fn.zTree.init($("#menuTree"), setting, zNodes);
+   });
+</script>
+<div class="modal-content">
+     <div class="modal-header">
+         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+         <h4 class="modal-title" id="myModalLabel">分配菜单</h4>
+     </div>
+     <div class="modal-body">
+   		  <ul id="menuTree" class="ztree" style="-moz-user-select: none;">
+     </div>
+     <div class="modal-footer">
+         <button type="button" class="btn btn-lg" data-dismiss="modal">保存</button>
+         <button type="button" class="btn btn-lg" data-dismiss="modal">关闭</button>
+     </div>
+</div>

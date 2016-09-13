@@ -28,9 +28,9 @@ import java.util.Map;
 public enum OperatorTypeEnum {
 
 	/** 普通用户 **/
-	COMMON("普通用户"),
+	USER("普通用户"),
 	/** 超级管理员 **/
-	ADMIN("超级管理员");
+	ADMIN("管理员");
 
 	/** 描述 */
 	private String desc;

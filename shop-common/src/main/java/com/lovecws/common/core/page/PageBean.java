@@ -106,10 +106,16 @@ public class PageBean<T> implements Serializable {
 			return numPerPage;
 		}
 	}
-
+    
+	/**
+	 * @param recordList
+	 */
+	public PageBean(List<T> recordList){
+		this.recordList = recordList;
+	}
+	
 	/**
 	 * 只接受前4个必要的属性，会自动的计算出其他3个属生的值
-	 * 
 	 * @param currentPage
 	 * @param numPerPage
 	 * @param totalCount

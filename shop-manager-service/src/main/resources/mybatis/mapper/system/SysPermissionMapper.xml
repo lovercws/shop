@@ -43,7 +43,9 @@
 				and permission_status=#{permissionStatus}
 			</if>
 		</where>
-		limit #{beginIndex},#{numPerPage}
+		<if test="beginIndex!=null and numPerPage!=null">
+			limit #{beginIndex},#{numPerPage}
+		</if>
 	</select>
     
     <!-- 获取权限数量  -->

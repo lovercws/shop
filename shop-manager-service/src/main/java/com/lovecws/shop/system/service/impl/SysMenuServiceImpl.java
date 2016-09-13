@@ -40,8 +40,10 @@ public class SysMenuServiceImpl implements SysMenuService{
 		paramMap.put("menuCode", menuCode);
 		paramMap.put("menuName", menuName);
 		paramMap.put("menuStatus", menuStatus);
-		paramMap.put("beginIndex", pageParam.getBeginIndex());
-		paramMap.put("numPerPage", pageParam.getNumPerPage());
+		if(pageParam!=null){
+			paramMap.put("beginIndex", pageParam.getBeginIndex());
+			paramMap.put("numPerPage", pageParam.getNumPerPage());
+		}
 		return menuDao.listByColumn(paramMap);
 	}
 

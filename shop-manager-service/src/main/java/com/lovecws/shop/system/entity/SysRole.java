@@ -120,4 +120,11 @@ public class SysRole implements Serializable {
 		this.roleType = roleType;
 	}
 
+	@Override
+	public String toString() {
+		return "SysRole [roleId=" + roleId + ", roleStatus=" + roleStatus + ", creator=" + creator + ", createTime="
+				+ createTime + ", editor=" + editor + ", editTime=" + editTime + ", remark=" + remark + ", roleCode="
+				+ roleCode + ", roleName=" + roleName + ", roleType=" + roleType + "]";
+	}
+
 }

@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="$request.getContextPath()/resources/ztree/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="$request.getContextPath()/resources/ztree/js/jquery.ztree.core.min.js"></script>
+<script type="text/javascript" src="$request.getContextPath()/resources/ztree/js/jquery.ztree.excheck.js"></script>
 <style type="text/css">
 body, div, ul, li ,img{
 	margin: 0px;
@@ -22,13 +25,69 @@ a, a:HOVER, a:LINK {
 .btn-group .btn + .btn{
    margin-left:10px;
 }
-.role-body{
-   height:670px;
-}
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     vertical-align: middle;
 }
+#deleteModal .modal-footer{
+   text-align: center;
+}
+#allowMenuModal .modal-footer{
+   text-align: center;
+}
+#deleteModal{
+   margin-left:-200px;
+   margin-top:200px;
+   max-height:160px;
+   overflow:hidden;
+}
+#allowMenuModal{
+   margin-left:-200px;
+}
 </style>
+<script type="text/javascript">
+$(function(){
+    $('body').on('hidden.bs.modal', '.modal', function () {
+    	$(this).removeData('bs.modal');
+	});
+});
+function deleteRole(roleId,qroleCode,qroleName,currentPage){
+   $("#sureDelete").attr("href","$request.getContextPath()/system/role/delete?roleId="+roleId+"&qroleCode="+qroleCode+"&qroleName="+qroleName+"&currentPage="+currentPage);
+   $('#deleteModal').modal({
+        keyboard: true
+    });
+}
+var zTreeObj;
+var setting = {
+	check: {
+			enable: true
+		},
+	data: {
+		simpleData: {
+			enable: true
+		}
+	}
+};   
+var ztree=$.fn.zTree
+function allowMenu(roleId){
+    var zNodes =[
+			{ id:1, pId:0, name:"can check 1", open:true},
+			{ id:11, pId:1, name:"can check 1-1", open:true},
+			{ id:111, pId:11, name:"can check 1-1-1"},
+			{ id:112, pId:11, name:"can check 1-1-2"},
+			{ id:12, pId:1, name:"can check 1-2", open:true},
+			{ id:121, pId:12, name:"can check 1-2-1"},
+			{ id:122, pId:12, name:"can check 1-2-2"},
+			{ id:2, pId:0, name:"can check 2", checked:true, open:true},
+			{ id:21, pId:2, name:"can check 2-1"},
+			{ id:22, pId:2, name:"can check 2-2", open:true},
+			{ id:221, pId:22, name:"can check 2-2-1", checked:true},
+			{ id:222, pId:22, name:"can check 2-2-2"},
+			{ id:23, pId:2, name:"can check 2-3"}
+    ];
+    zTreeObj = ztree.init($("#menuTree"), setting, zNodes);
+    $('#allowMenuModal').modal({});
+}
+</script>
 <div class="role-breadcrumb">
 	<ol class="breadcrumb">
 	  <li><a href="#">系统管理</a></li>
@@ -36,17 +95,17 @@ a, a:HOVER, a:LINK {
 	</ol>
 </div>
 <div class="role-searchform container-fluid">
-	<form class="form-inline" role="form">
+	<form class="form-inline" role="form" action="$request.getContextPath()/system/role/list" method="get">
 	  <div class="form-group">
-	    <label for="firstname" class="col-sm-4 control-label">角色编号</label>
+	    <label for="qroleCode" class="col-sm-4 control-label">角色内码</label>
 	    <div class="col-sm-8">
-	      <input type="text" class="form-control" id="firstname" placeholder="请输入角色编号" required autofocus>
+	      <input type="text" class="form-control" name="qroleCode" value="$!qroleCode" placeholder="请输入角色内码" autofocus>
 	    </div>
 	  </div>
 	  <div class="form-group">
-	    <label for="lastname" class="col-sm-4 control-label">角色名称</label>
+	    <label for="qroleName" class="col-sm-4 control-label">角色名称</label>
 	    <div class="col-sm-8">
-	      <input type="text" class="form-control" id="lastname" placeholder="请输入角色名称" required>
+	      <input type="text" class="form-control" name="qroleName" value="$!qroleName" placeholder="请输入角色名称">
 	    </div>
 	  </div>
 	  <div class="form-group">
@@ -58,7 +117,7 @@ a, a:HOVER, a:LINK {
 </div>
 <div class="role-rolebar">
     <div class="btn-group">
-	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#roleModal-add" data-backdrop="static" href="$request.getContextPath()/system/role/add"><span class="glyphicon glyphicon-plus"></span>添加角色</button>
+	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#roleModal" data-backdrop="static" href="$request.getContextPath()/system/role/add"><span class="glyphicon glyphicon-plus"></span>添加角色</button>
 	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span>导入角色</button>
 	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span>导出角色</button>
 	</div>
@@ -67,30 +126,41 @@ a, a:HOVER, a:LINK {
 	<table class="table table-hover table-bordered table-striped table-responsive">
 	  <thead>
 	    <tr>
-	      <th>名称</th>
-	      <th>城市</th>
-	      <th>密码</th>
+	      <th>角色内码</th>
+	      <th>角色名称</th>
+	      <th>角色类型</th>
+	      <th>创建时间</th>
+	      <th>描述</th>
 	      <th>操作</th>
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tr class="info">
-	      <td>Tanmay</td>
-	      <td>Bangalore</td>
-	      <td>560001</td>
+	    #foreach($role in ${pageBean.recordList})
+	    <tr>
+	      <td>$!role.roleCode</td>
+	      <td>$!role.roleName</td>
 	      <td>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#roleModal-view" data-backdrop="static" href="$request.getContextPath()/system/role/view"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#roleModal-edit" data-backdrop="static" href="$request.getContextPath()/system/role/edit" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#roleModal" data-backdrop="static" href="$request.getContextPath()/system/role/delete" ><span class="glyphicon glyphicon-remove"></span>删除</a>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#roleModal" data-backdrop="static" href="$request.getContextPath()/system/roleMenu/allowMenu" ><span class="glyphicon glyphicon-remove"></span>分配菜单</a>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#roleModal" data-backdrop="static" href="$request.getContextPath()/system/roleMenu/allowPermission" ><span class="glyphicon glyphicon-remove"></span>分配权限</a>
+	         #if($!role.roleType=='ADMIN')
+	                                    管理员
+	         #else
+	                                    普通用户
+	         #end
+	      <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!role.createTime)</td>
+	      <td>$!role.remark</td>
+	      <td>
+	      	 <a class="btn btn-default" data-toggle="modal" data-target="#roleModal" data-backdrop="static" href="$request.getContextPath()/system/role/view?roleId=$!role.roleId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
+	      	 <a class="btn btn-default" data-toggle="modal" data-target="#roleModal" data-backdrop="static" href="$request.getContextPath()/system/role/edit?roleId=$!role.roleId&qroleCode=$!qroleCode&qroleName=$!qroleName&currentPage=$!pageBean.currentPage"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+	      	 <a class="btn btn-default" data-toggle="modal" onclick="deleteRole('$!role.roleId','$!qroleCode','$!qroleName','$!pageBean.currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
+	      	 <a class="btn btn-default" href="javascript:allowMenu('$role.roleId')"><span class="glyphicon glyphicon-remove"></span>分配菜单</a>
+	      	 <a class="btn btn-default" data-toggle="modal" data-target="#roleModal" data-backdrop="static" href="$request.getContextPath()/system/role/allowPermission?roleId=$!role.roleId" ><span class="glyphicon glyphicon-remove"></span>分配权限</a>
 	      </td>
 	    </tr>
+	    #end
 	  </tbody>
 	</table>
 </div>
 #parse("/common/layout/page.vm")
-<div class="modal fade" id="roleModal-add" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -99,21 +169,34 @@ a, a:HOVER, a:LINK {
         </div>
     </div>
 </div>
-<div class="modal fade" id="roleModal-view" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+		         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		         <h4 class="modal-title" id="myModalLabel">你确定要删除吗?</h4>
+		    </div>
+            <div class="modal-footer">
+                 <a id="sureDelete" class="btn btn-lg" href="">是</a>
+                 <button type="button" class="btn btn-lg" data-dismiss="modal">否</button>
             </div>
-            <div class="modal-body"></div>
         </div>
     </div>
 </div>
-<div class="modal fade" id="roleModal-edit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="allowMenuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-            </div>
-            <div class="modal-body"></div>
+             <div class="modal-header">
+		         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		         <h4 class="modal-title" id="myModalLabel">分配菜单</h4>
+		     </div>
+		     <div class="modal-body">
+		   		  <ul id="menuTree" class="ztree" style="-moz-user-select: none;">
+		     </div>
+		     <div class="modal-footer">
+		         <button type="button" class="btn btn-lg" data-dismiss="modal">保存</button>
+		         <button type="button" class="btn btn-lg" data-dismiss="modal">关闭</button>
+		     </div>
         </div>
     </div>
 </div>

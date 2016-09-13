@@ -41,8 +41,10 @@ public class SysPermissionServiceImpl implements SysPermissionService{
 		paramMap.put("permissionCode", permissionCode);
 		paramMap.put("permissionName", permissionName);
 		paramMap.put("permissionStatus", permissionStatus);
-		paramMap.put("beginIndex", pageParam.getBeginIndex());
-		paramMap.put("numPerPage", pageParam.getNumPerPage());
+		if(pageParam!=null){
+			paramMap.put("beginIndex", pageParam.getBeginIndex());
+			paramMap.put("numPerPage", pageParam.getNumPerPage());
+		}
 		return permissionDao.listByColumn(paramMap);
 	}
 

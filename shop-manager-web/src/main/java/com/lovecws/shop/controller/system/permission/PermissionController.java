@@ -180,4 +180,20 @@ public class PermissionController {
 		permissionService.deletePermissionById(permissionId);
 		return list(qmenuId, qpermissionCode, qpermissionName, currentPage, request);
 	}
+	
+	/**
+	 * 获取菜单下的权限列表
+	 * @param menuId 菜单id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value={"/permission"},method=RequestMethod.GET)
+	public String permission(String menuId,HttpServletRequest request){
+		//查询权限列表
+		List<SysPermission> permissions=permissionService.querySysPermissionByCondition(menuId,null,null,PublicEnum.NORMAL.value(),null);
+		PageBean<SysPermission> pageBean=new PageBean<>(permissions);
+		log.info(pageBean);
+		request.setAttribute("pageBean", pageBean);
+		return "system/menu/permission";
+	}
 }

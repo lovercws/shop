@@ -49,7 +49,9 @@
 			</if>
 		</where>
 		order by menu_num desc
-		limit #{beginIndex},#{numPerPage}
+		<if test="beginIndex!=null and numPerPage!=null">
+			limit #{beginIndex},#{numPerPage}
+		</if>
 	</select>
     
     <!-- 获取菜单数量  -->

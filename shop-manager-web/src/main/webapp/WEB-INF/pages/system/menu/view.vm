@@ -14,11 +14,6 @@
    margin-top:6px;
 }
 </style>
-<script type="text/javascript">
-function selectIcon(){
-   window.open('$request.getContextPath()/common/component/icon','newwindow','height=600,width=800,top=200,left=800,toolbar=no,menubar=no,scrollbars=yes, resizable=no,location=no, status=no');
-}
-</script>
 <div class="modal-content">
      <div class="modal-header">
          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>

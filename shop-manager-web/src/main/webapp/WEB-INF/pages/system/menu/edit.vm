@@ -20,8 +20,8 @@
          <h4 class="modal-title" id="myModalLabel">编辑菜单</h4>
      </div>
      <div class="modal-body">
-        <form class="form-horizontal" role="form" action="$request.getContextPath()/system/menu/save" method="post">
-          <input type="hidden" name="_method" value="put">
+        <form class="form-horizontal" role="form" action="$request.getContextPath()/system/menu/update" method="post">
+          <input type="hidden" name="menuId" value="$!menu.menuId">
           <input type="hidden" name="qparentMenuId" value="$!qparentMenuId">
           <input type="hidden" name="qmenuCode" value="$!qmenuCode">
           <input type="hidden" name="qmenuName" value="$!qmenuName">
