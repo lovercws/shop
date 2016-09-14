@@ -143,7 +143,7 @@ public class DDLController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value={"/delete"},method=RequestMethod.GET)
+	@RequestMapping(value={"/delete"},method=RequestMethod.DELETE)
 	public String delete(String ddlId,String qddlCode,String qddlKey,String currentPage,HttpServletRequest request){
 		log.info("删除数据字典[ddlId="+ddlId+"]");
 		//保存数据字典

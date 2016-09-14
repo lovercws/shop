@@ -17,30 +17,31 @@ import com.lovecws.shop.system.dao.SysRolePermissionDao;
 import com.lovecws.shop.system.entity.SysRolePermission;
 import com.lovecws.shop.system.service.SysRolePermissionService;
 
-@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=true)
+@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, readOnly = true)
 @Service
-public class SysRolePermissionServiceImpl implements SysRolePermissionService{
+public class SysRolePermissionServiceImpl implements SysRolePermissionService {
 
 	@Autowired
 	private SysRolePermissionDao rolePermissionDao;
-	
-	@Transactional(readOnly=false)
+
+	@Transactional(readOnly = false)
 	@Override
 	public void saveRolePermission(String roleId, String permissionIds, String creator) {
-		if(permissionIds==null||"".equals(permissionIds)){
-			throw new IllegalArgumentException("permissionIds="+permissionIds+"参数为空");
-		}
-		String[] permissionArray = permissionIds.split(",");
-		List<SysRolePermission> rolePermissions=new ArrayList<SysRolePermission>();
-		for (String permissionId : permissionArray) {
-			rolePermissions.add(new SysRolePermission(PublicEnum.NORMAL.value(), creator, new Date(), Integer.parseInt(roleId), Integer.parseInt(permissionId)));
-		}
-		//删除 角色权限
-		Map<String,Object> paramMap=new HashMap<String,Object>();
+		// 删除 角色权限
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("roleId", roleId);
 		rolePermissionDao.delete(paramMap);
-		//添加角色权限
-		rolePermissionDao.insert(rolePermissions);
+		if (permissionIds != null && !"".equals(permissionIds)) {
+			String[] permissionArray = permissionIds.split(",");
+			List<SysRolePermission> rolePermissions = new ArrayList<SysRolePermission>();
+			for (String permissionId : permissionArray) {
+				rolePermissions.add(new SysRolePermission(PublicEnum.NORMAL.value(), creator, new Date(),
+						Integer.parseInt(roleId), Integer.parseInt(permissionId)));
+			}
+			// 添加角色权限
+			rolePermissionDao.insert(rolePermissions);
+		}
+
 	}
 
 }

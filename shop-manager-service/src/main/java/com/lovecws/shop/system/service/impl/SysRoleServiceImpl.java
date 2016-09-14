@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lovecws.common.core.page.PageParam;
 import com.lovecws.shop.system.dao.SysRoleDao;
+import com.lovecws.shop.system.dao.SysRoleMenuDao;
+import com.lovecws.shop.system.dao.SysRolePermissionDao;
 import com.lovecws.shop.system.entity.SysRole;
 import com.lovecws.shop.system.service.SysRoleService;
 
@@ -21,6 +23,10 @@ public class SysRoleServiceImpl implements SysRoleService {
 
 	@Autowired
 	private SysRoleDao roleDao;
+	@Autowired
+	private SysRoleMenuDao roleMenuDao;
+	@Autowired
+	private SysRolePermissionDao rolePermissionDao;
 
 	@Override
 	public int getSysRoleCount(String roleCode, String roleName, String roleStatus) {
@@ -66,6 +72,15 @@ public class SysRoleServiceImpl implements SysRoleService {
 	@Override
 	@Transactional(readOnly=false)
 	public void deleteById(String roleId) {
+		//删除角色权限
+		Map<String, Object> permissionParamMap = new HashMap<String, Object>();
+		permissionParamMap.put("roleId", roleId);
+		rolePermissionDao.delete(permissionParamMap);
+		//删除角色菜单
+		Map<String, Object> menuParamMap = new HashMap<String, Object>();
+		menuParamMap.put("roleId", roleId);
+		roleMenuDao.delete(menuParamMap);
+		//删除角色
 		roleDao.delete(roleId);
 	}
 

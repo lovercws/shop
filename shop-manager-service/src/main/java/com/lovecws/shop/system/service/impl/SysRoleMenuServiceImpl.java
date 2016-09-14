@@ -17,30 +17,30 @@ import com.lovecws.shop.system.dao.SysRoleMenuDao;
 import com.lovecws.shop.system.entity.SysRoleMenu;
 import com.lovecws.shop.system.service.SysRoleMenuService;
 
-@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=true)
+@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, readOnly = true)
 @Service
-public class SysRoleMenuServiceImpl implements SysRoleMenuService{
+public class SysRoleMenuServiceImpl implements SysRoleMenuService {
 
 	@Autowired
 	private SysRoleMenuDao roleMenuDao;
-	
+
 	@Override
-	@Transactional(readOnly=false)
-	public void saveRoleMenu(String roleId, String menuIds,String creator) {
-		if(menuIds==null||"".equals(menuIds)){
-			throw new IllegalArgumentException("menuIds="+menuIds+"参数为空");
-		}
-		String[] menuIdArray = menuIds.split(",");
-		List<SysRoleMenu> roleMenus=new ArrayList<>();
-		for (String menuId : menuIdArray) {
-			roleMenus.add(new SysRoleMenu(PublicEnum.NORMAL.value(), creator, new Date(), Integer.parseInt(roleId), Integer.parseInt(menuId)));
-		}
-		//删除 角色原菜单
-		Map<String,Object> paramMap=new HashMap<String,Object>();
+	@Transactional(readOnly = false)
+	public void saveRoleMenu(String roleId, String menuIds, String creator) {
+		// 删除 角色原菜单
+		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("roleId", roleId);
 		roleMenuDao.delete(paramMap);
-		//添加角色菜单
-		roleMenuDao.insert(roleMenus);
+		if (menuIds != null && !"".equals(menuIds)) {
+			String[] menuIdArray = menuIds.split(",");
+			List<SysRoleMenu> roleMenus = new ArrayList<>();
+			for (String menuId : menuIdArray) {
+				roleMenus.add(new SysRoleMenu(PublicEnum.NORMAL.value(), creator, new Date(), Integer.parseInt(roleId),
+						Integer.parseInt(menuId)));
+			}
+			// 添加角色菜单
+			roleMenuDao.insert(roleMenus);
+		}
 	}
 
 }

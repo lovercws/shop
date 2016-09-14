@@ -23,6 +23,7 @@
 		<typeAlias type="com.lovecws.shop.system.entity.SysRole" alias="SysRole" />
 		<typeAlias type="com.lovecws.shop.system.entity.SysRoleMenu" alias="SysRoleMenu" />
 		<typeAlias type="com.lovecws.shop.system.entity.SysRolePermission" alias="SysRolePermission" />
+		<typeAlias type="com.lovecws.shop.system.entity.SysUser" alias="SysUser" />
 	</typeAliases>
 
 	<!-- 配置映射文件 -->
@@ -33,5 +34,6 @@
 		<mapper resource="mybatis/mapper/system/SysRoleMapper.xml" />
 		<mapper resource="mybatis/mapper/system/SysRoleMenuMapper.xml" />
 		<mapper resource="mybatis/mapper/system/SysRolePermissionMapper.xml" />
+		<mapper resource="mybatis/mapper/system/SysUserMapper.xml" />
 	</mappers>
 </configuration>

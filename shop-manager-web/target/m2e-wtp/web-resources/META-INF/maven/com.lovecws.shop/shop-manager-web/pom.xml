@@ -249,6 +249,12 @@
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-cas</artifactId>
 		</dependency>
+		
+		<!-- <dependency>
+			<groupId>org.huasi.car</groupId>
+			<artifactId>hcar-common-service-fdfs</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency> -->
 
 		<!-- velocity模板 -->
 		<dependency>

@@ -171,7 +171,7 @@ public class MenuController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value={"/delete"},method=RequestMethod.GET)
+	@RequestMapping(value={"/delete"},method=RequestMethod.DELETE)
 	public String delete(String menuId,String qparentMenuId,String qmenuCode,String qmenuName,String currentPage,HttpServletRequest request){
 		log.info("删除菜单[menuId="+menuId+"]");
 		menuService.deleteMenuById(menuId);

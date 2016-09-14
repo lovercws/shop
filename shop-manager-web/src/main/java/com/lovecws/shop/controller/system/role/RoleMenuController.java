@@ -53,9 +53,9 @@ public class RoleMenuController {
 				}
 			}
 			if(flag){
-				ztree.add(new ZTreeBean(menuId, menu.getParentMenuId(), menu.getMenuName(), true, menu.getMenuIcon(), true));
+				ztree.add(new ZTreeBean(menuId.toString(), menu.getParentMenuId().toString(), menu.getMenuName(), true, menu.getMenuIcon(), true));
 			}else{
-				ztree.add(new ZTreeBean(menuId, menu.getParentMenuId(), menu.getMenuName(), true, menu.getMenuIcon(), false));
+				ztree.add(new ZTreeBean(menuId.toString(), menu.getParentMenuId().toString(), menu.getMenuName(), true, menu.getMenuIcon(), false));
 			}
 		}
 		System.out.println(ztree);

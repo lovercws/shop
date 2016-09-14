@@ -8,59 +8,39 @@ body, div, ul, li ,img{
 a, a:HOVER, a:LINK {
 	text-decoration: none;
 }
-.permission-searchform{
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    vertical-align: middle;
+}
+.searchform{
    margin-top:-20px;
    height:40px;
 }
-.permission-searchform label{
+.searchform label{
    margin-top:8px;
 }
-.permission-permissionbar{
+.content-toolbar{
    float:right;
    margin-right:20px;
 }
 .btn-group .btn + .btn{
    margin-left:10px;
 }
-.permission-body{
-   height:670px;
-}
-.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
-    vertical-align: middle;
-}
-#permissionDeleteModal .modal-footer{
-   text-align: center;
-}
-#permissionDeleteModal{
-   margin-left:-200px;
-   margin-top:200px;
-   max-height:160px;
-   overflow:hidden;
-}
 </style>
 <script type="text/javascript">
-$(function(){
-    $('#permissionModal').on('hide.bs.modal',function() {
-         $(this).removeData("bs.modal");
-    });
-    $('#permissionDeleteModal').on('hide.bs.modal',function() {
-         $(this).removeData("bs.modal");
-    });
-});
 function deletePermission(permissionId,qmenuId,qpermissionCode,qpermissionName,currentPage){
-   $("#sureDelete").attr("href","$request.getContextPath()/system/permission/delete?permissionId="+permissionId+"&qmenuId="+qmenuId+"&qpermissionCode="+qpermissionCode+"&qpermissionName="+qpermissionName+"&currentPage="+currentPage);
-   $('#permissionDeleteModal').modal({
+   $("#deleteForm").attr("action","$request.getContextPath()/system/permission/delete?permissionId="+permissionId+"&qmenuId="+qmenuId+"&qpermissionCode="+qpermissionCode+"&qpermissionName="+qpermissionName+"&currentPage="+currentPage);
+   $('#deleteModal').modal({
         keyboard: true
     });
 }
 </script>
-<div class="permission-breadcrumb">
+<div class="breadcrumb">
 	<ol class="breadcrumb">
 	  <li><a href="#">系统管理</a></li>
 	  <li><a href="#">权限管理</a></li>
 	</ol>
 </div>
-<div class="permission-searchform container-fluid">
+<div class="searchform container-fluid">
 	<form class="form-inline" role="form" action="$request.getContextPath()/system/permission/list" method="get">
 	  <div class="form-group">
 	    <label for="qpermissionId" class="col-sm-4 control-label">父菜单</label>
@@ -96,14 +76,14 @@ function deletePermission(permissionId,qmenuId,qpermissionCode,qpermissionName,c
 	  </div>
 	</form>
 </div>
-<div class="permission-permissionbar">
+<div class="content-toolbar">
     <div class="btn-group">
-	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#permissionModal" data-backdrop="static" href="$request.getContextPath()/system/permission/add"><span class="glyphicon glyphicon-plus"></span>添加权限</button>
+	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/permission/add"><span class="glyphicon glyphicon-plus"></span>添加权限</button>
 	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span>导入权限</button>
 	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span>导出权限</button>
 	</div>
 </div>
-<div class="permission-body">
+<div class="content-body">
 	<table class="table table-hover table-bordered table-striped table-responsive">
 	  <thead>
 	    <tr>
@@ -124,8 +104,8 @@ function deletePermission(permissionId,qmenuId,qpermissionCode,qpermissionName,c
 	      <td>$!permission.permissionPath</td>
 	      <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!permission.createTime)</td>
 	      <td>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#permissionModal" data-backdrop="static" href="$request.getContextPath()/system/permission/view?permissionId=$!permission.permissionId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#permissionModal" data-backdrop="static" href="$request.getContextPath()/system/permission/edit?permissionId=$!permission.permissionId&qmenuId=$!qmenuId&qpermissionCode=$!qpermissionCode&qpermissionName=$!qpermissionName" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+	      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/permission/view?permissionId=$!permission.permissionId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
+	      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/permission/edit?permissionId=$!permission.permissionId&qmenuId=$!qmenuId&qpermissionCode=$!qpermissionCode&qpermissionName=$!qpermissionName" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
 	      	 <a class="btn btn-default" onclick="deletePermission('$!permission.permissionId','$!qmenuId','$!qpermissionCode','$!qpermissionName','$!pageBean.currentPage')" ><span class="glyphicon glyphicon-remove"></span>删除</a>
 	      </td>
 	    </tr>
@@ -134,26 +114,4 @@ function deletePermission(permissionId,qmenuId,qpermissionCode,qpermissionName,c
 	</table>
 </div>
 #parse("/common/layout/page.vm")
-<div class="modal fade" id="permissionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            </div>
-            <div class="modal-body"></div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="permissionDeleteModal" tabindex="-1" role="dialog" backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-		         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		         <h4 class="modal-title" id="myModalLabel">你确定要删除吗?</h4>
-		    </div>
-            <div class="modal-footer">
-                 <a id="sureDelete" class="btn btn-lg" href="">是</a>
-                 <button type="button" class="btn btn-lg" data-dismiss="modal">否</button>
-            </div>
-        </div>
-    </div>
-</div>
+#parse("/common/include/modal.vm")

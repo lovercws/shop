@@ -14,8 +14,8 @@ public class ZTreeBean implements Serializable {
 
 	private static final long serialVersionUID = -9218598443228659197L;
 
-	private Integer id;
-	private Integer pId;
+	private String id;
+	private String pId;
 	private String name;
 
 	private boolean open;// true false
@@ -29,14 +29,14 @@ public class ZTreeBean implements Serializable {
 		super();
 	}
 
-	public ZTreeBean(Integer id, Integer pId, String name) {
+	public ZTreeBean(String id, String pId, String name) {
 		super();
 		this.id = id;
 		this.pId = pId;
 		this.name = name;
 	}
 
-	public ZTreeBean(Integer id, Integer pId, String name, boolean open, String icon, boolean checked) {
+	public ZTreeBean(String id, String pId, String name, boolean open, String icon, boolean checked) {
 		super();
 		this.id = id;
 		this.pId = pId;
@@ -46,7 +46,7 @@ public class ZTreeBean implements Serializable {
 		this.checked = checked;
 	}
 
-	public ZTreeBean(Integer id, Integer pId, String name, boolean open, String url, String icon, boolean checked) {
+	public ZTreeBean(String id, String pId, String name, boolean open, String url, String icon, boolean checked) {
 		super();
 		this.id = id;
 		this.pId = pId;
@@ -57,7 +57,7 @@ public class ZTreeBean implements Serializable {
 		this.checked = checked;
 	}
 
-	public ZTreeBean(Integer id, Integer pId, String name, boolean open, String url, String icon, boolean checked,
+	public ZTreeBean(String id, String pId, String name, boolean open, String url, String icon, boolean checked,
 			List<ZTreeBean> children) {
 		super();
 		this.id = id;
@@ -70,19 +70,19 @@ public class ZTreeBean implements Serializable {
 		this.children = children;
 	}
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public Integer getpId() {
+	public String getpId() {
 		return pId;
 	}
 
-	public void setpId(Integer pId) {
+	public void setpId(String pId) {
 		this.pId = pId;
 	}
 

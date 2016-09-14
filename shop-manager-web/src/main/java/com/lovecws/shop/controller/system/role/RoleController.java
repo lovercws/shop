@@ -143,29 +143,10 @@ public class RoleController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value={"/delete"},method=RequestMethod.GET)
+	@RequestMapping(value={"/delete"},method=RequestMethod.DELETE)
 	public String delete(String roleId,String qroleCode,String qroleName,String currentPage,HttpServletRequest request){
 		roleService.deleteById(roleId);
 		return list(qroleCode, qroleName, currentPage, request);
 	}
 	
-	/**
-	 * 分配菜单
-	 * @param roleId
-	 * @return
-	 */
-	@RequestMapping(value={"/allowMenu"},method=RequestMethod.GET)
-	public String allowMenu(String roleId){
-		return "system/role/allowMenu";
-	}
-	
-	/**
-	 * 分配权限
-	 * @param roleId
-	 * @return
-	 */
-	@RequestMapping(value={"/allowPermission"},method=RequestMethod.GET)
-	public String allowPermission(String roleId){
-		return "system/role/allowPermission";
-	}
 }

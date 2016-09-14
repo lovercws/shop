@@ -51,22 +51,24 @@ public class RolePermissionController {
 		List<ZTreeBean> ztree=new ArrayList<ZTreeBean>();
 		//ztree菜单树
 		for (SysMenu sysMenu : selectedMenus) {
-			ztree.add(new ZTreeBean(sysMenu.getMenuId(), sysMenu.getParentMenuId(), sysMenu.getMenuName(), true, sysMenu.getMenuIcon(), true));
+			ztree.add(new ZTreeBean(sysMenu.getMenuId().toString(),sysMenu.getParentMenuId().toString(), sysMenu.getMenuName(), true, sysMenu.getMenuIcon(), true));
+			for (SysPermission sysPermission : allPermissions) {
+				//找到菜单下的权限
+				if(sysPermission.getMenuId()==sysMenu.getMenuId()){
+					//在判断这个权限是否被选中
+					Integer permissionId = sysPermission.getPermissionId();
+					boolean flag=false;
+					for (SysPermission selectedPermission : selectedPermissions) {
+						if(selectedPermission.getPermissionId()==permissionId){
+							flag=true;
+							break;
+						}
+					}
+					ztree.add(new ZTreeBean("p"+permissionId.toString(), sysPermission.getMenuId().toString(), sysPermission.getPermissionName(), true, null, flag));
+				}
+			}
 		}	
 		//当该角色没有分配菜单的时候 不准去分配权限
-		if(ztree.size()>0){
-			for (SysPermission sysPermission : allPermissions) {
-				Integer permissionId = sysPermission.getPermissionId();
-				boolean flag=false;
-				for (SysPermission selectedPermission : selectedPermissions) {
-					if(selectedPermission.getPermissionId()==permissionId){
-						flag=true;
-						break;
-					}
-				}
-				ztree.add(new ZTreeBean(permissionId+10000, sysPermission.getMenuId(), sysPermission.getPermissionName(), true, null, flag));
-			}
-		}
 		log.info(ztree);
 		return ztree;
 	}

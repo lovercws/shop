@@ -8,56 +8,39 @@ body, div, ul, li ,img{
 a, a:HOVER, a:LINK {
 	text-decoration: none;
 }
-.menu-searchform{
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+    vertical-align: middle;
+}
+.searchform{
    margin-top:-20px;
    height:40px;
 }
-.menu-searchform label{
+.searchform label{
    margin-top:8px;
 }
-.menu-menubar{
+.content-toolbar{
    float:right;
    margin-right:20px;
 }
 .btn-group .btn + .btn{
    margin-left:10px;
 }
-.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
-    vertical-align: middle;
-}
-#menuDeleteModal .modal-footer{
-   text-align: center;
-}
-#menuDeleteModal{
-   margin-left:-200px;
-   margin-top:200px;
-   max-height:160px;
-   overflow:hidden;
-}
 </style>
 <script type="text/javascript">
-$(function(){
-    $('#menuModal').on('hide.bs.modal',function() {
-         $(this).removeData("bs.modal");
-    });
-    $('#menuDeleteModal').on('hide.bs.modal',function() {
-         $(this).removeData("bs.modal");
-    });
-});
 function deleteMenu(menuId,qparentMenuId,qmenuCode,qmenuName,currentPage){
-   $("#sureDelete").attr("href","$request.getContextPath()/system/menu/delete?menuId="+menuId+"&qparentMenuId="+qparentMenuId+"&qmenuCode="+qmenuCode+"&qmenuName="+qmenuName+"&currentPage="+currentPage);
-   $('#menuDeleteModal').modal({
+   $("#deleteForm").attr("action","$request.getContextPath()/system/menu/delete?menuId="+menuId+"&qparentMenuId="+qparentMenuId+"&qmenuCode="+qmenuCode+"&qmenuName="+qmenuName+"&currentPage="+currentPage);
+   $('#deleteModal').modal({
         keyboard: true
     });
 }
 </script>
-<div class="menu-breadcrumb">
+<div class="breadcrumb">
 	<ol class="breadcrumb">
 	  <li><a href="#">系统管理</a></li>
 	  <li><a href="#">菜单管理</a></li>
 	</ol>
 </div>
-<div class="menu-searchform container-fluid">
+<div class="searchform container-fluid">
 	<form class="form-inline" role="form" action="$request.getContextPath()/system/menu/list" method="get">
 	  <div class="form-group">
 	    <label for="qparentMenuId" class="col-sm-4 control-label">父菜单</label>
@@ -93,14 +76,14 @@ function deleteMenu(menuId,qparentMenuId,qmenuCode,qmenuName,currentPage){
 	  </div>
 	</form>
 </div>
-<div class="menu-menubar">
+<div class="content-toolbar">
     <div class="btn-group">
-	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#menuModal" data-backdrop="static" href="$request.getContextPath()/system/menu/add"><span class="glyphicon glyphicon-plus"></span>添加菜单</button>
+	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/menu/add"><span class="glyphicon glyphicon-plus"></span>添加菜单</button>
 	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span>导入菜单</button>
 	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span>导出菜单</button>
 	</div>
 </div>
-<div class="menu-body">
+<div class="content-body">
 	<table class="table table-hover table-bordered table-striped table-responsive">
 	  <thead>
 	    <tr>
@@ -125,13 +108,13 @@ function deleteMenu(menuId,qparentMenuId,qmenuCode,qmenuName,currentPage){
 		      <td>$!menu.menuNum</td>
 		      <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!menu.createTime)</td>
 		      <td>
-		      	 <a class="btn btn-default" data-toggle="modal" data-target="#menuModal" data-backdrop="static" href="$request.getContextPath()/system/menu/view?menuId=$!menu.menuId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
-		      	 <a class="btn btn-default" data-toggle="modal" data-target="#menuModal" data-backdrop="static" href="$request.getContextPath()/system/menu/edit?menuId=$!menu.menuId&qparentMenuId=$!qparentMenuId&qmenuCode=$!qmenuCode&qmenuName=$!qmenuName&currentPage=$!pageBean.currentPage"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+		      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/menu/view?menuId=$!menu.menuId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
+		      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/menu/edit?menuId=$!menu.menuId&qparentMenuId=$!qparentMenuId&qmenuCode=$!qmenuCode&qmenuName=$!qmenuName&currentPage=$!pageBean.currentPage"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
 		      	 <a class="btn btn-default" data-toggle="modal" onclick="deleteMenu('$menu.menuId','$!qparentMenuId','$!qmenuCode','$!qmenuName','$!currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
 		         #if($menu.parentMenuId!=0)
-		      		<a class="btn btn-default" data-toggle="modal" data-target="#menuModal" data-backdrop="static" href="$request.getContextPath()/system/permission/permission?menuId=$!menu.menuId"><span class="glyphicon glyphicon-cog"></span>分配权限</a>
+		      		<a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/permission/permission?menuId=$!menu.menuId"><span class="glyphicon glyphicon-cog"></span>添加权限</a>
 		      	 #else
-		      	    <a class="btn btn-default" data-toggle="modal" data-target="#menuModal" data-backdrop="static" href="$request.getContextPath()/system/menu/leaf?parentMenuId=$!menu.menuId"><span class="glyphicon glyphicon-leaf"></span>叶子菜单</a>
+		      	    <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/menu/leaf?parentMenuId=$!menu.menuId"><span class="glyphicon glyphicon-leaf"></span>叶子菜单</a>
 		         #end
 		      </td>
 		   </tr>
@@ -140,26 +123,4 @@ function deleteMenu(menuId,qparentMenuId,qmenuCode,qmenuName,currentPage){
 	</table>
 </div>
 #parse("/common/layout/page.vm")
-<div class="modal fade" id="menuModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            </div>
-            <div class="modal-body"></div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="menuDeleteModal" tabindex="-1" role="dialog" backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-		         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		         <h4 class="modal-title" id="myModalLabel">你确定要删除吗?</h4>
-		    </div>
-            <div class="modal-footer">
-                 <a id="sureDelete" class="btn btn-lg" href="">是</a>
-                 <button type="button" class="btn btn-lg" data-dismiss="modal">否</button>
-            </div>
-        </div>
-    </div>
-</div>
+#parse("/common/include/modal.vm")

@@ -251,4 +251,14 @@ public class SysUser implements Serializable {
 		this.area = area;
 	}
 
+	@Override
+	public String toString() {
+		return "SysUser [userId=" + userId + ", userStatus=" + userStatus + ", creator=" + creator + ", createTime="
+				+ createTime + ", editor=" + editor + ", editTime=" + editTime + ", remark=" + remark + ", userName="
+				+ userName + ", password=" + password + ", salt=" + salt + ", realName=" + realName + ", nickName="
+				+ nickName + ", type=" + type + ", email=" + email + ", emailActive=" + emailActive + ", phone=" + phone
+				+ ", phoneActive=" + phoneActive + ", avator=" + avator + ", sex=" + sex + ", birthday=" + birthday
+				+ ", detailArea=" + detailArea + ", province=" + province + ", city=" + city + ", area=" + area + "]";
+	}
+
 }

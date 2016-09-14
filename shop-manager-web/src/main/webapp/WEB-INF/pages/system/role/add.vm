@@ -1,6 +1,6 @@
 <style type="text/css">
 .modal-content{
-   height:450px;
+   height:580px;
    margin-left:-100px;
 }
 </style>

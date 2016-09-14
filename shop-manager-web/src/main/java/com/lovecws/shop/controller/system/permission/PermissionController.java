@@ -174,7 +174,7 @@ public class PermissionController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value={"/delete"},method=RequestMethod.GET)
+	@RequestMapping(value={"/delete"},method=RequestMethod.DELETE)
 	public String delete(String permissionId,String qmenuId,String qpermissionCode,String qpermissionName,String currentPage,HttpServletRequest request){
 		log.info("删除权限[permission="+permissionId+"]");
 		permissionService.deletePermissionById(permissionId);

@@ -8,43 +8,40 @@ body, div, ul, li ,img{
 a, a:HOVER, a:LINK {
 	text-decoration: none;
 }
-.user-searchform{
+.searchform{
    margin-top:-20px;
    height:40px;
 }
-.user-searchform label{
+.searchform label{
    margin-top:8px;
 }
-.user-userbar{
+.content-toolbar{
    float:right;
    margin-right:20px;
 }
 .btn-group .btn + .btn{
    margin-left:10px;
 }
-.user-body{
-   height:670px;
-}
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     vertical-align: middle;
 }
-.user-searchform .form-group label{
+.searchform .form-group label{
     padding-right:0px;
 }
-.user-searchform .form-group div{
+.searchform .form-group div{
     padding-left:0px;
 }
-.user-searchform .form-group{
+.searchform .form-group{
     padding-left:10px;
 }
 </style>
-<div class="user-breadcrumb">
+<div class="breadcrumb">
 	<ol class="breadcrumb">
 	  <li><a href="#">系统管理</a></li>
 	  <li><a href="#">用户管理</a></li>
 	</ol>
 </div>
-<div class="user-searchform container-fluid">
+<div class="searchform container-fluid">
 	<form class="form-inline" user="form">
 	  <div class="form-group">
 	    <label for="firstname" class="col-sm-4 control-label">用户名称</label>
@@ -77,14 +74,14 @@ a, a:HOVER, a:LINK {
 	  </div>
 	</form>
 </div>
-<div class="user-userbar">
+<div class="content-toolbar">
     <div class="btn-group">
-	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#userModal-add" data-backdrop="static" href="$request.getContextPath()/system/user/add"><span class="glyphicon glyphicon-plus"></span>添加用户</button>
+	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/user/add"><span class="glyphicon glyphicon-plus"></span>添加用户</button>
 	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span>导入用户</button>
 	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span>导出用户</button>
 	</div>
 </div>
-<div class="user-body">
+<div class="content-body">
 	<table class="table table-hover table-bordered table-striped table-responsive">
 	  <thead>
 	    <tr>
@@ -100,40 +97,14 @@ a, a:HOVER, a:LINK {
 	      <td>Bangalore</td>
 	      <td>560001</td>
 	      <td>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#userModal-view" data-backdrop="static" href="$request.getContextPath()/system/user/view"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#userModal-edit" data-backdrop="static" href="$request.getContextPath()/system/user/edit" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#userModal" data-backdrop="static" href="$request.getContextPath()/system/user/delete" ><span class="glyphicon glyphicon-remove"></span>删除</a>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#userModal-view" data-backdrop="static" href="$request.getContextPath()/system/userRole/alloRole"><span class="glyphicon glyphicon-eye-open"></span>分配角色</a>
+	      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/user/view"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
+	      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/user/edit" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+	      	 <a class="btn btn-default" data-toggle="modal" data-target="#deleteModal" data-backdrop="static" href="$request.getContextPath()/system/user/delete" ><span class="glyphicon glyphicon-remove"></span>删除</a>
+	      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/userRole/alloRole"><span class="glyphicon glyphicon-eye-open"></span>分配角色</a>
 	      </td>
 	    </tr>
 	  </tbody>
 	</table>
 </div>
 #parse("/common/layout/page.vm")
-<div class="modal fade" id="userModal-add" tabindex="-1" user="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            </div>
-            <div class="modal-body"></div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="userModal-view" tabindex="-1" user="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            </div>
-            <div class="modal-body"></div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="userModal-edit" tabindex="-1" user="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-            </div>
-            <div class="modal-body"></div>
-        </div>
-    </div>
-</div>
+#parse("/common/include/modal.vm")
