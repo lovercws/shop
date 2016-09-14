@@ -23,6 +23,7 @@ public class SysRoleMenuServiceImpl implements SysRoleMenuService{
 
 	@Autowired
 	private SysRoleMenuDao roleMenuDao;
+	
 	@Override
 	@Transactional(readOnly=false)
 	public void saveRoleMenu(String roleId, String menuIds,String creator) {

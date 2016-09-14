@@ -35,6 +35,31 @@ public class SysRolePermission implements Serializable {
 	private Integer roleId; // 角色ID
 	private Integer permissionId;// 权限ID
 
+	public SysRolePermission() {
+		super();
+	}
+
+	public SysRolePermission(String rolePermissionStatus, String creator, Date createTime, Integer roleId,
+			Integer permissionId) {
+		super();
+		this.rolePermissionStatus = rolePermissionStatus;
+		this.creator = creator;
+		this.createTime = createTime;
+		this.roleId = roleId;
+		this.permissionId = permissionId;
+	}
+
+	public SysRolePermission(Integer rolePermissionId, String rolePermissionStatus, String creator, Date createTime,
+			Integer roleId, Integer permissionId) {
+		super();
+		this.rolePermissionId = rolePermissionId;
+		this.rolePermissionStatus = rolePermissionStatus;
+		this.creator = creator;
+		this.createTime = createTime;
+		this.roleId = roleId;
+		this.permissionId = permissionId;
+	}
+
 	public Integer getRolePermissionId() {
 		return rolePermissionId;
 	}

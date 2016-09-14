@@ -129,4 +129,32 @@
 		</set>
 		where role_permission_id = #{rolePermissionId}
 	</update>
+	
+	<!-- 根据角色id删除角色权限-->
+	<delete id="batchDeleteByColumn" parameterType="map">
+		delete from sys_role_permission
+		<where>
+			<if test="roleId!=null">
+				and role_id=#{roleId}
+			</if>
+		</where>
+	</delete>
+	
+	<!-- 批量添加 -->
+	<insert id="batchInsert" parameterType="SysRolePermission"
+		useGeneratedKeys="true" keyProperty="rolePermissionId">
+		insert into sys_role_Permission
+		(role_permission_status,creator,create_time,role_id,permission_id)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.rolePermissionStatus},
+			#{item.creator},
+			#{item.createTime},
+			#{item.roleId},
+			#{item.permissionId}
+			)
+		</foreach>
+	</insert>
 </mapper>

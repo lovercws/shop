@@ -80,6 +80,12 @@
     <delete id="deleteByPrimaryKey" parameterType="map">
        delete from sys_permission where permission_id=#{permissionId}
     </delete>
+    
+    <!-- 根据角色id 获取权限列表 -->
+    <select id="getSysPermissionByRoleId" parameterType="map" resultMap="SysPermissionResultMap">
+        select p.permission_id,p.permission_code,p.permission_name,p.permission,p.menu_id,p.permission_path
+		from sys_role_permission rp inner join sys_permission p on(rp.permission_id=p.permission_id) where rp.role_id=#{roleId} and p.permission_status=#{permissionStatus}
+    </select>
 
 	<!-- 插入权限-->
 	<insert id="insert" parameterType="SysPermission" useGeneratedKeys="true"

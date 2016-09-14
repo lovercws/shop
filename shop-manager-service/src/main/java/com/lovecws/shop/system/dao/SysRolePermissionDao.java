@@ -1,5 +1,8 @@
 package com.lovecws.shop.system.dao;
 
-public interface SysRolePermissionDao {
+import com.lovecws.common.core.dao.BaseDao;
+import com.lovecws.shop.system.entity.SysRolePermission;
+
+public interface SysRolePermissionDao extends BaseDao<SysRolePermission>{
 
 }

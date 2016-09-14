@@ -27,7 +27,7 @@ $(function(){
 </div>
 
 ###删除提醒modal
-<div class="modal fade" id="deletePromptModal" tabindex="-1" role="dialog" backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -35,20 +35,23 @@ $(function(){
 		         <h4 class="modal-title" id="myModalLabel">你确定要删除吗?</h4>
 		    </div>
             <div class="modal-footer">
-                 <a id="sureDelete" class="btn btn-lg" href="">是</a>
-                 <button type="button" class="btn btn-lg" data-dismiss="modal">否</button>
+                 <form id="deleteForm" action="$deleteFormAction" method="post">
+		             <input type="hidden" name="_method" value="delete">
+			         <button type="submit" class="btn btn-lg">是</button>
+			         <button type="button" class="btn btn-lg" data-dismiss="modal">否</button>
+		         </form>
             </div>
         </div>
     </div>
 </div>
 
-###删除成功modal
-<div class="modal fade" id="deleteSuccessModal" tabindex="-1" role="dialog" backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+###操作成功modal
+<div class="modal fade" id="operationSuccessModal" tabindex="-1" role="dialog" backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
 		         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		         <h4 class="modal-title" id="myModalLabel">删除信息</h4>
+		         <h4 class="modal-title" id="myModalLabel">操作信息</h4>
 		    </div>
 		    <div class="modal-body">
 		         <h4 class="modal-title" id="myModalLabel">操作成功</h4>
@@ -60,13 +63,13 @@ $(function(){
     </div>
 </div>
 
-###删除失败modal
-<div class="modal fade" id="deleteFailureModal" tabindex="-1" role="dialog" backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+###操作失败modal
+<div class="modal fade" id="operationFailureModal" tabindex="-1" role="dialog" backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
 		         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		         <h4 class="modal-title" id="myModalLabel">删除信息</h4>
+		         <h4 class="modal-title" id="myModalLabel">操作信息</h4>
 		    </div>
 		    <div class="modal-body">
 		         <h4 class="modal-title" id="myModalLabel">操作失败，请联系管理员</h4>

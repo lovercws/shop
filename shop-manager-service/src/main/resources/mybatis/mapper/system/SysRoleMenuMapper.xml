@@ -71,11 +71,11 @@
 
 	<!-- 根据角色id删除角色菜单 -->
 	<delete id="batchDeleteByColumn" parameterType="map">
-		delete from sys_role_menu 
+		delete from sys_role_menu
 		<where>
-		   <if test="roleId!=null">
-		       and role_id=#{roleId} 
-		   </if>
+			<if test="roleId!=null">
+				and role_id=#{roleId}
+			</if>
 		</where>
 	</delete>
 
@@ -117,6 +117,23 @@
 				#{menuId},
 			</if>
 		</trim>
+	</insert>
+	<!-- 批量添加 -->
+	<insert id="batchInsert" parameterType="SysRoleMenu"
+		useGeneratedKeys="true" keyProperty="roleMenuId">
+		insert into sys_role_menu
+		(role_menu_status,creator,create_time,role_id,menu_id)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.roleMenuStatus},
+			#{item.creator},
+			#{item.createTime},
+			#{item.roleId},
+			#{item.menuId}
+			)
+		</foreach>
 	</insert>
 
 	<!-- 更改角色菜单信息 -->

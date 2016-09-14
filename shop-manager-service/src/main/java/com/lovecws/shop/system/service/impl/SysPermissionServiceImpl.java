@@ -71,4 +71,12 @@ public class SysPermissionServiceImpl implements SysPermissionService{
 	public void deletePermissionById(String permissionId) {
 		permissionDao.delete(permissionId);
 	}
+
+	@Override
+	public List<SysPermission> getSysPermissionByRoleId(String roleId, String permissionStatus) {
+		Map<String, Object> paramMap=new HashMap<String, Object>();
+		paramMap.put("roleId", roleId);
+		paramMap.put("permissionStatus", permissionStatus);
+		return permissionDao.selectList("getSysPermissionByRoleId", paramMap);
+	}
 }

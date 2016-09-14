@@ -56,4 +56,12 @@ public interface SysPermissionService {
 	 */
 	public void deletePermissionById(String permissionId);
 
+	/**
+	 * 根据角色获取权限列表
+	 * @param roleId 角色id
+	 * @param permissionStatus 权限状态
+	 * @return
+	 */
+	public List<SysPermission> getSysPermissionByRoleId(String roleId, String permissionStatus);
+
 }

@@ -28,10 +28,7 @@ a, a:HOVER, a:LINK {
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     vertical-align: middle;
 }
-#deleteModal .modal-footer{
-   text-align: center;
-}
-#allowMenuModal .modal-footer{
+.modal-footer{
    text-align: center;
 }
 #deleteModal{
@@ -50,12 +47,14 @@ $(function(){
     	$(this).removeData('bs.modal');
 	});
 });
+##删除角色
 function deleteRole(roleId,qroleCode,qroleName,currentPage){
    $("#sureDelete").attr("href","$request.getContextPath()/system/role/delete?roleId="+roleId+"&qroleCode="+qroleCode+"&qroleName="+qroleName+"&currentPage="+currentPage);
    $('#deleteModal').modal({
         keyboard: true
     });
 }
+##ztree公用配置
 var zTreeObj;
 var setting = {
     view: {  
@@ -78,6 +77,7 @@ var setting = {
 	}
 };   
 var ztree=$.fn.zTree
+##ztree分配菜单
 function allowMenu(roleId){
     $("#roleId").val(roleId);
     $.get("$request.getContextPath()/system/rolemenu/tree?roleId="+roleId,function(data){
@@ -85,15 +85,35 @@ function allowMenu(roleId){
     	  $('#allowMenuModal').modal({});
     });
 }
+##获取已经选择的菜单
 function getAllSelectedMenu(){
     var menuIds=[];
     var nodes=zTreeObj.getCheckedNodes();
     for(var i=0;i<nodes.length;i++){
-       console.log(nodes[i]);
        menuIds.push(nodes[i].id);
     }
     console.log(menuIds.join(','));
     $("#menuIds").val(menuIds.join(','));
+}
+##ztree分配权限
+function allowPermission(roleId){
+    $("#_roleId").val(roleId);
+    $.get("$request.getContextPath()/system/rolepermission/tree?roleId="+roleId,function(data){
+          zTreeObj = ztree.init($("#permissionTree"), setting, data);
+    	  $('#allowPermissionModal').modal({});
+    });
+}
+##获取已经选择的权限
+function getAllSelectedPermission(){
+	var permissionIds=[];
+    var nodes=zTreeObj.getCheckedNodes();
+    for(var i=0;i<nodes.length;i++){
+       var node=nodes[i];
+       if(node.children&&node.children.length>0){
+	       permissionIds.push(node.id);
+       }
+    }
+    $("#permissionIds").val(permissionIds.join(','));
 }
 </script>
 <div class="role-breadcrumb">
@@ -160,7 +180,7 @@ function getAllSelectedMenu(){
 	      	 <a class="btn btn-default" data-toggle="modal" data-target="#roleModal" data-backdrop="static" href="$request.getContextPath()/system/role/edit?roleId=$!role.roleId&qroleCode=$!qroleCode&qroleName=$!qroleName&currentPage=$!pageBean.currentPage"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
 	      	 <a class="btn btn-default" data-toggle="modal" onclick="deleteRole('$!role.roleId','$!qroleCode','$!qroleName','$!pageBean.currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
 	      	 <a class="btn btn-default" href="javascript:allowMenu('$role.roleId')"><span class="glyphicon glyphicon-remove"></span>分配菜单</a>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#roleModal" data-backdrop="static" href="$request.getContextPath()/system/role/allowPermission?roleId=$!role.roleId" ><span class="glyphicon glyphicon-remove"></span>分配权限</a>
+	      	 <a class="btn btn-default" href="javascript:allowPermission('$role.roleId')"><span class="glyphicon glyphicon-remove"></span>分配权限</a>
 	      </td>
 	    </tr>
 	    #end
@@ -168,6 +188,7 @@ function getAllSelectedMenu(){
 	</table>
 </div>
 #parse("/common/layout/page.vm")
+#parse("/common/include/modal.vm")
 <div class="modal fade" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -207,6 +228,28 @@ function getAllSelectedMenu(){
 		             <input type="hidden" id="menuIds" name="menuIds" value="">
 		             <input type="hidden" id="roleId" name="roleId" value="">
 			         <button type="submit" onclick="getAllSelectedMenu()" class="btn btn-lg">保存</button>
+			         <button type="button" class="btn btn-lg" data-dismiss="modal">关闭</button>
+		         </form>
+		     </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="allowPermissionModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+             <div class="modal-header">
+		         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		         <h4 class="modal-title" id="myModalLabel">分配权限</h4>
+		     </div>
+		     <div class="modal-body">
+		   		  <ul id="permissionTree" class="ztree" style="-moz-user-select: none;">
+		     </div>
+		     <div class="modal-footer">
+		         <form action="$request.getContextPath()/system/rolepermission/save" method="post">
+		             <input type="hidden" name="_method" value="put">
+		             <input type="hidden" id="permissionIds" name="permissionIds" value="">
+		             <input type="hidden" id="_roleId" name="roleId" value="">
+			         <button type="submit" onclick="getAllSelectedPermission()" class="btn btn-lg">保存</button>
 			         <button type="button" class="btn btn-lg" data-dismiss="modal">关闭</button>
 		         </form>
 		     </div>
