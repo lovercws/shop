@@ -5,19 +5,21 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.lovecws.common.core.utils.UploadUtil;
+import com.lovecws.common.fdfs.service.FDFSAttachmentService;
 
 @Controller
 @RequestMapping("/common/upload")
 public class ImageUploadController {
 
-	//@Autowired
-	//FDFSAttachmentService attachmentService;
+	@Autowired
+	FDFSAttachmentService attachmentService;
 	
 	@RequestMapping(value = "/img", method = RequestMethod.POST)
 	@ResponseBody
@@ -27,7 +29,7 @@ public class ImageUploadController {
 		try {
 			List<String> uploadImage = UploadUtil.uploadImage(request);
 			for (String filePath : uploadImage) {
-				//upload = attachmentService.upload(filePath);
+				upload = attachmentService.upload(filePath);
 			}
 			System.out.println(upload);
 		} catch (IllegalStateException e) {

@@ -108,7 +108,7 @@ function deleteDDL(ddlId,qddlCode,qddlKey,currentPage){
 		      <td>
 		      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/ddl/view?ddlId=$ddl.ddlId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
 		      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/ddl/edit?ddlId=$ddl.ddlId&currentPage=$!pageBean.currentPage&qddlCode=$!qddlCode&&qddlKey=$!qddlKey" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-		      	 <a class="btn btn-default" data-toggle="modal" onclick="deleteDDL('$ddl.ddlId','$!qddlCode','$!qddlKey','$!currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
+		      	 <a class="btn btn-default" data-toggle="modal" onclick="deleteDDL('$ddl.ddlId','$!qddlCode','$!qddlKey','$!pageBean.currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
 		      </td>
 		   </tr>
 	    #end

@@ -58,4 +58,11 @@ public interface SysUserService {
 	 */
 	public void deleteById(String userId);
 
+	/**
+	 * 根据登录名称获取用户信息
+	 * @param loginName 用户名称
+	 * @return
+	 */
+	public SysUser getUserByUserName(String loginName);
+
 }

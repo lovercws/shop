@@ -47,7 +47,9 @@ $(function() {
         'auto': true,
         'multi': true,
         onUploadSuccess:function(file,data,response){
-            $("#avatorImg").addClass("show")
+            $("#avatorImg").addClass("show");
+            $("#avator_img").val(data);
+            $("#avatorImg").attr('src','http://192.168.16.129/'+data);
         }
     });
 });    
@@ -58,7 +60,9 @@ $(function() {
          <h4 class="modal-title">添加用户</h4>
      </div>
      <div class="modal-body">
-        <form class="form-horizontal" role="form" action="/" method="post">
+        <form class="form-horizontal" role="form" action="$request.getContextPath()/system/user/save" method="post">
+		  <input type="hidden" name="_method" value="put">
+		  <input id="avator_img" type="hidden" name="avator" value="">
 		  <div class="form-group">
 		    <label class="col-sm-2 control-label">用户名称</label>
 		    <div class="col-sm-8">
@@ -93,18 +97,18 @@ $(function() {
 		    <label class="col-sm-2 control-label">用户类型</label>
 		    <div class="col-sm-4">
 		       <select class="form-control selectpicker" name="type">
-			      <option>超级管理员</option>
-			      <option>普通操作员</option>
+			      <option value="admin">超级管理员</option>
+			      <option value="user">普通操作员</option>
 			   </select>
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label class="col-sm-2 control-label">性别</label>
-		    <div class="col-sm-4 radio-form" name="sex">
-				 <select class="form-control selectpicker">
-			      <option>男</option>
-			      <option>女</option>
-			      <option>未知</option>
+		    <div class="col-sm-4 radio-form">
+				 <select class="form-control name="sex" selectpicker">
+			      <option value="m">男</option>
+			      <option value="f">女</option>
+			      <option value="u">未知</option>
 			   </select>
 		    </div>
 		  </div>
@@ -112,7 +116,7 @@ $(function() {
 		    <label  class="col-sm-2 control-label">生日</label>
 		    <div class="col-sm-4">
 		      <div class='input-group date' id='datetimepicker'>
-                    <input type='text' class="form-control"/>
+                    <input type='text' class="form-control" name="birthday"/>
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span>
@@ -134,18 +138,18 @@ $(function() {
 		  <div class="form-group">
 		    <label  class="col-sm-2 control-label">头像</label>
 		    <div class="col-sm-10">
-		      <input id="file_upload" name="avator" type="file" multiple="true" placeholder="请输入用户头像">
+		      <input id="file_upload" type="file" multiple="true" placeholder="请输入用户头像">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <div class="col-sm-offset-2 col-sm-10">
-		      <img src="$!user.avator" id="avatorImg" class="img-responsive form-control img-thumbnail" name="avator" style="height:300px;display:none">
+		      <img id="avatorImg" class="img-responsive form-control img-thumbnail" style="height:300px;display:none">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label class="col-sm-2 control-label">备注</label>
 		    <div class="col-sm-10">
-		      <textarea rows="5" class="form-control" name="remark" value="$!user.remark" placeholder="用户描述信息"></textarea>
+		      <textarea rows="5" class="form-control" name="remark" placeholder="用户描述信息"></textarea>
 		    </div>
 		  </div>
 		  <div class="form-group">

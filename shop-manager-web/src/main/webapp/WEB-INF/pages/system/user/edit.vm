@@ -1,14 +1,17 @@
+<script src="$request.getContextPath()/resources/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="$request.getContextPath()/resources/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<link href="$request.getContextPath()/resources/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="$request.getContextPath()/resources/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript" src="$request.getContextPath()/resources/uploadify/uploadify.css"></script>
 <style type="text/css">
 .modal-content{
-   overflow: auto;
    height:600px;
+   margin-left:-100px;
 }
-.modal-footer{
-   float:left;
-   margin-left:320px;
-}
-.modal-footer button{
-   width:100px;
+.modal-content .modal-body{
+   overflow: auto;
+   height:500px;
 }
 .radio-form{
    margin-top:6px;
@@ -16,122 +19,149 @@
 .modal-body .form-group label{
    text-align:right;
 }
+.show{
+   display: block;
+   visibility: visible;
+}
 </style>
 <script type="text/javascript">
-function selectIcon(){
-   window.open('$request.getContextPath()/common/component/icon','newwindow','height=600,width=800,top=200,left=800,toolbar=no,menubar=no,scrollbars=yes, resizable=no,location=no, status=no');
-}
+$(function() {
+    $('#datetimepicker').datepicker({
+      viewMode: 'years',
+      language:  'zh',
+      autoclose: 1,
+      language:  'zh-CN',
+      format: 'yyyy-mm-dd',  
+      todayHighlight: 1 
+    }).on('changeDate', function (ev) {  
+            $(this).datetimepicker('hide');  
+    });
+    $("#file_upload").uploadify({
+        'swf':'$request.getContextPath()/resources/uploadify/uploadify.swf',
+        'uploader':'$request.getContextPath()/common/upload/img',
+        'buttonText': '上传图片',
+        'fileTypeDesc': 'Image Files',
+        'fileTypeExts': '*.gif; *.jpg; *.png',
+        'height':30,
+        'width':120,
+        'auto': true,
+        'multi': true,
+        onUploadSuccess:function(file,data,response){
+            $("#avatorImg").addClass("show");
+            $("#avator_img").val(data);
+            $("#avatorImg").attr('src','http://192.168.16.129/'+data);
+        }
+    });
+});    
 </script>
 <div class="modal-content">
      <div class="modal-header">
          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-         <h4 class="modal-title" id="myModalLabel">编辑用户</h4>
+         <h4 class="modal-title">编辑用户</h4>
      </div>
      <div class="modal-body">
-        <form class="form-horizontal" role="form">
+        <form class="form-horizontal" role="form" action="$request.getContextPath()/system/user/update" method="post">
+		  <input id="avator_img" type="hidden" name="avator" value="">
+		  <input type="hidden" name="userId" value="$!user.userId">
+		  <input type="hidden" name="quserName" value="$!quserName">
+		  <input type="hidden" name="qnickName" value="$!qnickName">
+		  <input type="hidden" name="qemail" value="$!qemail">
+		  <input type="hidden" name="qphone" value="$!qphone">
+		  <input type="hidden" name="currentPage" value="$!currentPage">
 		  <div class="form-group">
-		    <label for="firstname" class="col-sm-2 control-label">用户名称</label>
+		    <label class="col-sm-2 control-label">用户名称</label>
 		    <div class="col-sm-8">
-		      <input type="text" class="form-control"  placeholder="请输入用户名称" required autofocus>
+		      <input type="text" class="form-control" name="userName" value="$!user.userName" placeholder="请输入用户名称" required autofocus>
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label  class="col-sm-2 control-label">用户昵称</label>
+		    <label class="col-sm-2 control-label">用户昵称</label>
 		    <div class="col-sm-8">
-		      <input type="text" class="form-control"  placeholder="请输入用户昵称" required>
+		      <input type="text" class="form-control" name="nickName" value="$!user.nickName" placeholder="请输入用户昵称" required>
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label for="firstname" class="col-sm-2 control-label">用户密码</label>
+		    <label class="col-sm-2 control-label">用户密码</label>
 		    <div class="col-sm-8">
-		      <input type="text" class="form-control"  placeholder="请输入用户密码" required autofocus>
+		      <input type="text" class="form-control" name="password" value="" placeholder="************" required autofocus>
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label for="firstname" class="col-sm-2 control-label">再次密码</label>
+		    <label class="col-sm-2 control-label">邮件</label>
 		    <div class="col-sm-8">
-		      <input type="text" class="form-control"  placeholder="请再次输入用户密码" required autofocus>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label  class="col-sm-2 control-label">邮件</label>
-		    <div class="col-sm-8">
-		      <input type="text" class="form-control"  placeholder="请输入邮件">
+		      <input type="text" class="form-control" name="email" value="$!user.email" placeholder="请输入邮件">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label  class="col-sm-2 control-label">手机号</label>
 		    <div class="col-sm-8">
-		      <input type="text" class="form-control"  placeholder="请输入手机号">
+		      <input type="text" class="form-control" name="phone" value="$!user.phone" placeholder="请输入手机号">
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label  class="col-sm-2 control-label">用户类型</label>
+		    <label class="col-sm-2 control-label">用户类型</label>
 		    <div class="col-sm-4">
-		       <select class="form-control selectpicker">
-			      <option>超级管理员</option>
-			      <option>普通操作员</option>
+		       <select class="form-control selectpicker" name="type">
+			      <option value="admin">超级管理员</option>
+			      <option value="user">普通操作员</option>
 			   </select>
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label  class="col-sm-2 control-label">性别</label>
+		    <label class="col-sm-2 control-label">性别</label>
 		    <div class="col-sm-4 radio-form">
-				 <select class="form-control selectpicker">
-			      <option>男</option>
-			      <option>女</option>
-			      <option>未知</option>
-			   </select>
-		    </div>
-		  </div>
-		  <div class="form-group">
-		    <label  class="col-sm-2 control-label">允许登录</label>
-		    <div class="col-sm-4 radio-form">
-				 <select class="form-control selectpicker">
-			      <option>是</option>
-			      <option>否</option>
+				 <select class="form-control name="sex" selectpicker">
+			      <option value="m">男</option>
+			      <option value="f">女</option>
+			      <option value="u">未知</option>
 			   </select>
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label  class="col-sm-2 control-label">生日</label>
-		    <div class="col-sm-10">
-		      <input type="datetime" class="form-control"  placeholder="请输入用户生日">
+		    <div class="col-sm-4">
+		      <div class='input-group date' id='datetimepicker'>
+                    <input type='text' class="form-control" name="birthday"/>
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <label  class="col-sm-2 control-label">省</label>
+		    <label class="col-sm-2 control-label">省</label>
 		    <div class="col-sm-3">
-		      <input type="datetime" class="form-control"  placeholder="请输入省">
+		      <input type="text" class="form-control" name="province" value="$!user.province" placeholder="请输入省">
 		    </div>
 		    <div class="col-sm-3">
-		      <input type="datetime" class="form-control"  placeholder="请输入市">
+		      <input type="text" class="form-control" name="city" value="$!user.city" placeholder="请输入市">
 		    </div>
 		    <div class="col-sm-3">
-		      <input type="datetime" class="form-control"  placeholder="请输入区">
+		      <input type="text" class="form-control" name="area" value="$!user.area" placeholder="请输入区">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label  class="col-sm-2 control-label">头像</label>
 		    <div class="col-sm-10">
-		      <input type="file" class="form-control"  placeholder="请输入用户头像">
+		      <input id="file_upload" type="file" multiple="true" placeholder="请输入用户头像">
 		    </div>
 		  </div>
 		  <div class="form-group">
-		    <div class="col-sm-offset-2 col-sm-10">
-		      <img src="" class="img-responsive form-control img-thumbnail" alt="Responsive image" style="height:300px;">
+		    <label  class="col-sm-2 control-label">头像</label>
+		    <div class="col-sm-10">
+		      <img src="http://192.168.16.129/$!user.avator" id="avatorImg" width="500px">
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <label class="col-sm-2 control-label">备注</label>
 		    <div class="col-sm-10">
-		      <textarea rows="5" class="form-control"   placeholder="用户描述信息"></textarea>
+		      <textarea rows="5" class="form-control" name="remark" placeholder="用户描述信息">$!user.remark</textarea>
 		    </div>
 		  </div>
 		  <div class="form-group">
 		    <div class="col-sm-offset-4 col-sm-8">
+		        <button type="submit" class="btn btn-lg">保存</button>
 		        <button type="button" class="btn btn-lg" data-dismiss="modal">关闭</button>
-          		<button type="submit" class="btn btn-lg">保存</button>
 		    </div>
 		  </div>
 		</form>

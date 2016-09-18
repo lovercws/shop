@@ -8,59 +8,47 @@ body, div, ul, li ,img{
 a, a:HOVER, a:LINK {
 	text-decoration: none;
 }
-.log-logbar{
-   float:left;
-   margin-right:20px;
-   margin-top:0px;
-}
 .btn-group .btn + .btn{
    margin-left:10px;
-}
-.log-body{
-   height:670px;
 }
 .table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
     vertical-align: middle;
 }
-.log-searchform{
+.searchform{
    margin-top:-20px;
    height:40px;
 }
-.log-searchform label{
+.searchform label{
    margin-top:8px;
-   padding-right:0px;
-   text-align:right;
-   float:left;
 }
 </style>
+<script type="text/javascript">
+##删除角色
+function deleteUserLog(userLogId,startDate,endDate,currentPage){
+   $("#deleteForm").attr("action","$request.getContextPath()/system/log/delete?userLogId="+userLogId+"&startDate="+startDate+"&endDate="+endDate+"&currentPage="+currentPage);
+   $('#deleteModal').modal({
+        keyboard: true
+    });
+}
+</script>
 <div class="log-breadcrumb">
 	<ol class="breadcrumb">
 	  <li><a href="#">系统管理</a></li>
 	  <li><a href="#">日志管理</a></li>
 	</ol>
 </div>
-<div class="log-searchform container-fluid">
+<div class="searchform container-fluid">
 	<form class="form-inline" role="form">
-	  <div class="form-group">
-	    <label  class="col-sm-5 control-label">日志类别</label>
-	    <div class="col-sm-7">
-	      <select class="form-control selectpicker">
-			<option>操作日志</option>
-			<option>系统日志</option>
-			<option>数据库日志</option>
-		  </select>
-	    </div>
-	  </div>
 	  <div class="form-group">
 	    <label class="col-sm-4 control-label">开始时间</label>
 	    <div class="col-sm-8">
-	      <input type="text" class="form-control" id="firstname" placeholder="请输入开始时间" required autofocus>
+	      <input type="text" class="form-control" id="firstname" placeholder="请输入开始时间" autofocus>
 	    </div>
 	  </div>
 	  <div class="form-group">
 	    <label for="lastname" class="col-sm-4 control-label">结束时间</label>
 	    <div class="col-sm-8">
-	      <input type="text" class="form-control" id="lastname" placeholder="请输入结束时间" required>
+	      <input type="text" class="form-control" id="lastname" placeholder="请输入结束时间">
 	    </div>
 	  </div>
 	  <div class="form-group">
@@ -70,36 +58,35 @@ a, a:HOVER, a:LINK {
 	  </div>
 	</form>
 </div>
-<div class="log-logbar">
-</div>
-<div class="log-body">
+<div class="content-body">
 	<table class="table table-hover table-bordered table-striped table-responsive">
 	  <thead>
 	    <tr>
-	      <th>描述</th>
-	      <th>类型</th>
-	      <th>标签</th>
-	      <th>键值</th>
-	      <th>排序</th>
-	      <th>产生时间</th>
-	      <th>备注</th>
+	      <th>用户名称</th>
+	      <th>IP</th>
+	      <th>方法</th>
+	      <th>结果</th>
+	      <th>耗时</th>
+	      <th>生成时间</th>
 	      <th>操作</th>
 	    </tr>
 	  </thead>
 	  <tbody>
+	   #foreach($log in ${pageBean.recordList})
 	    <tr class="info">
-	      <td>性别</td>
-	      <td>sex</td>
-	      <td>男性</td>
-	      <td>1</td>
-	      <td>100</td>
-	      <td>2016-09-11 08：29：30</td>
-	      <td>注册用户日志</td>
+	      <td>$!log.userName</td>
+	      <td>$!log.ip</td>
+	      <td>$!log.method</td>
+	      <td>$!log.result</td>
+	      <td>$!log.usetime</td>
+	      <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!log.createTime)</td>
 	      <td>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#logModal" data-backdrop="static" href="$request.getContextPath()/system/log/delete" ><span class="glyphicon glyphicon-remove"></span>删除</a>
+	      	 <a class="btn btn-default" onclick="deleteUserLog('$!log.userLogId','$!startDate','$!endDate','$!pageBean.currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
 	      </td>
 	    </tr>
+	   #end
 	  </tbody>
 	</table>
 </div>
 #parse("/common/layout/page.vm")
+#parse("/common/include/modal.vm")

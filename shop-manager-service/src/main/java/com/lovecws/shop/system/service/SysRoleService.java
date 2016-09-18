@@ -54,4 +54,12 @@ public interface SysRoleService {
 	 */
 	public void deleteById(String roleId);
 
+	/**
+	 * 获取用户下的角色列表
+	 * @param userId 用户id
+	 * @param value
+	 * @return
+	 */
+	public List<SysRole> getSysRoleByUserId(String userId, String value);
+
 }

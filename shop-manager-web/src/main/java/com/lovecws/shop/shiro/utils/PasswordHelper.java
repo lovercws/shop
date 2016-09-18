@@ -41,13 +41,14 @@ public class PasswordHelper {
 	 * 加密密码
 	 * @param merUser
 	 */
-	public static void encryptPassword(BaseRealm realm) {
+	public static BaseRealm encryptPassword(BaseRealm realm) {
 		realm.setSalt(randomNumberGenerator.nextBytes().toHex());
 		String credentialsSalt = realm.getUserName() + realm.getSalt();
 		String newPassword = new SimpleHash(algorithmName, realm.getPassword(),
 				ByteSource.Util.bytes(credentialsSalt), hashIterations).toHex();
 
 		realm.setPassword(newPassword);
+		return realm;
 	}
 
 	/**

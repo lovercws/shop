@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="$request.getContextPath()/resources/ztree/zTreeStyle/zTreeStyle.css" type="text/css">
+<script type="text/javascript" src="$request.getContextPath()/resources/ztree/js/jquery.ztree.core.min.js"></script>
+<script type="text/javascript" src="$request.getContextPath()/resources/ztree/js/jquery.ztree.excheck.js"></script>
 <style type="text/css">
 body, div, ul, li ,img{
 	margin: 0px;
@@ -34,7 +37,85 @@ a, a:HOVER, a:LINK {
 .searchform .form-group{
     padding-left:10px;
 }
+#avatorModal{
+   margin-left:-200px;
+   height:580px;
+   overflow:hidden;
+}
+#avatorModal .modal-body{
+   padding:0px;
+}
+#allowRoleModal{
+   margin-left:-200px;
+   height:580px;
+   overflow:hidden;
+}
+#allowRoleModal .modal-content{
+   height:550px;
+}
+#allowRoleModal .modal-content .modal-body{
+   overflow: auto;
+   height:400px;
+   padding:0px;
+   margin:0px;
+}
 </style>
+<script type="text/javascript">
+##删除用户
+function deleteUser(userId,quserName,qnickName,qemail,qphone,currentPage){
+   $("#deleteForm").attr("action","$request.getContextPath()/system/user/delete?userId="+userId+"&quserName"+quserName+"&qnickName="+qnickName+"&qemail="+qemail+"&qphone="+qphone+"&currentPage="+currentPage);
+   $('#deleteModal').modal({
+        keyboard: true
+    });
+}
+##查看图像详情
+function showDetailAvatorImg(src){
+   $("#avator_img").attr("src",src);
+   $('#avatorModal').modal({
+        keyboard: true
+    });
+}
+###查看用户角色列表
+##ztree公用配置
+var zTreeObj;
+var setting = {
+    view: {  
+           showLine: false,  
+           dblClickExpand: true  
+          },  
+    callback:{  
+               
+             },  
+	check: {
+			enable: true
+		   },
+	data: {
+		simpleData: {
+			enable: true,
+			idKey: "id",  
+            pIdKey: "pId",  
+            rootPId: 0
+		}
+	}
+};   
+var ztree=$.fn.zTree
+function getUserRoleList(userId){
+    $("#userId").val(userId);
+    $.get("$request.getContextPath()/system/userrole/list?userId="+userId,function(data){
+          zTreeObj = ztree.init($("#roleTree"), setting, data);
+    	  $('#allowRoleModal').modal({});
+    });
+}
+function getSelectedRole(){
+    var roleIds=[];
+    var nodes=zTreeObj.getCheckedNodes();
+    for(var i=0;i<nodes.length;i++){
+       roleIds.push(nodes[i].id);
+    }
+    console.log(roleIds.join(','));
+    $("#roleIds").val(roleIds.join(','));
+}
+</script>
 <div class="breadcrumb">
 	<ol class="breadcrumb">
 	  <li><a href="#">系统管理</a></li>
@@ -46,25 +127,25 @@ a, a:HOVER, a:LINK {
 	  <div class="form-group">
 	    <label for="firstname" class="col-sm-4 control-label">用户名称</label>
 	    <div class="col-sm-8">
-	      <input type="text" class="form-control"  placeholder="请输入用户名称" required autofocus>
+	      <input type="text" class="form-control" name="quserName" value="$!quserName" placeholder="请输入用户名称" autofocus>
 	    </div>
 	  </div>
 	  <div class="form-group">
 	    <label for="lastname" class="col-xs-4 control-label">用户昵称</label>
 	    <div class="col-sm-8">
-	      <input type="text" class="form-control"  placeholder="请输入用户昵称" required>
+	      <input type="text" class="form-control" name="qnickName" value="$!qnickName" placeholder="请输入用户昵称">
 	    </div>
 	  </div>
 	  <div class="form-group">
 	    <label for="firstname" class="col-sm-4 control-label">手机号码</label>
 	    <div class="col-sm-8">
-	      <input type="text" class="form-control" placeholder="请输入用户手机号码" required autofocus>
+	      <input type="text" class="form-control" name="qphone" value="$!qphone" placeholder="请输入用户手机号码">
 	    </div>
 	  </div>
 	  <div class="form-group">
 	    <label for="lastname" class="col-sm-4 control-label">用户邮箱</label>
 	    <div class="col-sm-8">
-	      <input type="text" class="form-control" placeholder="请输入用户用户邮箱" required>
+	      <input type="text" class="form-control" name="qemail" value="$!qemail" placeholder="请输入用户用户邮箱">
 	    </div>
 	  </div>
 	  <div class="form-group">
@@ -85,26 +166,78 @@ a, a:HOVER, a:LINK {
 	<table class="table table-hover table-bordered table-striped table-responsive">
 	  <thead>
 	    <tr>
-	      <th>名称</th>
-	      <th>城市</th>
-	      <th>密码</th>
+	      <th>用户头像</th>
+	      <th>用户名称</th>
+	      <th>用户昵称</th>
+	      <th>邮件</th>
+	      <th>手机号码</th>
+	      <th>用户类型</th>
+	      <th>性别</th>
+	      <th>生日</th>
+	      <th>创建时间</th>
+	      <th>备注</th>
 	      <th>操作</th>
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tr class="info">
-	      <td>Tanmay</td>
-	      <td>Bangalore</td>
-	      <td>560001</td>
+	   #foreach($user in ${pageBean.recordList})
+	    <tr>
+	      <td style="padding:0px;margin:0px;">
+	         <img onclick="showDetailAvatorImg('http://192.168.16.129/$!user.avator')" class="btn btn-default" src="http://192.168.16.129/$!user.avator" height="60px;width:120px;">
+	      </td>
+	      <td>$!user.userName</td>
+	      <td>$!user.nickName</td>
+	      <td>$!user.email</td>
+	      <td>$!user.phone</td>
+	      <td>$!user.type</td>
+	      <td>$!user.sex</td>
+	      <td>$!date.format('yyyy-MM-dd',$!user.birthday)</td>
+	      <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!user.createTime)</td>
+	      <td>$!user.remark</td>
 	      <td>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/user/view"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/user/edit" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#deleteModal" data-backdrop="static" href="$request.getContextPath()/system/user/delete" ><span class="glyphicon glyphicon-remove"></span>删除</a>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/userRole/alloRole"><span class="glyphicon glyphicon-eye-open"></span>分配角色</a>
+	      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/user/view?userId=$!user.userId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
+	      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/user/edit?userId=$!user.userId&quserName=$!quserName&qnickName=$!qnickName&qemail=$!qemail&qphone=$!qphone&currentPage=$!pageBean.currentPage"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+	      	 <a class="btn btn-default" onclick="deleteUser('$!user.userId','$!quserName','$!qnickName','$!qemail','$!qphone','$!currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
+	      	 <a class="btn btn-default" onclick="getUserRoleList('$!user.userId')"><span class="glyphicon glyphicon-eye-open"></span>分配角色</a>
 	      </td>
 	    </tr>
+	   #end
 	  </tbody>
 	</table>
 </div>
 #parse("/common/layout/page.vm")
 #parse("/common/include/modal.vm")
+<div class="modal fade" id="avatorModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+             <div class="modal-header">
+		         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		     </div>
+		     <div class="modal-body">
+		   		  <img id="avator_img" width="600px" height="400px">
+		     </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="allowRoleModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+             <div class="modal-header">
+		         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+		         <h4 class="modal-title">分配角色</h4>
+		     </div>
+		     <div class="modal-body">
+		   		  <ul id="roleTree" class="ztree" style="-moz-user-select: none;">
+		     </div>
+		     <div class="modal-footer">
+		   		  <form action="$request.getContextPath()/system/userrole/save" method="post">
+		             <input type="hidden" name="_method" value="put">
+		             <input type="hidden" id="userId" name="userId" value="">
+		             <input type="hidden" id="roleIds" name="roleIds" value="">
+			         <button type="submit" onclick="getSelectedRole()" class="btn btn-lg">保存</button>
+			         <button type="button" class="btn btn-lg" data-dismiss="modal">关闭</button>
+		         </form>
+		     </div>
+        </div>
+    </div>
+</div>

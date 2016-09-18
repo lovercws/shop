@@ -20,6 +20,19 @@ public class SysUserRole implements Serializable {
 	private Integer roleId;// 角色ID
 	private Integer userId;// 用户ID
 
+	public SysUserRole() {
+		super();
+	}
+
+	public SysUserRole(String userRoleStatus, String creator, Date createTime, Integer roleId,Integer userId) {
+		super();
+		this.userRoleStatus = userRoleStatus;
+		this.creator = creator;
+		this.createTime = createTime;
+		this.roleId = roleId;
+		this.userId = userId;
+	}
+
 	public Integer getUserRoleId() {
 		return userRoleId;
 	}

@@ -10,6 +10,16 @@ public class BaseRealm implements Serializable {
 	private String password;
 	private String salt;
 
+	public BaseRealm() {
+		super();
+	}
+
+	public BaseRealm(String userName, String password) {
+		super();
+		this.userName = userName;
+		this.password = password;
+	}
+
 	public String getUserName() {
 		return userName;
 	}

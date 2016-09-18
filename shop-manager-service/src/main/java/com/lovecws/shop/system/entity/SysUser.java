@@ -58,6 +58,8 @@ public class SysUser implements Serializable {
 	private String province;// 省
 	private String city;// 市
 	private String area;// 区
+	
+	public static final String SYS_USER="SYS_USER";
 
 	public Integer getUserId() {
 		return userId;

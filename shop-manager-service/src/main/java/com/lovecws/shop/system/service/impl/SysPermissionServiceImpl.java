@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lovecws.common.core.page.PageParam;
 import com.lovecws.shop.system.dao.SysPermissionDao;
+import com.lovecws.shop.system.dao.SysRolePermissionDao;
 import com.lovecws.shop.system.entity.SysPermission;
 import com.lovecws.shop.system.service.SysPermissionService;
 
@@ -21,6 +22,8 @@ public class SysPermissionServiceImpl implements SysPermissionService{
 
 	@Autowired
 	private SysPermissionDao permissionDao;
+	@Autowired
+	private SysRolePermissionDao rolePermissionDao;
 
 	@Override
 	public int getSysPermssionCount(String menuId, String permissionCode, String permissionName,
@@ -69,6 +72,11 @@ public class SysPermissionServiceImpl implements SysPermissionService{
 	@Override
 	@Transactional(readOnly=false)
 	public void deletePermissionById(String permissionId) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("permissionId", permissionId);
+		//删除角色权限
+		rolePermissionDao.delete(paramMap);
+		//删除权限
 		permissionDao.delete(permissionId);
 	}
 

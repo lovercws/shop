@@ -16,9 +16,9 @@
        #end
        #if($!pageBean.currentPage<$!pageBean.totalPage)
        	   #set($nextPage=$!pageBean.currentPage + 1)
-           <li><a href="$pageBean.url&currentPage=$nextPage">上一页</a></li>
+           <li><a href="$pageBean.url&currentPage=$nextPage">下一页</a></li>
        #else
-           <li class="next disabled"><a href="#">上一页</a></li>     
+           <li class="next disabled"><a href="#">下一页</a></li>     
        #end
    </ul>
 </div>

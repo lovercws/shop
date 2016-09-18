@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.lovecws.common.core.page.PageParam;
 import com.lovecws.shop.system.dao.SysMenuDao;
+import com.lovecws.shop.system.dao.SysRoleMenuDao;
 import com.lovecws.shop.system.entity.SysMenu;
 import com.lovecws.shop.system.service.SysMenuService;
 
@@ -21,6 +22,8 @@ public class SysMenuServiceImpl implements SysMenuService{
 
 	@Autowired
 	private SysMenuDao menuDao;
+	@Autowired
+	private SysRoleMenuDao roleMenuDao;
 	
 	@Override
 	public int getSysMenuCount(String parentMenuId, String menuCode, String menuName, String menuStatus) {
@@ -75,6 +78,11 @@ public class SysMenuServiceImpl implements SysMenuService{
 	@Override
 	@Transactional(readOnly=false)
 	public void deleteMenuById(String menuId) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("menuId", menuId);
+		//删除角色菜单
+		roleMenuDao.delete(paramMap);
+		//删除菜单
 		menuDao.delete(menuId);
 	}
 

@@ -29,9 +29,10 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.lovecws.shop.shiro.entity.BaseRealm;
-import com.lovecws.shop.shiro.utils.PasswordHelper;
+import com.lovecws.shop.system.entity.SysUser;
+import com.lovecws.shop.system.service.SysUserService;
 
 /**
  * @desc 自定义realm
@@ -40,6 +41,9 @@ import com.lovecws.shop.shiro.utils.PasswordHelper;
  */
 public class UserRealm extends AuthorizingRealm {
 
+	@Autowired
+	private SysUserService userService;
+	
 	@SuppressWarnings("unused")
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
@@ -59,15 +63,14 @@ public class UserRealm extends AuthorizingRealm {
 			throw new UnknownAccountException();// 没找到帐号
 		}
 		//从数据库获取用户信息
-		BaseRealm realm=new BaseRealm();
-		realm.setUserName("admin");
-		realm.setPassword("123");
-		PasswordHelper.encryptPassword(realm);
-		
+		SysUser user=userService.getUserByUserName(loginName);
+		if(user==null){
+			throw new UnknownAccountException("账号不存在");
+		}
 		// 交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以自定义实现
-		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(realm.getUserName(), // 登录名
-				realm.getPassword(), // 密码
-				ByteSource.Util.bytes(realm.getUserName()+realm.getSalt()), // salt=username+salt
+		SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user.getUserName(), // 登录名
+				user.getPassword(), // 密码
+				ByteSource.Util.bytes(user.getUserName()+user.getSalt()), // salt=username+salt
 				getName() // realm name
 		);
 		return authenticationInfo;

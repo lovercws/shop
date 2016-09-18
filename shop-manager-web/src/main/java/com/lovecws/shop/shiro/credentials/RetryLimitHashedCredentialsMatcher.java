@@ -17,12 +17,17 @@ package com.lovecws.shop.shiro.credentials;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.cache.Cache;
 import org.apache.shiro.cache.CacheManager;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.lovecws.shop.system.entity.SysUser;
+import com.lovecws.shop.system.service.SysUserService;
 
 /**
  * @desc 自定义的市容凭证匹配器 
@@ -31,6 +36,9 @@ import org.apache.shiro.cache.CacheManager;
  */
 public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher {
 
+	@Autowired
+	private SysUserService userService;
+	
 	private Cache<String, AtomicInteger> passwordRetryCache;
 
 	public RetryLimitHashedCredentialsMatcher(CacheManager cacheManager) {
@@ -59,11 +67,9 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
 			// clear retry count
 			passwordRetryCache.remove(username);
 
-			// 根据登录名查询操作员
-			//PmsOperator operator = pmsOperatorService.findOperatorByLoginName(username);
-			//Subject subject = SecurityUtils.getSubject();
-			//Session session = subject.getSession();
-			//session.setAttribute("User", operator);
+			//从数据库获取用户信息
+			SysUser user=userService.getUserByUserName(username);
+			SecurityUtils.getSubject().getSession().setAttribute(SysUser.SYS_USER, user);
 		}
 		return matches;
 	}

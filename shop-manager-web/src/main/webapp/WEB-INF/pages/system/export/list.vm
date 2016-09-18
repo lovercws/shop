@@ -16,9 +16,6 @@ a, a:HOVER, a:LINK {
 .btn-group .btn + .btn{
    margin-left:10px;
 }
-.export-body{
-   height:670px;
-}
 .export-searchform{
    margin-top:-20px;
    height:40px;
@@ -32,11 +29,8 @@ a, a:HOVER, a:LINK {
    float:left;
 }
 .export-body .col-md-6{
-   height:700px;
    border:1px solid silver;
    padding:0px;
-   margin-left:10px;
-   width:800px;
 }
 </style>
 <div class="export-breadcrumb">
@@ -62,11 +56,9 @@ a, a:HOVER, a:LINK {
 	  </div>
 	</form>
 </div>
-<div class="export-exportbar">
-</div>
 <div class="export-body">
 	<div class="container-fluid">
-	  <div class="col-md-6">
+	  <div class="col-md-5">
 	     <table class="table table-hover table-bordered table-striped table-responsive">
 			 <thead>
 			   <tr>
@@ -83,7 +75,10 @@ a, a:HOVER, a:LINK {
 			 </tbody>
 		</table>
 	  </div>
-	  <div class="col-md-6">
+	  <div class="col-md-2">
+	     <ul></ul>
+	  </div>
+	  <div class="col-md-5">
 	     <table class="table table-hover table-bordered table-striped table-responsive">
 			 <thead>
 			   <tr>

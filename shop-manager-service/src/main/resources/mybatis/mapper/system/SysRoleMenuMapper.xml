@@ -15,109 +15,7 @@
 	<sql id="SysRoleMenuColumn">
 		role_menu_id,role_menu_status,creator,create_time,role_id,menu_id
 	</sql>
-
-	<!-- 查询角色菜单列表 -->
-	<select id="listByColumn" resultMap="SysRoleMenuResultMap"
-		parameterType="map">
-		select
-		<include refid="SysRoleMenuColumn"></include>
-		from sys_role_menu
-		<where>
-			<if test="roleId!=null and roleId!=''">
-				and role_id=#{roleId}
-			</if>
-			<if test="menuId!=null and menuId!=''">
-				and menu_id=#{menuId}
-			</if>
-			<if test="roleMenuStatus!=null and roleMenuStatus!=''">
-				and role_menu_status=#{roleMenuStatus}
-			</if>
-		</where>
-		<if test="beginIndex!=null and numPerPage!=null">
-			limit #{beginIndex},#{numPerPage}
-		</if>
-	</select>
-
-	<!-- 获取角色菜单数量 -->
-	<select id="getCountByColumn" resultType="LONG">
-		select count(roleMenu_id) from sys_role_menu
-		<where>
-			<if test="roleId!=null and roleId!=''">
-				and role_id=#{roleId}
-			</if>
-			<if test="menuId!=null and menuId!=''">
-				and menu_id=#{menuId}
-			</if>
-			<if test="roleMenuStatus!=null and roleMenuStatus!=''">
-				and role_menu_status=#{roleMenuStatus}
-			</if>
-		</where>
-	</select>
-
-	<!-- 获取角色菜单详情 -->
-	<select id="selectByPrimaryKey" resultType="SysRoleMenu"
-		parameterType="map">
-		select
-		<include refid="SysRoleMenuColumn"></include>
-		from sys_role_menu
-		where role_menu_id = #{roleMenuId}
-	</select>
-
-	<!-- 删除角色菜单 -->
-	<delete id="deleteByPrimaryKey" parameterType="map">
-		delete from
-		sys_role_menu where role_menu_id=#{roleMenuId}
-	</delete>
-
-	<!-- 根据角色id删除角色菜单 -->
-	<delete id="batchDeleteByColumn" parameterType="map">
-		delete from sys_role_menu
-		<where>
-			<if test="roleId!=null">
-				and role_id=#{roleId}
-			</if>
-		</where>
-	</delete>
-
-	<!-- 插入角色菜单 -->
-	<insert id="insert" parameterType="SysRoleMenu"
-		useGeneratedKeys="true" keyProperty="roleMenuId">
-		insert into sys_role_menu
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="roleMenuStatus != null">
-				role_menu_status,
-			</if>
-			<if test="creator != null">
-				creator,
-			</if>
-			<if test="createTime != null">
-				create_time,
-			</if>
-			<if test="roleId != null">
-				role_id,
-			</if>
-			<if test="menuId != null">
-				menu_id,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="roleMenuStatus != null">
-				#{roleMenuStatus},
-			</if>
-			<if test="creator != null">
-				#{creator},
-			</if>
-			<if test="createTime != null">
-				#{createTime},
-			</if>
-			<if test="roleId != null">
-				#{roleId},
-			</if>
-			<if test="menuId != null">
-				#{menuId},
-			</if>
-		</trim>
-	</insert>
+	
 	<!-- 批量添加 -->
 	<insert id="batchInsert" parameterType="SysRoleMenu"
 		useGeneratedKeys="true" keyProperty="roleMenuId">
@@ -136,26 +34,16 @@
 		</foreach>
 	</insert>
 
-	<!-- 更改角色菜单信息 -->
-	<update id="updateByPrimaryKey" parameterType="SysRoleMenu">
-		update sys_role_menu
-		<set>
-			<if test="roleMenuStatus != null">
-				role_menu_status=#{roleMenuStatus},
+    <!-- 删除 -->
+	<delete id="batchDeleteByColumn" parameterType="map">
+		delete from sys_role_menu
+		<where>
+			<if test="roleId!=null">
+				and role_id=#{roleId}
 			</if>
-			<if test="creator != null">
-				creator=#{creator},
+			<if test="menuId!=null">
+				and menu_id=#{menuId}
 			</if>
-			<if test="createTime != null">
-				create_time=#{createTime},
-			</if>
-			<if test="roleId != null">
-				role_id=#{roleId},
-			</if>
-			<if test="menuId != null">
-				menu_id=#{menuId},
-			</if>
-		</set>
-		where role_menu_id = #{roleMenuId}
-	</update>
+		</where>
+	</delete>
 </mapper>

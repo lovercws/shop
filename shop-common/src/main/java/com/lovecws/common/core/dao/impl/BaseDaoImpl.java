@@ -177,7 +177,6 @@ public abstract class BaseDaoImpl<T> extends SqlSessionDaoSupport implements Bas
 
     /**
      * 根据条件查询 getBy: selectOne <br/>
-     * 
      * @param paramMap
      * @return
      */
