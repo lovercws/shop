@@ -17,6 +17,7 @@
 
 	<!-- 配置方言 -->
 	<typeAliases>
+	    <!-- system -->
 		<typeAlias type="com.lovecws.shop.system.entity.SysDDL" alias="SysDDL" />
 		<typeAlias type="com.lovecws.shop.system.entity.SysMenu" alias="SysMenu" />
 		<typeAlias type="com.lovecws.shop.system.entity.SysPermission" alias="SysPermission" />
@@ -26,10 +27,16 @@
 		<typeAlias type="com.lovecws.shop.system.entity.SysUser" alias="SysUser" />
 		<typeAlias type="com.lovecws.shop.system.entity.SysUserRole" alias="SysUserRole" />
 		<typeAlias type="com.lovecws.shop.system.entity.SysUserLog" alias="SysUserLog" />
+		
+		<!-- common -->
+		<typeAlias type="com.lovecws.shop.common.entity.Area" alias="Area" />
+		<typeAlias type="com.lovecws.shop.common.entity.City" alias="City" />
+		<typeAlias type="com.lovecws.shop.common.entity.Province" alias="Province" />
 	</typeAliases>
 
 	<!-- 配置映射文件 -->
 	<mappers>
+	    <!-- system -->
 		<mapper resource="mybatis/mapper/system/SysDDLMapper.xml" />
 		<mapper resource="mybatis/mapper/system/SysMenuMapper.xml" />
 		<mapper resource="mybatis/mapper/system/SysPermissionMapper.xml" />
@@ -39,5 +46,10 @@
 		<mapper resource="mybatis/mapper/system/SysUserMapper.xml" />
 		<mapper resource="mybatis/mapper/system/SysUserRoleMapper.xml" />
 		<mapper resource="mybatis/mapper/system/SysUserLogMapper.xml" />
+		
+		<!-- common -->
+		<mapper resource="mybatis/mapper/common/DDLAreaMapper.xml" />
+		<mapper resource="mybatis/mapper/common/DDLCityMapper.xml" />
+		<mapper resource="mybatis/mapper/common/DDLProvinceMapper.xml" />
 	</mappers>
 </configuration>

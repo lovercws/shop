@@ -250,8 +250,27 @@
 			<artifactId>shiro-cas</artifactId>
 		</dependency>
 
-		<!-- <dependency> <groupId>org.huasi.car</groupId> <artifactId>hcar-common-service-fdfs</artifactId> 
-			<version>0.0.1-SNAPSHOT</version> </dependency> -->
+        <!-- ckfinder富文本编辑器 -->
+		<dependency>
+			<groupId>com.ckfinder</groupId>
+			<artifactId>CKFinder</artifactId>
+			<version>2.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ckfinder</groupId>
+			<artifactId>CKFinderPlugin-FileEditor</artifactId>
+			<version>2.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ckfinder</groupId>
+			<artifactId>ckfinderplugin-imageresize</artifactId>
+			<version>2.6.2</version>
+		</dependency>
+		<dependency>
+			<groupId>com.ckfinder</groupId>
+			<artifactId>ckfinderplugin-watermark</artifactId>
+			<version>2.6.2</version>
+		</dependency>
 
 		<!-- velocity模板 -->
 		<dependency>
@@ -261,6 +280,12 @@
 		<dependency>
 			<groupId>org.apache.velocity</groupId>
 			<artifactId>velocity-tools</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.ckeditor</groupId>
+			<artifactId>ckeditor-java-core</artifactId>
+			<version>3.5.3</version>
 		</dependency>
 
 		<!-- 接口服务 -->

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lovecws.shop.common.dao.impl.ProvinceDaoImpl" >
+
+  <!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->	
+  <cache type="org.mybatis.caches.ehcache.EhcacheCache" readOnly="true"/>
+  
+  <resultMap id="DDLProvinceResultMap" type="com.lovecws.shop.common.entity.Province" >
+    <id column="p_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="p_code" property="provinceCode" jdbcType="VARCHAR" />
+    <result column="p_name" property="provinceName" jdbcType="VARCHAR" />
+    <result column="p_sname" property="provinceShortName" jdbcType="VARCHAR" />
+    <result column="p_pinying" property="provincePinying" jdbcType="VARCHAR" />
+    <result column="p_py" property="provincePy" jdbcType="VARCHAR" />
+    <result column="p_abb" property="provinceAbb" jdbcType="VARCHAR"/>
+  </resultMap>
+  <sql id="DDLProvinceColumn" >
+    p_id, p_code, p_name, p_sname, p_pinying, p_py,p_abb
+  </sql>
+  
+  <!-- 获取所有省 -->
+  <select id="listByColumn" resultMap="DDLProvinceResultMap" parameterType="map" >
+    select 
+    <include refid="DDLProvinceColumn" />
+    from ddl_province
+  </select>
+ 
+</mapper>

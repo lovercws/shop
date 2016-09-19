@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lovecws.shop.common.dao.impl.CityDaoImpl">
+
+	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache" readOnly="true" />
+
+	<resultMap id="DDLCityResultMap" type="com.lovecws.shop.common.entity.City">
+		<id column="c_id" property="cityId" jdbcType="INTEGER" />
+		<result column="c_code" property="cityCode" jdbcType="VARCHAR" />
+		<result column="p_code" property="provinceCode" jdbcType="VARCHAR" />
+		<result column="c_name" property="cityName" jdbcType="VARCHAR" />
+		<result column="c_sname" property="cityShortName" jdbcType="VARCHAR" />
+		<result column="c_pinying" property="cityPinying" jdbcType="VARCHAR" />
+		<result column="c_py" property="cityPy" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="DDLCityColumn">
+		c_id, c_code, p_code, c_name, c_sname, c_pinying, c_py
+	</sql>
+
+	<!-- 获取所有城市 -->
+	<select id="listByColumn" resultMap="DDLCityResultMap"
+		parameterType="map">
+		select
+		<include refid="DDLCityColumn" />
+		from ddl_city where p_code = #{provinceCode}
+	</select>
+</mapper>

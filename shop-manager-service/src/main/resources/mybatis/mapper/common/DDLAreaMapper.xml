@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lovecws.shop.common.dao.impl.AreaDaoImpl">
+
+	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/> -->
+	<cache type="org.mybatis.caches.ehcache.EhcacheCache" readOnly="true" />
+
+	<resultMap id="DDLAreaResultMap" type="com.lovecws.shop.common.entity.Area">
+		<id column="a_id" property="areaId" jdbcType="INTEGER" />
+		<result column="a_code" property="areaCode" jdbcType="VARCHAR" />
+		<result column="c_code" property="cityCode" jdbcType="VARCHAR" />
+		<result column="a_name" property="areaName" jdbcType="VARCHAR" />
+		<result column="a_sname" property="areaShortName" jdbcType="VARCHAR" />
+		<result column="a_pinying" property="areaPinying" jdbcType="VARCHAR" />
+		<result column="a_py" property="areaPy" jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="DDLAreaColumn">
+		a_id,a_code,c_code,a_name,a_sname,a_pinying,a_py
+	</sql>
+
+	<!-- 根据c_code获取城市所属的所有区 -->
+	<select id="listByColumn" resultMap="DDLAreaResultMap"
+		parameterType="map">
+		select
+		<include refid="DDLAreaColumn" />
+		from ddl_area
+		where c_code = #{cityCode}
+	</select>
+</mapper>
