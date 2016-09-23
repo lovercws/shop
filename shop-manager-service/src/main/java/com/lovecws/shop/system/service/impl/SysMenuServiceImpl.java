@@ -16,8 +16,8 @@ import com.lovecws.shop.system.dao.SysRoleMenuDao;
 import com.lovecws.shop.system.entity.SysMenu;
 import com.lovecws.shop.system.service.SysMenuService;
 
-@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=true)
 @Service
+@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=true)
 public class SysMenuServiceImpl implements SysMenuService{
 
 	@Autowired

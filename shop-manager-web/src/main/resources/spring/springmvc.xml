@@ -17,7 +17,7 @@
 	<context:annotation-config />
 
 	<!-- 配置要扫描的包 -->
-	<context:component-scan base-package="com.lovecws.shop"></context:component-scan>
+	<context:component-scan base-package="com.lovecws.shop.controller"></context:component-scan>
 
 	<!-- 字符串格式转化器 -->
 	<bean id="stringHttpMessageConverter"
@@ -111,6 +111,7 @@
 				<prop key="org.apache.shiro.authz.UnauthorizedException">common/error/unauth</prop>
 				<prop key="java.lang.Throwable">common/error/500</prop>
 				<prop key="org.apache.velocity.exception.ResourceNotFoundException">common/error/404</prop>
+				<prop key="org.springframework.web.HttpRequestMethodNotSupportedException">common/error/405</prop>
 			</props>
 		</property>
 	</bean>

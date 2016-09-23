@@ -15,8 +15,8 @@ import com.lovecws.shop.system.dao.SysDDLDao;
 import com.lovecws.shop.system.entity.SysDDL;
 import com.lovecws.shop.system.service.SysDDLService;
 
-@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=true)
 @Service
+@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=true)
 public class SysDDLServiceImpl implements SysDDLService{
 
 	@Autowired

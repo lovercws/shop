@@ -16,8 +16,8 @@ import com.lovecws.shop.system.dao.SysRolePermissionDao;
 import com.lovecws.shop.system.entity.SysPermission;
 import com.lovecws.shop.system.service.SysPermissionService;
 
-@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=true)
 @Service
+@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=true)
 public class SysPermissionServiceImpl implements SysPermissionService{
 
 	@Autowired

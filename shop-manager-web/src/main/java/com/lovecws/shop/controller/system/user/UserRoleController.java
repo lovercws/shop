@@ -22,12 +22,12 @@ import com.lovecws.shop.system.service.SysUserRoleService;
 public class UserRoleController {
 
 	private static final Logger log = Logger.getLogger(UserRoleController.class);
+	
 	@Autowired
 	private SysRoleService roleService;
+	
 	@Autowired
 	private SysUserRoleService userRoleService;
-	
-	
 	/**
 	 * 用户分配角色
 	 * @param userId 用户id
@@ -35,7 +35,7 @@ public class UserRoleController {
 	 */
 	@ResponseBody
 	@RequestMapping(value={"/list"},method=RequestMethod.GET)
-	private List<ZTreeBean> tree(String userId){
+	public List<ZTreeBean> tree(String userId){
 		log.info("获取用户角色列表[userId="+userId+"]");
 		//获取所有的角色
 		List<SysRole> roles = roleService.querySysRoleByCondition(null, null, PublicEnum.NORMAL.value(), null);

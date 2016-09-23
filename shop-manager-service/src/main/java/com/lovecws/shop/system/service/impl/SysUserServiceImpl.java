@@ -16,8 +16,8 @@ import com.lovecws.shop.system.dao.SysUserRoleDao;
 import com.lovecws.shop.system.entity.SysUser;
 import com.lovecws.shop.system.service.SysUserService;
 
-@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, readOnly = true)
 @Service
+@Transactional(isolation = Isolation.DEFAULT, propagation = Propagation.REQUIRED, readOnly = true)
 public class SysUserServiceImpl implements SysUserService {
 
 	@Autowired

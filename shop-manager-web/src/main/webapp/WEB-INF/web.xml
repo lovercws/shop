@@ -126,6 +126,15 @@
 		<session-timeout>30</session-timeout>
 	</session-config>
 
+	<error-page>
+		<error-code>404</error-code>
+		<location>/WEB-INF/pages/common/error/404.vm</location>
+	</error-page>
+	<error-page>
+		<error-code>405</error-code>
+		<location>/WEB-INF/pages/common/error/405.vm</location>
+	</error-page>
+
 	<welcome-file-list>
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
