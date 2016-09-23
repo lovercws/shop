@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 @RequestMapping("/system/export")
-public class ExportSettingController {
+public class ExportModelController {
 
 	/**
 	 * 进入到导出设置列表

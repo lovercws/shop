@@ -8,40 +8,37 @@ import java.util.Date;
  * @author ganliang
  * @version 2016年9月11日 上午11:56:20
  */
-public class SysExportField implements Serializable {
+public class SysExportModel implements Serializable {
 
 	private static final long serialVersionUID = -8380744250447813866L;
 
-	private Integer expId;// 主键ID.
-	private String expStatus;// 状态 PublicStatusEnum
+	private Integer modelId;// 主键ID.
+	private String modelStatus;// 状态 PublicStatusEnum
 	private String creator;// 创建人.
-	private Date createTime = new Date();// 创建时间.
+	private Date createTime;// 创建时间.
 
 	private String editor;// 修改人.
 	private Date editTime;// 修改时间.
 	private String remark;// 描述
 
 	private String moduleName; // 所属模块，如用户管理为：system-user
-	private String expCNames; // 导出字段的中文名
-	private String noExpCNames; // 未导出字段的中文名
+	private String ecnames; // 导出字段的中文名
+	private String enames; // 导出字段的英文名
 
-	private String expENames; // 导出字段的英文名
-	private String noExpENames; // 未导出字段的英文名
-
-	public Integer getExpId() {
-		return expId;
+	public Integer getModelId() {
+		return modelId;
 	}
 
-	public void setExpId(Integer expId) {
-		this.expId = expId;
+	public void setModelId(Integer modelId) {
+		this.modelId = modelId;
 	}
 
-	public String getExpStatus() {
-		return expStatus;
+	public String getModelStatus() {
+		return modelStatus;
 	}
 
-	public void setExpStatus(String expStatus) {
-		this.expStatus = expStatus;
+	public void setModelStatus(String modelStatus) {
+		this.modelStatus = modelStatus;
 	}
 
 	public String getCreator() {
@@ -92,36 +89,20 @@ public class SysExportField implements Serializable {
 		this.moduleName = moduleName;
 	}
 
-	public String getExpCNames() {
-		return expCNames;
+	public String getEcnames() {
+		return ecnames;
 	}
 
-	public void setExpCNames(String expCNames) {
-		this.expCNames = expCNames;
+	public void setEcnames(String ecnames) {
+		this.ecnames = ecnames;
 	}
 
-	public String getNoExpCNames() {
-		return noExpCNames;
+	public String getEnames() {
+		return enames;
 	}
 
-	public void setNoExpCNames(String noExpCNames) {
-		this.noExpCNames = noExpCNames;
-	}
-
-	public String getExpENames() {
-		return expENames;
-	}
-
-	public void setExpENames(String expENames) {
-		this.expENames = expENames;
-	}
-
-	public String getNoExpENames() {
-		return noExpENames;
-	}
-
-	public void setNoExpENames(String noExpENames) {
-		this.noExpENames = noExpENames;
+	public void setEnames(String enames) {
+		this.enames = enames;
 	}
 
 }
