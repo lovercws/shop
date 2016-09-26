@@ -27,6 +27,7 @@
 		<typeAlias type="com.lovecws.shop.system.entity.SysUser" alias="SysUser" />
 		<typeAlias type="com.lovecws.shop.system.entity.SysUserRole" alias="SysUserRole" />
 		<typeAlias type="com.lovecws.shop.system.entity.SysUserLog" alias="SysUserLog" />
+		<typeAlias type="com.lovecws.shop.system.entity.SysExportModel" alias="SysExportModel" />
 		
 		<!-- common -->
 		<typeAlias type="com.lovecws.shop.common.entity.Area" alias="Area" />
@@ -46,6 +47,7 @@
 		<mapper resource="mybatis/mapper/system/SysUserMapper.xml" />
 		<mapper resource="mybatis/mapper/system/SysUserRoleMapper.xml" />
 		<mapper resource="mybatis/mapper/system/SysUserLogMapper.xml" />
+		<mapper resource="mybatis/mapper/system/SysExportModelMapper.xml" />
 		
 		<!-- common -->
 		<mapper resource="mybatis/mapper/common/DDLAreaMapper.xml" />

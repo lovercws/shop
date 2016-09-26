@@ -21,8 +21,8 @@ public class SysExportModel implements Serializable {
 	private Date editTime;// 修改时间.
 	private String remark;// 描述
 
-	private String moduleName; // 所属模块，如用户管理为：system-user
-	private String ecnames; // 导出字段的中文名
+	private String modelName; // 所属模块，如用户管理为：system-user
+	private String cnames; // 导出字段的中文名
 	private String enames; // 导出字段的英文名
 
 	public Integer getModelId() {
@@ -81,20 +81,20 @@ public class SysExportModel implements Serializable {
 		this.remark = remark;
 	}
 
-	public String getModuleName() {
-		return moduleName;
+	public String getModelName() {
+		return modelName;
 	}
 
-	public void setModuleName(String moduleName) {
-		this.moduleName = moduleName;
+	public void setModelName(String modelName) {
+		this.modelName = modelName;
 	}
 
-	public String getEcnames() {
-		return ecnames;
+	public String getCnames() {
+		return cnames;
 	}
 
-	public void setEcnames(String ecnames) {
-		this.ecnames = ecnames;
+	public void setCnames(String cnames) {
+		this.cnames = cnames;
 	}
 
 	public String getEnames() {
@@ -103,6 +103,13 @@ public class SysExportModel implements Serializable {
 
 	public void setEnames(String enames) {
 		this.enames = enames;
+	}
+
+	@Override
+	public String toString() {
+		return "SysExportModel [modelId=" + modelId + ", modelStatus=" + modelStatus + ", creator=" + creator
+				+ ", createTime=" + createTime + ", editor=" + editor + ", editTime=" + editTime + ", remark=" + remark
+				+ ", modelName=" + modelName + ", cnames=" + cnames + ", enames=" + enames + "]";
 	}
 
 }

@@ -64,7 +64,7 @@ public class GlobalLogAspect {
 		
 		SysUser sysUser = (SysUser) SecurityUtils.getSubject().getSession().getAttribute(SysUser.SYS_USER);
 		if(sysUser!=null){
-			logService.addSysUserLog(new SysUserLog(PublicEnum.NORMAL.value(), SecurityUtils.getSubject().getPrincipal().toString(), new Date(), sysUser.getUserId(), sysUser.getUserName(), SecurityUtils.getSubject().getSession().getHost().toLowerCase(), method, parameter, result, usetime));
+			logService.addSysUserLog(new SysUserLog(PublicEnum.NORMAL.value(), SecurityUtils.getSubject().getPrincipal().toString(), new Date(), sysUser.getUserId(), sysUser.getUserName(), SecurityUtils.getSubject().getSession().getHost().toLowerCase(), method, null, result, usetime));
 		}
 		return proceed;
 	}
