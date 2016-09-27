@@ -54,4 +54,15 @@ public class SysExportModelServiceImpl implements SysExportModelService{
 		sysExportModelDao.insert(exportModel);
 	}
 
+	@Override
+	public SysExportModel getSysExportModelById(String modelId) {
+		return sysExportModelDao.getById(modelId);
+	}
+
+	@Override
+	@Transactional(propagation=Propagation.REQUIRED,readOnly=false)
+	public void updateSysExportModel(SysExportModel exportModel) {
+		sysExportModelDao.update(exportModel);
+	}
+
 }

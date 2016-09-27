@@ -35,7 +35,9 @@
 			</if>
 		</where>
 		order by create_time desc
-		limit #{beginIndex},#{numPerPage}
+		<if test="beginIndex!=null and numPerPage!=null">
+			limit #{beginIndex},#{numPerPage}
+		</if>
 	</select>
     
     <!-- 查询导出模型数量 -->
@@ -154,4 +156,11 @@
     <delete id="deleteByPrimaryKey" parameterType="map">
        delete from sys_export_model where model_id=#{modelId}
     </delete>
+    
+    <!-- 获取模型详情 -->
+    <select id="selectByPrimaryKey" resultMap="SysExportModelResultMap">
+       select 
+       <include refid="SysExportModelColumn"></include>
+       from sys_export_model where model_id=#{modelId}
+    </select>
 </mapper>

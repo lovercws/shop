@@ -36,4 +36,17 @@ public interface SysExportModelService {
 	 */
 	public void addExportModel(SysExportModel exportModel);
 
+	/**
+	 * 获取模型
+	 * @param modelId 模型id
+	 * @return
+	 */
+	public SysExportModel getSysExportModelById(String modelId);
+
+	/**
+	 * 更新模型
+	 * @param exportModel 模型实体
+	 */
+	public void updateSysExportModel(SysExportModel exportModel);
+
 }

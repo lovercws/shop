@@ -13,16 +13,29 @@ a, a:HOVER, a:LINK {
    margin-right:20px;
 }
 .modal-content{
-   height:520px;
+   height:530px;
    overflow:hidden;
 }
 .modal-content .modal-body{
    height:400px;
    overflow:auto;
+   margin:0px;
+   padding:0px;
 }
 .modal .modal-footer{
 	   text-align: center;
-	}
+}
+.fixed-table{
+   table-layout:fixed;
+}
+.fixed-table tr td {   
+    text-overflow: ellipsis; /* for IE */  
+    -moz-text-overflow: ellipsis; /* for Firefox,mozilla */  
+    overflow: hidden;   
+    white-space: nowrap;   
+    border: 1px solid;   
+    text-align: left   
+} 
 </style>
 <div class="export-breadcrumb">
 	<ol class="breadcrumb">
@@ -33,28 +46,33 @@ a, a:HOVER, a:LINK {
 <div class="content-toolbar">
     <div class="btn-group">
 	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal" data-backdrop="static" ><span class="glyphicon glyphicon-plus"></span>添加模型</button>
+	    #if($model.has('sys_export_model'))
+		    <a class="btn btn-default" href="$request.getContextPath()/common/export/excel/sys_export_model/xlsx"><span class="glyphicon glyphicon-export"></span>导出EXCEL</a>
+	    #end
 	</div>
 </div>
 <div class="content-body">
-	<table class="table table-hover table-bordered table-striped table-responsive">
+	<table class="table table-hover table-bordered table-striped table-responsive fixed-table">
 	  <thead>
 	    <tr>
-	      <th>模型名称</th>
-	      <th>英文字段</th>
-	      <th>中文字段</th>
-	      <th>生成时间</th>
-	      <th>操作</th>
+	      <th width="50px">模型名称</th>
+	      <th width="30%">英文字段</th>
+	      <th width="30%">中文字段</th>
+	      <th width="60px">生成时间</th>
+	      <th width="100px">操作</th>
 	    </tr>
 	  </thead>
 	  <tbody>
-	   #foreach($model in ${pageBean.recordList})
+	   #foreach($exportModel in ${pageBean.recordList})
 	    <tr>
-	      <td>$!model.modelName</td>
-	      <td style="max-width:400px">$!model.enames</td>
-	      <td style="max-width:400px">$!model.cnames</td>
-	      <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!model.createTime)</td>
+	      <td>$!exportModel.modelName</td>
+	      <td>$!exportModel.enames</td>
+	      <td>$!exportModel.cnames</td>
+	      <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!exportModel.createTime)</td>
 	      <td>
-	      	 <a class="btn btn-default" onclick="deleteExportModel('$!model.modelId','$!model.modelName','$!pageBean.currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
+	      	<a class="btn btn-default" data-toggle="modal" data-backdrop="static" onclick="viewExportModel('$!exportModel.modelId')"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
+		    <a class="btn btn-default" data-toggle="modal" data-backdrop="static" onclick="editExportModel('$!exportModel.modelId','$!exportModel.modelName')"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+		    <a class="btn btn-default" onclick="deleteExportModel('$!exportModel.modelId','$!exportModel.modelName','$!pageBean.currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
 	      </td>
 	    </tr>
 	   #end
@@ -63,9 +81,12 @@ a, a:HOVER, a:LINK {
 </div>
 #parse("/common/layout/page.vm")
 #parse("/common/include/modal.vm")
-
 <link href="$request.getContextPath()/resources/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
+<link href="$request.getContextPath()/resources/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+
 <script src="$request.getContextPath()/resources/bootstrap-table/bootstrap-table.min.js"></script>
+<script src="$request.getContextPath()/resources/bootstrap-table/bootstrap-table-editable.js"></script>
+<script src="$request.getContextPath()/resources/bootstrap3-editable/js/bootstrap-editable.min.js"></script>
 <script src="$request.getContextPath()/resources/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>
 <script type="text/javascript">
 var tableName=null,cnames=[],enames=[];
@@ -80,7 +101,7 @@ $(function(){
    });
 });
 function stateFormatter(value, row, index) {
-    if(value&&value=='true'){
+    if(value==true||value=='true'){
     	return { checked: true}
     }
     return null;
@@ -94,7 +115,6 @@ function loadFields(fields){
 }
 function saveModel(){
 	var selections=$('#table').bootstrapTable('getAllSelections');
-	console.log(selections);
 	for(var i=0,len=selections.length;i<len;i++){
 	   var selection=selections[i];
 	   enames.push(selection.fieldName);
@@ -116,7 +136,46 @@ function deleteExportModel(modelId,modelName,currentPage){
         keyboard: true
     });
 }
+function viewExportModel(modelId){
+    $.get("$request.getContextPath()/system/export/view?modelId="+modelId,function(data){
+    	$("#viewTable").bootstrapTable('removeAll');
+    	$("#viewTable").bootstrapTable('load', data);
+    	$('#viewModal').modal({
+        	keyboard: true
+        });
+    });
+}
+var modelId=null;
+function editExportModel(id){
+	modelId=id;
+    $.get("$request.getContextPath()/system/export/view?modelId="+modelId,function(data){
+    	$("#editTable").bootstrapTable('removeAll');
+    	$("#editTable").bootstrapTable('load', data);
+    	$('#editModal').modal({
+        	keyboard: true
+        });
+    });
+}
+function updateModel(){
+	var selections=$('#editTable').bootstrapTable('getAllSelections');
+	console.log(selections);
+	for(var i=0,len=selections.length;i<len;i++){
+	   var selection=selections[i];
+	   enames.push(selection.fieldName);
+	   if(!selection.remarks){
+	     selection.remarks=" ";
+	   }
+	   cnames.push(selection.remarks);
+	}
+	if(modelId){
+	    $("#edit_modelId").val(modelId);
+	}
+    $("#edit_enames").val(enames.join(','));
+    $("#edit_cnames").val(cnames.join(','));
+    return true;
+}
 </script>
+##添加模型modal
 <div class="modal fade operation" id="addModal" tabindex="-1" role="dialog" backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
 		<div class="modal-content">
@@ -149,7 +208,7 @@ function deleteExportModel(modelId,modelName,currentPage){
 					      <tr>
 					         <th data-field="state" data-checkbox="true" data-formatter="stateFormatter"></th>
 					         <th data-field="fieldName">字段</th>
-					         <th data-field="remarks">注释</th>
+					         <th data-field="remarks" data-editable="true">注释</th>
 					         <th data-field="fieldType">类型</th>
 					         <th data-field="fieldSize">长度</th>
 					      </tr>
@@ -174,6 +233,76 @@ function deleteExportModel(modelId,modelName,currentPage){
 		             <input type="hidden" id="cnames" name="cnames" value="">
 		             <input type="hidden" id="enames" name="enames" value="">
 			         <button type="submit" class="btn btn-lg" onclick="return saveModel()">保存</button>
+				  	 <button type="button" class="btn btn-lg" data-dismiss="modal">关闭</button>
+		          </form>
+		     </div>
+		</div>
+	</div>
+</div>
+##查看模型详情
+<div class="modal fade operation" id="viewModal" tabindex="-1" role="dialog" backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-t itle" id="myModalLabel">查看导出模型</h4>
+			</div>
+			<div class="modal-body">
+				<div>
+					<table id="viewTable" data-toggle="table">
+						<thead>
+							<tr>
+								<th data-field="state" data-checkbox="true"
+									data-formatter="stateFormatter" disabled="disabled"></th>
+								<th data-field="fieldName">字段</th>
+								<th data-field="remarks">注释</th>
+								<th data-field="fieldType">类型</th>
+								<th data-field="fieldSize">长度</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-lg" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
+##编辑导出模型
+<div class="modal fade operation" id="editModal" tabindex="-1" role="dialog" backdrop="static" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h4 class="modal-t itle" id="myModalLabel">编辑导出模型</h4>
+			</div>
+			<div class="modal-body">
+				<div>
+					<table id="editTable" data-toggle="table" data-click-to-select="true">
+						<thead>
+							<tr>
+								<th data-field="state" data-checkbox="true"
+									data-formatter="stateFormatter"></th>
+								<th data-field="fieldName">字段</th>
+								<th data-field="remarks" data-editable="true">注释</th>
+								<th data-field="fieldType">类型</th>
+								<th data-field="fieldSize">长度</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+		          <form id="updateModelForm" action="$request.getContextPath()/system/export/update" method="post">
+		             <input type="hidden" id="edit_modelId" name="modelId" value="">
+		             <input type="hidden" id="edit_cnames" name="cnames" value="">
+		             <input type="hidden" id="edit_enames" name="enames" value="">
+			         <button type="submit" class="btn btn-lg" onclick="return updateModel()">保存</button>
 				  	 <button type="button" class="btn btn-lg" data-dismiss="modal">关闭</button>
 		          </form>
 		     </div>

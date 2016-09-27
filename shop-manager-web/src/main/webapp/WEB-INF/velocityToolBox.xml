@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <toolbox>
+
+	<!-- 日期工具类 -->
+	<tool>
+		<key>date</key>
+		<scope>application</scope>
+		<class>org.apache.velocity.tools.generic.DateTool</class>
+	</tool>
+
+	<!-- shiro权限判定 -->
 	<tool>
 		<key>shiro</key>
 		<scope>application</scope>
 		<class>com.lovecws.shop.shiro.tag.ShiroPermissingTag</class>
 	</tool>
+
+	<!-- 判断是否存在导出模型 -->
 	<tool>
-		<key>date</key>
+		<key>model</key>
 		<scope>application</scope>
-		<class>org.apache.velocity.tools.generic.DateTool</class>
+		<class>com.lovecws.shop.shiro.tag.ExportModelTag</class>
 	</tool>
 </toolbox>

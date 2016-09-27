@@ -2,7 +2,9 @@ package com.lovecws.shop.controller.system.export;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -135,5 +137,57 @@ public class ExportModelController {
 		return list(qmodelName, currentPage, request);
 	}
 	 
+	/**
+	 * 查看模型
+	 * @param modelId 模型id
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value={"/view"},method=RequestMethod.GET)
+	public List<Map<String,Object>> view(String modelId,HttpServletRequest request){
+		log.info("查看模型[modelId="+modelId+"]");
+		//获取模型
+		SysExportModel model=modelService.getSysExportModelById(modelId);
+		//获取模型下的字段
+		List<DBField> fields = commonService.getAllField(model.getModelName());
+		//过滤模型字段
+		List<Map<String,Object>> maps=new ArrayList<Map<String,Object>>();
+		String[] fieldNames = model.getEnames().split(",");
+		String[] remarks = model.getCnames().split(",");
+		for (DBField dbField : fields) {
+			boolean state=false;
+			String comment=dbField.getRemarks();
+			for (int i = 0; i < fieldNames.length; i++) {
+				if(dbField.getFieldName().equals(fieldNames[i])){
+					comment=remarks[i];
+					state=true;
+					break;
+				} 
+			}
+			Map<String,Object> map=new HashMap<String,Object>();
+			map.put("tableName", dbField.getTableName());
+			map.put("fieldName", dbField.getFieldName());
+			map.put("fieldType", dbField.getFieldType());
+			map.put("fieldSize", dbField.getFieldSize());
+			map.put("remarks", comment);
+			map.put("state", state);
+			maps.add(map);
+		}
+		return maps;
+	}
+	
+	/**
+	 * 更新模型
+	 * @param exportModel 模型实体
+	 * @return
+	 */
+	@RequestMapping(value={"/update"},method=RequestMethod.POST)
+	public String update(SysExportModel exportModel,HttpServletRequest request){
+		log.info("更新模型[SysExportModel="+exportModel+"]");
+		exportModel.setEditTime(new Date());
+		exportModel.setEditor(SecurityUtils.getSubject().getPrincipal().toString());
+		modelService.updateSysExportModel(exportModel);
+		return list(null, null, request);
+	}
 	
 }

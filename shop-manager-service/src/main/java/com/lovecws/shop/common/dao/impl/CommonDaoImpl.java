@@ -7,9 +7,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -92,7 +90,7 @@ public class CommonDaoImpl extends SqlSessionDaoSupport implements CommonDao{
 	}
 
 	/**
-	 * @param tableName
+	 * @param tableName 表名
 	 * @return 获取一个表的所有字段的属性
 	 */
 	@Override
@@ -130,27 +128,31 @@ public class CommonDaoImpl extends SqlSessionDaoSupport implements CommonDao{
 
 	/**
 	 * 获取一个表的所有数据
-	 * @param tableName  表名
+	 * @param tableName 表名
+	 * @param fields 字段
+	 * @param params 参数
 	 * @return
 	 */
 	@Override
-	public List<Map<String, Object>> getAll(String tableName) {
+	public List<List<Object>> getAllData(String tableName,String fields,String params) {
 		Connection connection = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		List<List<Object>> list = new ArrayList<List<Object>>();
 		try {
 			connection=sessionTemplate.getConnection();
-			pst = connection.prepareStatement("SELECT *FROM " + tableName);
+			if(fields==null||"".equals(fields)){ fields=" * ";}
+			if(params==null||"".equals(params)){ params="";}
+			pst = connection.prepareStatement("SELECT "+fields+" FROM " + tableName + params);
 			rs = pst.executeQuery();
 			// 获取metadata属性
 			ResultSetMetaData metaData = rs.getMetaData();
 			while (rs.next()) {
-				Map<String, Object> map = new HashMap<String, Object>();
+				List<Object> map = new ArrayList<Object>();
 				// 循环 将一条记录保存到一个map中
 				for (int i = 1; i <= metaData.getColumnCount(); i++) {
 					// TODO 当把 表的数据 blob clob 保存到内存中的时候 可能会报内存溢出一场
-					map.put(metaData.getColumnName(i), rs.getString(i));
+					map.add(rs.getString(i));
 				}
 				list.add(map);
 			}

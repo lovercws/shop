@@ -29,5 +29,10 @@ public class CommonServiceImpl implements CommonService{
 	public List<DBField> getAllField(String tableName){
 		return commonDao.getAllField(tableName);
 	}
+
+	@Override
+	public List<List<Object>> getAllData(String tableName, String fields,String params) {
+		return commonDao.getAllData(tableName, fields,params);
+	}
 	
 }
