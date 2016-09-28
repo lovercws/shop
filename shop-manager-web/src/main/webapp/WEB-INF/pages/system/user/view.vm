@@ -1,3 +1,6 @@
+<link href="$request.getContextPath()/resources/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" rel="stylesheet">
+<script src="$request.getContextPath()/resources/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="$request.getContextPath()/resources/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <style type="text/css">
 .modal-content{
    height:600px;
@@ -18,6 +21,24 @@
    visibility: visible;
 }
 </style>
+<script type="text/javascript">
+$(function() {
+	load();
+});
+$('body').on('shown.bs.modal', '.modal', function () {
+    load();
+});
+function load(){
+   $('#datepicker').datepicker({
+      viewMode: 'years',
+      language:  'zh',
+      autoclose: 1,
+      language:  'zh-CN',
+      format: 'yyyy-mm-dd',  
+      todayHighlight: 1 
+    });
+}
+</script>
 <div class="modal-content">
      <div class="modal-header">
          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -72,7 +93,7 @@
 		  <div class="form-group">
 		    <label  class="col-sm-2 control-label">生日</label>
 		    <div class="col-sm-4">
-		      <div class='input-group date' id='datetimepicker'>
+		      <div class='input-group date' id='datepicker'>
                     <input type='text' class="form-control" name="birthday"/>
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>
