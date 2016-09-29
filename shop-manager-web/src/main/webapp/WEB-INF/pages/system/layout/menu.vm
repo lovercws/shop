@@ -65,7 +65,7 @@ $(function() {
 });
 </script>
 <div class="panel-group" id="accordion">
-    #set($menuData=[{'text':'系统设置','icon':'glyphicon glyphicon-th','nodes':[{'text':'用户管理','icon':'glyphicon glyphicon-user','src':'/system/user/list'},{'text':'角色管理','icon':'glyphicon glyphicon-user','src':'/system/role/list'},{'text':'菜单管理','icon':'glyphicon glyphicon-user','src':'/system/menu/list'},{'text':'权限管理','icon':'glyphicon glyphicon-user','src':'/system/permission/list'},{'text':'数据字典','icon':'glyphicon glyphicon-list','src':'/system/ddl/list'},{'text':'日志管理','icon':'glyphicon glyphicon-user','src':'/system/log/list'},{'text':'导出设置','icon':'glyphicon glyphicon-user','src':'/system/export/list'}]},{'text':'相册管理'},{'text':'书籍管理'}])
+  
     #foreach($menu in $menuData)
       <div class="panel panel-default">
         <div class="panel-heading">

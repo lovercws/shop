@@ -34,7 +34,7 @@ CREATE TABLE `sys_role` (
   `role_name` varchar(45) DEFAULT NULL COMMENT ' 角色名称',
   `role_type` varchar(45) DEFAULT NULL COMMENT '角色类型任务分配：assignment、管理角色：security-role、普通角色：user',
   PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统角色表';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='系统角色表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,6 +43,7 @@ CREATE TABLE `sys_role` (
 
 LOCK TABLES `sys_role` WRITE;
 /*!40000 ALTER TABLE `sys_role` DISABLE KEYS */;
+INSERT INTO `sys_role` VALUES (11,'1','admin','2016-09-18 15:48:04','admin','2016-09-18 15:48:04','管理、分配系统权限角色','system','系统管理员','ADMIN'),(13,'1','admin','2016-09-18 15:48:12','admin','2016-09-18 15:48:12','相册管理员','album','相册管理管理员','ADMIN');
 /*!40000 ALTER TABLE `sys_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-11 23:49:28
+-- Dump completed on 2016-09-29 23:42:15

@@ -30,11 +30,11 @@ CREATE TABLE `sys_user` (
   `editor` varchar(45) DEFAULT NULL COMMENT '修改人',
   `edit_time` datetime DEFAULT NULL COMMENT '修改时间.',
   `remark` varchar(500) DEFAULT NULL COMMENT '描述',
-  `userName` varchar(45) DEFAULT NULL COMMENT '登录名',
+  `user_name` varchar(45) DEFAULT NULL COMMENT '登录名',
   `password` varchar(45) DEFAULT NULL COMMENT '登录密码',
   `salt` varchar(45) DEFAULT NULL COMMENT '盐',
-  `realName` varchar(45) DEFAULT NULL COMMENT '真实姓名',
-  `nickName` varchar(45) DEFAULT NULL COMMENT '昵称',
+  `real_name` varchar(45) DEFAULT NULL COMMENT '真实姓名',
+  `nick_name` varchar(45) DEFAULT NULL COMMENT '昵称',
   `type` varchar(10) DEFAULT NULL COMMENT '用户类型（admin:超级管理员，common:普通操作员），超级管理员由系统初始化时添加，不能删除)',
   `email` varchar(45) DEFAULT NULL COMMENT '邮件号码',
   `email_active` varchar(10) DEFAULT NULL COMMENT '激活yes；未激活no',
@@ -48,8 +48,8 @@ CREATE TABLE `sys_user` (
   `city` varchar(20) DEFAULT NULL COMMENT '市',
   `area` varchar(20) DEFAULT NULL COMMENT '区',
   PRIMARY KEY (`user_id`),
-  UNIQUE KEY `userName_UNIQUE` (`userName`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统用户表';
+  UNIQUE KEY `userName_UNIQUE` (`user_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='系统用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -58,6 +58,7 @@ CREATE TABLE `sys_user` (
 
 LOCK TABLES `sys_user` WRITE;
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
+INSERT INTO `sys_user` VALUES (1,'1','admin','2016-09-18 10:50:10',NULL,NULL,'lovecws','lgan','c11868852c15f3d74d1ce8c247139096','d71b61ea0bcaa1bee9d640aca7370ff6',NULL,'甘大亮','admin','915827225@qq.com',NULL,'17730831521',NULL,'group1/M00/00/01/wKgQgVfeAM2AXK1AAAP_SZsMbmc710.jpg',NULL,'2016-09-07 00:00:00',NULL,'河南省','信阳市','罗山县'),(2,'1','lgan','2016-09-29 21:56:42',NULL,NULL,'我爱你，卫生','admin','c1f02e8d37e9f34711aaf11e3d6c01ef','395ab38e75af10fa5ebef7a339e29fb6',NULL,'管理员','admin','lovercws@gmail.com',NULL,'17730831521',NULL,'',NULL,'2016-09-08 00:00:00',NULL,'河南省','信阳市','罗山县');
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -70,4 +71,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-11 23:49:28
+-- Dump completed on 2016-09-29 23:42:15

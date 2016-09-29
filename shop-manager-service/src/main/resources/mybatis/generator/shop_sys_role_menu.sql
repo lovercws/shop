@@ -30,7 +30,7 @@ CREATE TABLE `sys_role_menu` (
   `role_id` int(11) DEFAULT NULL COMMENT '角色id',
   `menu_id` int(11) DEFAULT NULL COMMENT '菜单id',
   PRIMARY KEY (`role_menu_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统角色菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8 COMMENT='系统角色菜单表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `sys_role_menu` (
 
 LOCK TABLES `sys_role_menu` WRITE;
 /*!40000 ALTER TABLE `sys_role_menu` DISABLE KEYS */;
+INSERT INTO `sys_role_menu` VALUES (33,'1','lgan','2016-09-29 22:49:54',11,27),(34,'1','lgan','2016-09-29 22:49:54',11,26),(35,'1','lgan','2016-09-29 22:49:54',11,25),(36,'1','lgan','2016-09-29 22:49:54',11,28),(37,'1','lgan','2016-09-29 22:49:54',11,29),(38,'1','lgan','2016-09-29 22:49:54',11,30),(39,'1','lgan','2016-09-29 22:49:54',11,31),(40,'1','lgan','2016-09-29 22:49:54',11,32),(41,'1','lgan','2016-09-29 22:49:54',11,33),(42,'1','lgan','2016-09-29 22:49:54',11,34);
 /*!40000 ALTER TABLE `sys_role_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-11 23:49:28
+-- Dump completed on 2016-09-29 23:42:14

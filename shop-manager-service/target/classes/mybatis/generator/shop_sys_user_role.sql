@@ -30,7 +30,7 @@ CREATE TABLE `sys_user_role` (
   `role_id` int(11) DEFAULT NULL COMMENT '角色ID',
   `user_id` int(11) DEFAULT NULL COMMENT '用户ID',
   PRIMARY KEY (`user_role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统用户角色中间表';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='系统用户角色中间表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +39,7 @@ CREATE TABLE `sys_user_role` (
 
 LOCK TABLES `sys_user_role` WRITE;
 /*!40000 ALTER TABLE `sys_user_role` DISABLE KEYS */;
+INSERT INTO `sys_user_role` VALUES (10,'1','lgan','2016-09-29 22:50:39',11,2),(11,'1','lgan','2016-09-29 22:50:47',13,1);
 /*!40000 ALTER TABLE `sys_user_role` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-11 23:49:29
+-- Dump completed on 2016-09-29 23:42:16

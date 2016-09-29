@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE `sys_menu` (
   `menu_id` int(11) NOT NULL AUTO_INCREMENT,
   `menu_status` varchar(10) DEFAULT NULL COMMENT '状态 PublicStatusEnum',
-  `creator` datetime DEFAULT NULL COMMENT '创建人.',
+  `creator` varchar(45) DEFAULT NULL COMMENT '创建人.',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间.',
   `editor` varchar(45) DEFAULT NULL COMMENT ' 修改人.',
   `edit_time` datetime DEFAULT NULL COMMENT '修改时间.',
@@ -40,7 +40,7 @@ CREATE TABLE `sys_menu` (
   `level` int(11) DEFAULT NULL COMMENT '菜单层级',
   `parent_menu_id` int(11) DEFAULT NULL COMMENT '父节点:一级菜单为0',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,6 +49,7 @@ CREATE TABLE `sys_menu` (
 
 LOCK TABLES `sys_menu` WRITE;
 /*!40000 ALTER TABLE `sys_menu` DISABLE KEYS */;
+INSERT INTO `sys_menu` VALUES (25,'1','lgan','2016-09-29 22:00:04','admin','2016-09-29 23:35:57','系统管理；功能设置','system','系统设置','',1000,0,'glyphicon glyphicon-th','show',1,0),(26,'1','lgan','2016-09-29 22:00:33','admin','2016-09-29 23:36:05','相册管理;','album','相册管理','',900,0,'','show',1,0),(27,'1','lgan','2016-09-29 22:01:03','admin','2016-09-29 23:36:11','书籍管理','book','书籍管理','',800,0,'','show',1,0),(28,'1','lgan','2016-09-29 22:02:42','admin','2016-09-29 23:36:22','系统管理：用户管理','system:user','用户管理','/system/user/list',990,0,'glyphicon glyphicon-user','show',2,25),(29,'1','lgan','2016-09-29 22:03:29','admin','2016-09-29 23:40:50','系统设置:角色管理','system:role','角色管理','/system/role/list',980,0,'glyphicon glyphicon-user','show',2,25),(30,'1','lgan','2016-09-29 22:07:28','admin','2016-09-29 23:37:22','系统设置 菜单管理','system:menu','菜单管理','/system/menu/list',970,0,'/glyphicon glyphicon-user','show',2,25),(31,'1','lgan','2016-09-29 22:08:33','admin','2016-09-29 23:37:53','系统设置；\r\n权限管理','system:permission','权限管理','/system/permission/list',960,0,'glyphicon glyphicon-user','show',2,25),(32,'1','lgan','2016-09-29 22:09:28','admin','2016-09-29 23:38:06','系统设置；数据字典','system:ddl','数据字典','/system/ddl/list',950,0,'glyphicon glyphicon-list','show',2,25),(33,'1','lgan','2016-09-29 22:10:25','admin','2016-09-29 23:38:13','系统设置；日志管理','system:log','日志管理','/system/log/list',940,0,'glyphicon glyphicon-list','show',2,25),(34,'1','lgan','2016-09-29 22:11:19','admin','2016-09-29 23:38:39','系统设置；导出设置','system:export','导出设置','/system/export/list',930,0,'glyphicon glyphicon-user','show',2,25);
 /*!40000 ALTER TABLE `sys_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -61,4 +62,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-11 23:49:28
+-- Dump completed on 2016-09-29 23:42:15

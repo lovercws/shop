@@ -36,7 +36,7 @@ CREATE TABLE `sys_ddl` (
   `ddl_value` varchar(45) DEFAULT NULL COMMENT '数据字典值',
   `ddl_number` int(11) DEFAULT NULL COMMENT '数据字典排序',
   PRIMARY KEY (`ddl_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='系统数据字典表';
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='系统数据字典表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ CREATE TABLE `sys_ddl` (
 
 LOCK TABLES `sys_ddl` WRITE;
 /*!40000 ALTER TABLE `sys_ddl` DISABLE KEYS */;
-INSERT INTO `sys_ddl` VALUES (1,NULL,NULL,'2016-09-11 16:03:58',NULL,NULL,'man','sex','性别','男','1',100),(2,'1','admin','2016-09-11 16:12:14',NULL,NULL,'man','sex','性别','男','1',100),(3,'1','admin','2016-09-11 16:17:33','admin','2016-09-11 19:05:16','femal','sex','性别','女','2',100),(6,'1','admin','2016-09-11 19:15:40','admin','2016-09-11 19:16:00','未知性别','sex','性别','未知','0',100),(7,'1','admin','2016-09-11 19:18:03',NULL,NULL,'禁用','public','公共','forbit','0',90),(8,'1','admin','2016-09-11 19:18:26',NULL,NULL,'正常','public','公共','normal','1',90),(9,'1','admin','2016-09-11 19:18:47',NULL,NULL,'删除','public','公共','delete','2',90),(10,'1','admin','2016-09-11 19:20:56',NULL,NULL,'黄色图片','color','颜色','黄色','yellow',80),(11,'1','admin','2016-09-11 19:21:18',NULL,NULL,'红色颜色','color','颜色','红色','red',80),(12,'1','admin','2016-09-11 19:21:46','admin','2016-09-11 19:22:51','绿色','color','颜色','绿色','green',80),(14,'1','admin','2016-09-11 19:22:39',NULL,NULL,'黑色','color','颜色','黑色','black',80),(16,'1','admin','2016-09-11 23:18:35',NULL,NULL,'白色是混合光','color','颜色','白色','white',80),(17,'1','admin','2016-09-11 23:19:00',NULL,NULL,'黑色大地','color','颜色','黑色','black',80);
+INSERT INTO `sys_ddl` VALUES (1,NULL,NULL,'2016-09-11 16:03:58',NULL,NULL,'man','sex','性别','男','1',100),(2,'1','admin','2016-09-11 16:12:14',NULL,NULL,'man','sex','性别','男','1',100),(3,'1','admin','2016-09-11 16:17:33','admin','2016-09-11 19:05:16','femal','sex','性别','女','2',100),(6,'1','admin','2016-09-11 19:15:40','admin','2016-09-11 19:16:00','未知性别','sex','性别','未知','0',100),(8,'1','admin','2016-09-11 19:18:26',NULL,NULL,'正常','public','公共','normal','1',90),(9,'1','admin','2016-09-11 19:18:47',NULL,NULL,'删除','public','公共','delete','2',90),(10,'1','admin','2016-09-11 19:20:56',NULL,NULL,'黄色图片','color','颜色','黄色','yellow',80),(11,'1','admin','2016-09-11 19:21:18','admin','2016-09-12 13:04:12','红色颜色','color','颜色','红色','red',80),(12,'1','admin','2016-09-11 19:21:46','admin','2016-09-11 19:22:51','绿色','color','颜色','绿色','green',80),(14,'1','admin','2016-09-11 19:22:39',NULL,NULL,'黑色','color','颜色','黑色','black',80),(18,'1','admin','2016-09-12 13:17:09','admin','2016-09-12 13:24:57','白色之恋','color','颜色','白色','black',70),(19,'1','admin','2016-09-12 13:38:39',NULL,NULL,'绝黄色','color','颜色','橘色','orange',70),(20,'1','admin','2016-09-12 13:43:31',NULL,NULL,'银色山庄','color','颜色','银色','silver',70),(21,'1','admin','2016-09-12 13:50:58',NULL,NULL,'蓝色的天空','color','颜色','蓝色','blue',70);
 /*!40000 ALTER TABLE `sys_ddl` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -58,4 +58,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-09-11 23:49:29
+-- Dump completed on 2016-09-29 23:42:15

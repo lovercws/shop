@@ -78,4 +78,11 @@ public interface SysMenuService {
 	 */
 	public List<SysMenu> getSysMenuByRoleId(String roleId, String menuStatus);
 
+	/**
+	 * 获取菜单集合
+	 * @param userId 用户id
+	 * @return
+	 */
+	public List<SysMenu> getSysMenuByUserId(Integer userId);
+
 }

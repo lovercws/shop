@@ -123,6 +123,16 @@
         select m.menu_id,m.menu_code,m.menu_name,m.menu_url,m.parent_menu_id
 		from sys_role_menu rm inner join sys_menu m on(rm.menu_id=m.menu_id) where rm.role_id=#{roleId} and m.menu_status=#{menuStatus}
     </select>
+    
+    <!-- 根据用户id 获取菜单列表 -->
+    <select id="getSysMenuByUserId" parameterType="map" resultMap="SysMenuResultMap">
+        select m.*
+		from sys_user_role ur inner 
+		join sys_role_menu rm on(rm.role_id=ur.role_id) 
+		inner join sys_menu m on(m.menu_id=rm.menu_id)
+		where ur.user_id=#{userId} 
+		order by m.menu_num desc
+    </select>
 
 	<!-- 插入菜单-->
 	<insert id="insert" parameterType="SysMenu" useGeneratedKeys="true"
