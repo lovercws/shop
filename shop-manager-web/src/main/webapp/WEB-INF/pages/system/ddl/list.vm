@@ -78,9 +78,15 @@ function deleteDDL(ddlId,qddlCode,qddlKey,currentPage){
 </div>
 <div class="content-toolbar">
     <div class="btn-group">
-	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/ddl/add"><span class="glyphicon glyphicon-plus"></span>添加数据字典</button>
-	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span>导入数据字典</button>
-	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span>导出数据字典</button>
+        #if($shiro.hasPermission('system:ddl:add'))
+		    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/ddl/add"><span class="glyphicon glyphicon-plus"></span>添加数据字典</button>
+		#end
+        #if($shiro.hasPermission('system:ddl:import'))
+	       <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span>导入数据字典</button>
+		#end
+        #if($shiro.hasPermission('system:ddl:export'))
+	       <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span>导出数据字典</button>
+		#end
 	</div>
 </div>
 <div class="content-body">
@@ -106,9 +112,15 @@ function deleteDDL(ddlId,qddlCode,qddlKey,currentPage){
 		      <td>${ddl.ddlNumber}</td>
 		      <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!ddl.createTime)</td>
 		      <td>
-		      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/ddl/view?ddlId=$ddl.ddlId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
-		      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/ddl/edit?ddlId=$ddl.ddlId&currentPage=$!pageBean.currentPage&qddlCode=$!qddlCode&&qddlKey=$!qddlKey" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-		      	 <a class="btn btn-default" data-toggle="modal" onclick="deleteDDL('$ddl.ddlId','$!qddlCode','$!qddlKey','$!pageBean.currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
+		         #if($shiro.hasPermission('system:ddl:view'))
+		      	    <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/ddl/view?ddlId=$ddl.ddlId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
+				 #end
+		         #if($shiro.hasPermission('system:ddl:edit'))
+		      	    <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/ddl/edit?ddlId=$ddl.ddlId&currentPage=$!pageBean.currentPage&qddlCode=$!qddlCode&&qddlKey=$!qddlKey" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+				 #end
+		         #if($shiro.hasPermission('system:ddl:delete'))
+		      	    <a class="btn btn-default" data-toggle="modal" onclick="deleteDDL('$ddl.ddlId','$!qddlCode','$!qddlKey','$!pageBean.currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
+				 #end
 		      </td>
 		   </tr>
 	    #end

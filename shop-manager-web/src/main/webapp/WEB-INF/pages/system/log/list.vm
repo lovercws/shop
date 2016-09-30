@@ -81,7 +81,9 @@ function deleteUserLog(userLogId,startDate,endDate,currentPage){
 	      <td>$!log.usetime</td>
 	      <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!log.createTime)</td>
 	      <td>
-	      	 <a class="btn btn-default" onclick="deleteUserLog('$!log.userLogId','$!startDate','$!endDate','$!pageBean.currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
+	         #if($shiro.hasPermission('system:permission:delete'))
+	      	    <a class="btn btn-default" onclick="deleteUserLog('$!log.userLogId','$!startDate','$!endDate','$!pageBean.currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
+		     #end
 	      </td>
 	    </tr>
 	   #end

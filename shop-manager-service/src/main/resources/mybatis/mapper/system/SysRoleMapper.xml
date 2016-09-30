@@ -171,9 +171,11 @@
 		where role_id = #{roleId}
 	</update>
 	
-	<!-- 获取用户已经选择的角色 -->
+	<!-- 获取用户已经被分配的角色 -->
 	<select id="getSysRoleByUserId" resultMap="SysRoleResultMap"
 		parameterType="map">
-		select r.role_id,r.role_name from sys_user_role ur inner join sys_role r on(ur.role_id=r.role_id) where ur.user_id=#{userId}
+		select r.* from sys_user_role ur 
+		inner join sys_role r on(ur.role_id=r.role_id) 
+		where ur.user_id=#{userId}
 	</select>
 </mapper>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,6 +42,7 @@ public class PermissionController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:permission:view")
 	@RequestMapping(value={"/list"},method=RequestMethod.GET)
 	public String list(String qmenuId,String qpermissionCode,String qpermissionName,String currentPage,HttpServletRequest request){
 		log.info("获取权限列表[menuId="+qmenuId+",permissionCode="+qpermissionCode+"permissionName="+qpermissionName+",currentPage="+currentPage+"]");
@@ -80,6 +82,7 @@ public class PermissionController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:permission:edit")
 	@RequestMapping(value={"/edit"},method=RequestMethod.GET)
 	public String edit(String permissionId,String qmenuId,String qpermissionCode,String qpermissionName,String currentPage,HttpServletRequest request){
 		log.info("进入到编辑权限页面[permissionId="+permissionId+",menuId="+qmenuId+",permissionCode="+qpermissionCode+"permissionName="+qpermissionName+",currentPage="+currentPage+"]");
@@ -104,7 +107,7 @@ public class PermissionController {
 	 * @param currentPage 当前分页数
 	 * @return
 	 */
-	
+	@RequiresPermissions("system:permission:edit")
 	@RequestMapping(value={"/update"},method=RequestMethod.POST)
 	public String update(SysPermission permission,String qmenuId,String qpermissionCode,String qpermissionName,String currentPage,HttpServletRequest request){
 		log.info("更新权限[permission="+permission+"]");
@@ -120,6 +123,7 @@ public class PermissionController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:permission:view")
 	@RequestMapping(value={"/view"},method=RequestMethod.GET)
 	public String view(String permissionId,HttpServletRequest request){
 		log.info("查看权限详情[permissionId="+permissionId+"]");
@@ -138,6 +142,7 @@ public class PermissionController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:permission:add")
 	@RequestMapping(value={"/add"},method=RequestMethod.GET)
 	public String add(String permissionId,HttpServletRequest request){
 		log.info("添加权限页面[permissionId="+permissionId+"]");
@@ -154,6 +159,7 @@ public class PermissionController {
 	 * 保存权限
 	 * @return
 	 */
+	@RequiresPermissions("system:permission:add")
 	@RequestMapping(value={"/save"},method=RequestMethod.PUT)
 	public String save(SysPermission permission,HttpServletRequest request){
 		log.info("保存权限[permission="+permission+"]");
@@ -174,6 +180,7 @@ public class PermissionController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:permission:delete")
 	@RequestMapping(value={"/delete"},method=RequestMethod.DELETE)
 	public String delete(String permissionId,String qmenuId,String qpermissionCode,String qpermissionName,String currentPage,HttpServletRequest request){
 		log.info("删除权限[permission="+permissionId+"]");
@@ -187,6 +194,7 @@ public class PermissionController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:permission:permission")
 	@RequestMapping(value={"/permission"},method=RequestMethod.GET)
 	public String permission(String menuId,HttpServletRequest request){
 		//查询权限列表

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ public class UserRoleController {
 	 * @return
 	 */
 	@ResponseBody
+	@RequiresPermissions("system:user:allowrole")
 	@RequestMapping(value={"/list"},method=RequestMethod.GET)
 	public List<ZTreeBean> tree(String userId){
 		log.info("获取用户角色列表[userId="+userId+"]");
@@ -61,6 +63,7 @@ public class UserRoleController {
 	 * @param roleIds 角色id
 	 * @return
 	 */
+	@RequiresPermissions("system:user:allowrole")
 	@RequestMapping(value={"/save"},method=RequestMethod.PUT)
 	public String save(String userId,String roleIds){
 		log.info("保存用户角色[userId="+userId+",roleIds=["+roleIds+"]]");

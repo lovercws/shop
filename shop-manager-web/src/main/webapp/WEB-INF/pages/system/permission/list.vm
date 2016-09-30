@@ -78,9 +78,15 @@ function deletePermission(permissionId,qmenuId,qpermissionCode,qpermissionName,c
 </div>
 <div class="content-toolbar">
     <div class="btn-group">
-	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/permission/add"><span class="glyphicon glyphicon-plus"></span>添加权限</button>
-	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span>导入权限</button>
-	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span>导出权限</button>
+        #if($shiro.hasPermission('system:permission:add'))
+	        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/permission/add"><span class="glyphicon glyphicon-plus"></span>添加权限</button>
+        #end
+        #if($shiro.hasPermission('system:permission:import'))
+	        <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span>导入权限</button>
+        #end
+        #if($shiro.hasPermission('system:permission:export'))
+		    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span>导出权限</button>
+        #end
 	</div>
 </div>
 <div class="content-body">
@@ -104,9 +110,15 @@ function deletePermission(permissionId,qmenuId,qpermissionCode,qpermissionName,c
 	      <td>$!permission.permissionPath</td>
 	      <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!permission.createTime)</td>
 	      <td>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/permission/view?permissionId=$!permission.permissionId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/permission/edit?permissionId=$!permission.permissionId&qmenuId=$!qmenuId&qpermissionCode=$!qpermissionCode&qpermissionName=$!qpermissionName" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-	      	 <a class="btn btn-default" onclick="deletePermission('$!permission.permissionId','$!qmenuId','$!qpermissionCode','$!qpermissionName','$!pageBean.currentPage')" ><span class="glyphicon glyphicon-remove"></span>删除</a>
+	         #if($shiro.hasPermission('system:permission:view'))
+	      		<a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/permission/view?permissionId=$!permission.permissionId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
+	         #end
+	         #if($shiro.hasPermission('system:permission:edit'))
+		      	<a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/permission/edit?permissionId=$!permission.permissionId&qmenuId=$!qmenuId&qpermissionCode=$!qpermissionCode&qpermissionName=$!qpermissionName" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+	         #end
+	         #if($shiro.hasPermission('system:permission:delete'))
+		      	<a class="btn btn-default" onclick="deletePermission('$!permission.permissionId','$!qmenuId','$!qpermissionCode','$!qpermissionName','$!pageBean.currentPage')" ><span class="glyphicon glyphicon-remove"></span>删除</a>
+	         #end
 	      </td>
 	    </tr>
 	    #end

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ public class DDLController {
 	 * @param currentPage 当前分页数
 	 * @return
 	 */
+	@RequiresPermissions("system:ddl:view")
 	@RequestMapping(value={"/list"},method=RequestMethod.GET)
 	public String list(String qddlCode,String qddlKey,String currentPage,HttpServletRequest request){
 		log.info("获取数据字典列表[ddlCode="+qddlCode+",ddlKey="+qddlKey+",currentPage="+currentPage+"]");
@@ -70,6 +72,7 @@ public class DDLController {
 	 * @param ddlId 数据字典id
 	 * @return
 	 */
+	@RequiresPermissions("system:ddl:edit")
 	@RequestMapping(value={"/edit"},method=RequestMethod.GET)
 	public String edit(String ddlId,String qddlCode,String qddlKey,String currentPage,HttpServletRequest request){
 		log.info("编辑数据字典[ddlId="+ddlId+"]");
@@ -87,6 +90,7 @@ public class DDLController {
 	 * @param ddlId 数据字典id
 	 * @return
 	 */
+	@RequiresPermissions("system:ddl:edit")
 	@RequestMapping(value={"/update"},method=RequestMethod.POST)
 	public String update(SysDDL ddl,String qddlCode,String qddlKey,String currentPage,HttpServletRequest request){
 		log.info("更新数据字典[ddl="+ddl+"]");
@@ -102,6 +106,7 @@ public class DDLController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:ddl:view")
 	@RequestMapping(value={"/view"},method=RequestMethod.GET)
 	public String view(String ddlId,HttpServletRequest request){
 		log.info("查看数据字典详情[ddlId="+ddlId+"]");
@@ -115,6 +120,7 @@ public class DDLController {
 	 * 进入到编辑数据字典页面
 	 * @return
 	 */
+	@RequiresPermissions("system:ddl:add")
 	@RequestMapping(value={"/add"},method=RequestMethod.GET)
 	public String add(){
 		return "system/ddl/add";
@@ -126,6 +132,7 @@ public class DDLController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:ddl:add")
 	@RequestMapping(value={"/save"},method=RequestMethod.PUT)
 	public String save(SysDDL ddl,HttpServletRequest request){
 		log.info("保存数据字典[ddl="+ddl+"]");
@@ -143,6 +150,7 @@ public class DDLController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:ddl:delete")
 	@RequestMapping(value={"/delete"},method=RequestMethod.DELETE)
 	public String delete(String ddlId,String qddlCode,String qddlKey,String currentPage,HttpServletRequest request){
 		log.info("删除数据字典[ddlId="+ddlId+"]");

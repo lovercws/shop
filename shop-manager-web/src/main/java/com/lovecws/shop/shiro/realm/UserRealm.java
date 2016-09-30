@@ -15,6 +15,8 @@
  */
 package com.lovecws.shop.shiro.realm;
 
+import java.util.List;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -25,13 +27,16 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
-import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.lovecws.common.core.enums.PublicEnum;
+import com.lovecws.shop.system.entity.SysPermission;
+import com.lovecws.shop.system.entity.SysRole;
 import com.lovecws.shop.system.entity.SysUser;
+import com.lovecws.shop.system.service.SysPermissionService;
+import com.lovecws.shop.system.service.SysRoleService;
 import com.lovecws.shop.system.service.SysUserService;
 
 /**
@@ -43,19 +48,39 @@ public class UserRealm extends AuthorizingRealm {
 
 	@Autowired
 	private SysUserService userService;
+	@Autowired
+	private SysRoleService roleService;
+	@Autowired
+	private SysPermissionService permissionService;
 	
-	@SuppressWarnings("unused")
+	/**
+	 * 获取当前用户的角色集合,权限集合
+	 */
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		String loginName = (String) principals.getPrimaryPrincipal();
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-		Subject subject = SecurityUtils.getSubject();
-		Session session = subject.getSession();
+		//获取保存在session中的用户信息
+		SysUser user=(SysUser) SecurityUtils.getSubject().getSession().getAttribute(SysUser.SYS_USER);
+		if(user==null){
+			throw new IllegalArgumentException();
+		}
+		//获取当前用户拥有的所有角色
+		List<SysRole> roles = roleService.getSysRoleByUserId(user.getUserId().toString(), PublicEnum.NORMAL.value());
+		for (SysRole sysRole : roles) {
+			authorizationInfo.addRole(sysRole.getRoleCode());
+		}
+		//获取当前用户拥有的所有权限
+		List<SysPermission> permissions=permissionService.getSysPermissionByUserId(user.getUserId(), PublicEnum.NORMAL.value());
+		for (SysPermission sysPermission : permissions) {
+			authorizationInfo.addStringPermission(sysPermission.getPermission());
+		}
 		return authorizationInfo;
 	}
 
+	/**
+	 * 校验登录用户
+	 */
 	@Override
-	// 验证的核心方法
 	protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
 		String loginName = (String) token.getPrincipal();

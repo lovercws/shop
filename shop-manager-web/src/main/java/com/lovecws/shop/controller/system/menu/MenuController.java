@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,7 @@ public class MenuController {
 	 * 显示菜单列表
 	 * @return
 	 */
+	@RequiresPermissions("system:menu:view")
 	@RequestMapping(value={"/list"},method=RequestMethod.GET)
 	public String list(String qparentMenuId,String qmenuCode,String qmenuName,String currentPage,HttpServletRequest request){
 		log.info("获取菜单列表[parentMenuId="+qparentMenuId+",menuCode="+qmenuCode+"menuName="+qmenuName+",currentPage="+currentPage+"]");
@@ -71,6 +73,7 @@ public class MenuController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:menu:edit")
 	@RequestMapping(value={"/edit"},method=RequestMethod.GET)
 	public String edit(String menuId,String qparentMenuId,String qmenuCode,String qmenuName,String currentPage,HttpServletRequest request){
 		log.info("进入到编辑菜单页面");
@@ -97,6 +100,7 @@ public class MenuController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:menu:edit")
 	@RequestMapping(value={"/update"},method=RequestMethod.POST)
 	public String update(SysMenu menu,String qparentMenuId,String qmenuCode,String qmenuName,String currentPage,HttpServletRequest request){
 		log.info("更新菜单[menu="+menu+"]");
@@ -113,6 +117,7 @@ public class MenuController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:menu:view")
 	@RequestMapping(value={"/view"},method=RequestMethod.GET)
 	public String view(String menuId,HttpServletRequest request){
 		log.info("进入到查看菜单页面");
@@ -129,6 +134,7 @@ public class MenuController {
 	 * 进入到编辑菜单页面
 	 * @return
 	 */
+	@RequiresPermissions("system:menu:add")
 	@RequestMapping(value={"/add"},method=RequestMethod.GET)
 	public String add(HttpServletRequest request){
 		log.info("进入到添加菜单页面");
@@ -144,6 +150,7 @@ public class MenuController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:menu:add")
 	@RequestMapping(value={"/save"},method=RequestMethod.PUT)
 	public String save(SysMenu menu,HttpServletRequest request){
 		log.info("保存菜单[menu="+menu+"]");
@@ -171,6 +178,7 @@ public class MenuController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:menu:delete")
 	@RequestMapping(value={"/delete"},method=RequestMethod.DELETE)
 	public String delete(String menuId,String qparentMenuId,String qmenuCode,String qmenuName,String currentPage,HttpServletRequest request){
 		log.info("删除菜单[menuId="+menuId+"]");
@@ -185,6 +193,7 @@ public class MenuController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:menu:leaf")
 	@RequestMapping(value={"/leaf"},method=RequestMethod.GET)
 	public String leaf(String parentMenuId,HttpServletRequest request){
 		log.info("获取菜单列表[parentMenuId="+parentMenuId+"]");

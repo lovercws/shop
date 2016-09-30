@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ public class RoleController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:role:view")
 	@RequestMapping(value={"/list"},method=RequestMethod.GET)
 	public String list(String qroleCode,String qroleName,String currentPage,HttpServletRequest request) {
 		log.info("获取角色列表[qroleCode="+qroleCode+",qroleName="+qroleName+",currentPage="+currentPage+"]");
@@ -68,6 +70,7 @@ public class RoleController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:role:edit")
 	@RequestMapping(value={"/edit"},method=RequestMethod.GET)
 	public String edit(String roleId,String qroleCode,String qroleName,String currentPage,HttpServletRequest request){
 		log.info("编辑角色[roleId="+roleId+"]");
@@ -88,6 +91,7 @@ public class RoleController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:role:edit")
 	@RequestMapping(value={"/update"},method=RequestMethod.POST)
 	public String update(SysRole role,String qroleCode,String qroleName,String currentPage,HttpServletRequest request){
 		log.info("更新角色[role="+role+"]");
@@ -102,6 +106,7 @@ public class RoleController {
 	 * @param roleId 角色id
 	 * @return
 	 */
+	@RequiresPermissions("system:role:view")
 	@RequestMapping(value={"/view"},method=RequestMethod.GET)
 	public String view(String roleId,HttpServletRequest request){
 		log.info("查看角色详情[roleId="+roleId+"]");
@@ -114,6 +119,7 @@ public class RoleController {
 	 * 添加角色
 	 * @return
 	 */
+	@RequiresPermissions("system:role:add")
 	@RequestMapping(value={"/add"},method=RequestMethod.GET)
 	public String add(){
 		log.info("添加角色");
@@ -124,6 +130,7 @@ public class RoleController {
 	 * 保存角色
 	 * @return
 	 */
+	@RequiresPermissions("system:role:add")
 	@RequestMapping(value={"/save"},method=RequestMethod.PUT)
 	public String save(SysRole role,HttpServletRequest request){
 		log.info("保存角色[role="+role+"]");
@@ -143,6 +150,7 @@ public class RoleController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:role:delete")
 	@RequestMapping(value={"/delete"},method=RequestMethod.DELETE)
 	public String delete(String roleId,String qroleCode,String qroleName,String currentPage,HttpServletRequest request){
 		roleService.deleteById(roleId);

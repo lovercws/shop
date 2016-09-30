@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +35,7 @@ public class RoleMenuController {
 	 * @return
 	 */
 	@ResponseBody
+	@RequiresPermissions("system:role:allowmenu")
 	@RequestMapping(value={"/tree"},method=RequestMethod.GET)
 	public List<ZTreeBean> getRoleMenuTree(String roleId){
 		log.info("角色菜单树[roleId="+roleId+"]");
@@ -66,6 +68,7 @@ public class RoleMenuController {
 	 * 保存角色菜单
 	 * @return
 	 */
+	@RequiresPermissions("system:role:allowmenu")
 	@RequestMapping(value={"/save"},method=RequestMethod.PUT)
 	public String saveRoleMenu(String roleId,String menuIds){
 		log.info("保存角色菜单[roleId="+roleId+",menuIds=["+menuIds+"]]");

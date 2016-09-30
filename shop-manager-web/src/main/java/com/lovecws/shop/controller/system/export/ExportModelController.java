@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,6 +47,7 @@ public class ExportModelController {
 	 * 进入到导出设置列表
 	 * @return
 	 */
+	@RequiresPermissions("system:export:view")
 	@RequestMapping(value={"/list"},method=RequestMethod.GET)
 	public String list(String qmodelName,String currentPage,HttpServletRequest request){
 		log.info("获取导出模型列表[qmodelName="+qmodelName+",currentPage="+currentPage+"]");
@@ -101,6 +103,7 @@ public class ExportModelController {
 	 * @return
 	 */
 	@ResponseBody
+	@RequiresPermissions("system:export:view")
 	@RequestMapping(value={"/select"},method=RequestMethod.GET)
 	public List<DBField> select(String tableName,HttpServletRequest request){
 		log.info("获取选择表[tableName="+tableName+"]");
@@ -114,6 +117,7 @@ public class ExportModelController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:export:add")
 	@RequestMapping(value={"/save"},method=RequestMethod.POST)
 	public String save(SysExportModel exportModel,HttpServletRequest request){
 		log.info("保存模型[exportModel="+exportModel+"]");
@@ -130,6 +134,7 @@ public class ExportModelController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:export:delete")
 	@RequestMapping(value={"/delete"},method=RequestMethod.DELETE)
 	public String delete(String modelId,String qmodelName,String currentPage,HttpServletRequest request){
 		log.info("删除模型[modelId="+modelId+"]");
@@ -143,6 +148,7 @@ public class ExportModelController {
 	 * @return
 	 */
 	@ResponseBody
+	@RequiresPermissions("system:export:view")
 	@RequestMapping(value={"/view"},method=RequestMethod.GET)
 	public List<Map<String,Object>> view(String modelId,HttpServletRequest request){
 		log.info("查看模型[modelId="+modelId+"]");
@@ -181,6 +187,7 @@ public class ExportModelController {
 	 * @param exportModel 模型实体
 	 * @return
 	 */
+	@RequiresPermissions("system:export:edit")
 	@RequestMapping(value={"/update"},method=RequestMethod.POST)
 	public String update(SysExportModel exportModel,HttpServletRequest request){
 		log.info("更新模型[SysExportModel="+exportModel+"]");

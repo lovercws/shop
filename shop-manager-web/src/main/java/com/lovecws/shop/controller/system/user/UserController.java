@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -44,6 +45,7 @@ public class UserController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:user:view")
 	@RequestMapping(value = { "/list" }, method = RequestMethod.GET)
 	public String list(String quserName, String qnickName, String qemail, String qphone, String currentPage,
 			HttpServletRequest request) {
@@ -86,6 +88,7 @@ public class UserController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:user:edit")
 	@RequestMapping(value = { "/edit" }, method = RequestMethod.GET)
 	public String edit(String userId, String quserName, String qnickName, String qemail, String qphone,
 			String currentPage, HttpServletRequest request) {
@@ -111,6 +114,7 @@ public class UserController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:user:edit")
 	@RequestMapping(value = { "/update" }, method = RequestMethod.POST)
 	public String update(SysUser user, String quserName, String qnickName, String qemail, String qphone,
 			String currentPage, HttpServletRequest request) {
@@ -125,6 +129,7 @@ public class UserController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:user:view")
 	@RequestMapping(value = { "/view" }, method = RequestMethod.GET)
 	public String view(String userId, HttpServletRequest request) {
 		log.info("查看用户详情[userId=" + userId + "]");
@@ -137,6 +142,7 @@ public class UserController {
 	 * 进入到编辑用户页面
 	 * @return
 	 */
+	@RequiresPermissions("system:user:add")
 	@RequestMapping(value = { "/add" }, method = RequestMethod.GET)
 	public String add() {
 		log.info("添加用户");
@@ -147,6 +153,7 @@ public class UserController {
 	 * 保存用户
 	 * @return
 	 */
+	@RequiresPermissions("system:user:add")
 	@RequestMapping(value = { "/save" }, method = RequestMethod.PUT)
 	public String save(SysUser user, HttpServletRequest request) {
 		log.info("保存用户[user=" + user + "]");
@@ -166,6 +173,7 @@ public class UserController {
 	 * 删除用户
 	 * @return
 	 */
+	@RequiresPermissions("system:user:delete")
 	@RequestMapping(value = { "/delete" }, method = RequestMethod.DELETE)
 	public String delete(String userId, String quserName, String qnickName, String qemail, String qphone,
 			String currentPage, HttpServletRequest request) {

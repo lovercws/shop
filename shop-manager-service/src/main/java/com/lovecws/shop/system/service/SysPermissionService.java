@@ -64,4 +64,12 @@ public interface SysPermissionService {
 	 */
 	public List<SysPermission> getSysPermissionByRoleId(String roleId, String permissionStatus);
 
+	/**
+	 * 获取用户下的所有权限
+	 * @param userId 用户id
+	 * @param permissionStatus 权限状态
+	 * @return
+	 */
+	public List<SysPermission> getSysPermissionByUserId(Integer userId, String permissionStatus);
+
 }

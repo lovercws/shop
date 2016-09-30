@@ -87,4 +87,12 @@ public class SysPermissionServiceImpl implements SysPermissionService{
 		paramMap.put("permissionStatus", permissionStatus);
 		return permissionDao.selectList("getSysPermissionByRoleId", paramMap);
 	}
+
+	@Override
+	public List<SysPermission> getSysPermissionByUserId(Integer userId, String permissionStatus) {
+		Map<String, Object> paramMap=new HashMap<String, Object>();
+		paramMap.put("userId", userId);
+		paramMap.put("permissionStatus", permissionStatus);
+		return permissionDao.selectList("getSysPermissionByUserId", paramMap);
+	}
 }

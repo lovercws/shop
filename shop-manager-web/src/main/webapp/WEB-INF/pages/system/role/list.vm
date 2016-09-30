@@ -138,9 +138,15 @@ function getAllSelectedPermission(){
 </div>
 <div class="content-toolbar">
     <div class="btn-group">
-	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/role/add"><span class="glyphicon glyphicon-plus"></span>添加角色</button>
-	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span>导入角色</button>
-	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span>导出角色</button>
+        #if($shiro.hasPermission('system:role:add'))
+	       <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/role/add"><span class="glyphicon glyphicon-plus"></span>添加角色</button>
+        #end
+        #if($shiro.hasPermission('system:role:import'))
+	       <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span>导入角色</button>
+        #end
+        #if($shiro.hasPermission('system:role:export'))
+	       <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span>导出角色</button>
+        #end
 	</div>
 </div>
 <div class="content-body">
@@ -169,11 +175,21 @@ function getAllSelectedPermission(){
 	      <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!role.createTime)</td>
 	      <td>$!role.remark</td>
 	      <td>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/role/view?roleId=$!role.roleId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
-	      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/role/edit?roleId=$!role.roleId&qroleCode=$!qroleCode&qroleName=$!qroleName&currentPage=$!pageBean.currentPage"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-	      	 <a class="btn btn-default" data-toggle="modal" onclick="deleteRole('$!role.roleId','$!qroleCode','$!qroleName','$!pageBean.currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
-	      	 <a class="btn btn-default" href="javascript:allowMenu('$role.roleId')"><span class="glyphicon glyphicon-remove"></span>分配菜单</a>
-	      	 <a class="btn btn-default" href="javascript:allowPermission('$role.roleId')"><span class="glyphicon glyphicon-remove"></span>分配权限</a>
+	         #if($shiro.hasPermission('system:role:view'))
+	      	    <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/role/view?roleId=$!role.roleId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
+	         #end
+	         #if($shiro.hasPermission('system:role:edit'))
+	      	    <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/role/edit?roleId=$!role.roleId&qroleCode=$!qroleCode&qroleName=$!qroleName&currentPage=$!pageBean.currentPage"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+	         #end
+	         #if($shiro.hasPermission('system:role:delete'))
+	      	    <a class="btn btn-default" data-toggle="modal" onclick="deleteRole('$!role.roleId','$!qroleCode','$!qroleName','$!pageBean.currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
+	         #end
+	         #if($shiro.hasPermission('system:role:allowmenu'))
+	      	    <a class="btn btn-default" href="javascript:allowMenu('$role.roleId')"><span class="glyphicon glyphicon-remove"></span>分配菜单</a>
+	         #end
+	         #if($shiro.hasPermission('system:role:allowpermission'))
+	      	    <a class="btn btn-default" href="javascript:allowPermission('$role.roleId')"><span class="glyphicon glyphicon-remove"></span>分配权限</a>
+	         #end
 	      </td>
 	    </tr>
 	    #end

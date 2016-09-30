@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +30,7 @@ public class LogController {
 	 * 进入到日志列表
 	 * @return
 	 */
+	@RequiresPermissions("system:log:view")
 	@RequestMapping(value={"/list"},method=RequestMethod.GET)
 	public String list(String startDate, String endDate, String currentPage,HttpServletRequest request){
 		log.info("获取用户日志列表[startDate=" + startDate + ",endDate=" + endDate +",currentPage=" + currentPage + "]");
@@ -62,6 +64,7 @@ public class LogController {
 	 * @param request
 	 * @return
 	 */
+	@RequiresPermissions("system:log:delete")
 	@RequestMapping(value={"/delete"},method=RequestMethod.DELETE)
 	public String delete(String userLogId,String startDate, String endDate, String currentPage,HttpServletRequest request){
 		userLogService.deleteSysUserLogById(userLogId);

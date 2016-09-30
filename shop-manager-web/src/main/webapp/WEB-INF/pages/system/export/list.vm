@@ -45,10 +45,14 @@ a, a:HOVER, a:LINK {
 </div>
 <div class="content-toolbar">
     <div class="btn-group">
-	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal" data-backdrop="static" ><span class="glyphicon glyphicon-plus"></span>添加模型</button>
-	    #if($model.has('sys_export_model'))
-		    <a class="btn btn-default" href="$request.getContextPath()/common/export/excel/sys_export_model/xlsx"><span class="glyphicon glyphicon-export"></span>导出EXCEL</a>
-	    #end
+        #if($shiro.hasPermission('system:export:add'))
+	    	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal" data-backdrop="static" ><span class="glyphicon glyphicon-plus"></span>添加模型</button>
+		#end
+		#if($shiro.hasPermission('system:export:export'))
+		   #if($model.has('sys_export_model'))
+		     <a class="btn btn-default" href="$request.getContextPath()/common/export/excel/sys_export_model/xlsx"><span class="glyphicon glyphicon-export"></span>导出EXCEL</a>
+	       #end
+		#end
 	</div>
 </div>
 <div class="content-body">
@@ -70,9 +74,15 @@ a, a:HOVER, a:LINK {
 	      <td>$!exportModel.cnames</td>
 	      <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!exportModel.createTime)</td>
 	      <td>
-	      	<a class="btn btn-default" data-toggle="modal" data-backdrop="static" onclick="viewExportModel('$!exportModel.modelId')"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
-		    <a class="btn btn-default" data-toggle="modal" data-backdrop="static" onclick="editExportModel('$!exportModel.modelId','$!exportModel.modelName')"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-		    <a class="btn btn-default" onclick="deleteExportModel('$!exportModel.modelId','$!exportModel.modelName','$!pageBean.currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
+	      	#if($shiro.hasPermission('system:export:view'))
+	      	   <a class="btn btn-default" data-toggle="modal" data-backdrop="static" onclick="viewExportModel('$!exportModel.modelId')"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
+		    #end
+	      	#if($shiro.hasPermission('system:export:edit'))
+		       <a class="btn btn-default" data-toggle="modal" data-backdrop="static" onclick="editExportModel('$!exportModel.modelId','$!exportModel.modelName')"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+		    #end
+	      	#if($shiro.hasPermission('system:export:delete'))
+		       <a class="btn btn-default" onclick="deleteExportModel('$!exportModel.modelId','$!exportModel.modelName','$!pageBean.currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
+		    #end
 	      </td>
 	    </tr>
 	   #end

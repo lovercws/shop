@@ -78,9 +78,15 @@ function deleteMenu(menuId,qparentMenuId,qmenuCode,qmenuName,currentPage){
 </div>
 <div class="content-toolbar">
     <div class="btn-group">
-	    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/menu/add"><span class="glyphicon glyphicon-plus"></span>添加菜单</button>
-	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span>导入菜单</button>
-	    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span>导出菜单</button>
+        #if($shiro.hasPermission('system:menu:add'))
+	   	   <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/menu/add"><span class="glyphicon glyphicon-plus"></span>添加菜单</button>
+        #end
+        #if($shiro.hasPermission('system:menu:import'))
+		   <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-import"></span>导入菜单</button>
+        #end
+        #if($shiro.hasPermission('system:menu:export'))
+		   <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-export"></span>导出菜单</button>
+        #end
 	</div>
 </div>
 <div class="content-body">
@@ -108,13 +114,23 @@ function deleteMenu(menuId,qparentMenuId,qmenuCode,qmenuName,currentPage){
 		      <td>$!menu.menuNum</td>
 		      <td>$!date.format('yyyy-MM-dd HH:mm:ss ',$!menu.createTime)</td>
 		      <td>
-		      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/menu/view?menuId=$!menu.menuId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
-		      	 <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/menu/edit?menuId=$!menu.menuId&qparentMenuId=$!qparentMenuId&qmenuCode=$!qmenuCode&qmenuName=$!qmenuName&currentPage=$!pageBean.currentPage"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
-		      	 <a class="btn btn-default" data-toggle="modal" onclick="deleteMenu('$menu.menuId','$!qparentMenuId','$!qmenuCode','$!qmenuName','$pageBean.currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
+		         #if($shiro.hasPermission('system:menu:view'))
+			      	<a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/menu/view?menuId=$!menu.menuId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
+		         #end
+		         #if($shiro.hasPermission('system:menu:edit'))
+		      	    <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/menu/edit?menuId=$!menu.menuId&qparentMenuId=$!qparentMenuId&qmenuCode=$!qmenuCode&qmenuName=$!qmenuName&currentPage=$!pageBean.currentPage"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+		         #end
+		         #if($shiro.hasPermission('system:menu:delete'))
+			      	<a class="btn btn-default" data-toggle="modal" onclick="deleteMenu('$menu.menuId','$!qparentMenuId','$!qmenuCode','$!qmenuName','$pageBean.currentPage')"><span class="glyphicon glyphicon-remove"></span>删除</a>
+		         #end
 		         #if($menu.parentMenuId!=0)
-		      		<a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/permission/permission?menuId=$!menu.menuId"><span class="glyphicon glyphicon-cog"></span>添加权限</a>
+		            #if($shiro.hasPermission('system:menu:permission'))
+			      	   <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/permission/permission?menuId=$!menu.menuId"><span class="glyphicon glyphicon-cog"></span>添加权限</a>
+		         	#end
 		      	 #else
-		      	    <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/menu/leaf?parentMenuId=$!menu.menuId"><span class="glyphicon glyphicon-leaf"></span>叶子菜单</a>
+		      	    #if($shiro.hasPermission('system:menu:leaf'))
+    		      	   <a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/menu/leaf?parentMenuId=$!menu.menuId"><span class="glyphicon glyphicon-leaf"></span>叶子菜单</a>
+		         	#end
 		         #end
 		      </td>
 		   </tr>

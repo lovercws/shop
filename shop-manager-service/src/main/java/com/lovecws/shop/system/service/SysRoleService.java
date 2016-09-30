@@ -57,9 +57,9 @@ public interface SysRoleService {
 	/**
 	 * 获取用户下的角色列表
 	 * @param userId 用户id
-	 * @param value
+	 * @param roleStatus 角色状态
 	 * @return
 	 */
-	public List<SysRole> getSysRoleByUserId(String userId, String value);
+	public List<SysRole> getSysRoleByUserId(String userId, String roleStatus);
 
 }
