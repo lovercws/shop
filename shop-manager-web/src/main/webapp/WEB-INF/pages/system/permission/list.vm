@@ -114,7 +114,7 @@ function deletePermission(permissionId,qmenuId,qpermissionCode,qpermissionName,c
 	      		<a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/permission/view?permissionId=$!permission.permissionId"><span class="glyphicon glyphicon-eye-open"></span>查看</a>
 	         #end
 	         #if($shiro.hasPermission('system:permission:edit'))
-		      	<a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/permission/edit?permissionId=$!permission.permissionId&qmenuId=$!qmenuId&qpermissionCode=$!qpermissionCode&qpermissionName=$!qpermissionName" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
+		      	<a class="btn btn-default" data-toggle="modal" data-target="#modal" data-backdrop="static" href="$request.getContextPath()/system/permission/edit?permissionId=$!permission.permissionId&qmenuId=$!qmenuId&qpermissionCode=$!qpermissionCode&qpermissionName=$!qpermissionName&currentPage=$!pageBean.currentPage" show="true"><span class="glyphicon glyphicon-pencil"></span>编辑</a>
 	         #end
 	         #if($shiro.hasPermission('system:permission:delete'))
 		      	<a class="btn btn-default" onclick="deletePermission('$!permission.permissionId','$!qmenuId','$!qpermissionCode','$!qpermissionName','$!pageBean.currentPage')" ><span class="glyphicon glyphicon-remove"></span>删除</a>

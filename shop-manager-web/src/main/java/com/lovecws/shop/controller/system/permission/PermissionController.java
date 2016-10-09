@@ -93,6 +93,7 @@ public class PermissionController {
 		request.setAttribute("qmenuId", qmenuId);
 		request.setAttribute("qpermissionCode", qpermissionCode);
 		request.setAttribute("qpermissionName", qpermissionName);
+		request.setAttribute("currentPage", currentPage);
 		request.setAttribute("subMenus", subMenus);
 		request.setAttribute("permission", permission);
 		return "system/permission/edit";

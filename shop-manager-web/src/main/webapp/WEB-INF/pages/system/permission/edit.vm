@@ -30,6 +30,7 @@ function selectIcon(){
           <input type="hidden" name="qmenuId" value="$!qmenuId">
           <input type="hidden" name="qpermissionCode" value="$!qpermissionCode">
           <input type="hidden" name="qpermissionName" value="$!qpermissionName">
+          <input type="hidden" name="currentPage" value="$!currentPage">
           <div class="form-group">
 		    <label for="permissionCode" class="col-sm-2 control-label">权限内码</label>
 		    <div class="col-sm-8">
